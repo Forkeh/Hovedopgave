@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Hovedopgave.Features.Account.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Hovedopgave.Core.Data;
 
 public class DbInitializer
 {
-    public static async Task SeedData(AppDbContext context, UserManager<IdentityUser> userManager)
+    public static async Task SeedData(AppDbContext context, UserManager<User> userManager)
     {
-        var users = new List<IdentityUser>
+        var users = new List<User>
         {
-            new() { UserName = "bob@test.com", Email = "bob@test.com" },
-            new() { UserName = "tom@test.com", Email = "tom@test.com" },
-            new() { UserName = "jane@test.com", Email = "jane@test.com" }
+            new() { DisplayName = "Bob", UserName = "bob@test.com", Email = "bob@test.com" },
+            new() { DisplayName = "Tom", UserName = "tom@test.com", Email = "tom@test.com" },
+            new() { DisplayName = "Jane", UserName = "jane@test.com", Email = "jane@test.com" }
         };
 
         if (!userManager.Users.Any())

@@ -1,6 +1,7 @@
 using DotNetEnv;
 using Hovedopgave.Core.Data;
 using Hovedopgave.Core.Middleware;
+using Hovedopgave.Features.Account.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -37,15 +38,15 @@ if (string.IsNullOrEmpty(connectionString))
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
-builder.Services.AddIdentityApiEndpoints<IdentityUser>(opt => { opt.User.RequireUniqueEmail = true; })
+builder.Services.AddIdentityApiEndpoints<User>(opt => { opt.User.RequireUniqueEmail = true; })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddControllers(opt =>
 {
     // TODO Turn on authentication
-    // var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-    // opt.Filters.Add(new AuthorizeFilter(policy));
+    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+    opt.Filters.Add(new AuthorizeFilter(policy));
 });
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -80,7 +81,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapGroup("api").MapIdentityApi<IdentityUser>(); // Set up the identity API endpoints
+app.MapGroup("api").MapIdentityApi<User>(); // Set up the identity API endpoints
 
 // Seed data
 using var scope = app.Services.CreateScope();
@@ -89,7 +90,7 @@ var services = scope.ServiceProvider;
 try
 {
     var context = services.GetRequiredService<AppDbContext>();
-    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    var userManager = services.GetRequiredService<UserManager<User>>();
     await context.Database.MigrateAsync();
     await DbInitializer.SeedData(context, userManager);
 }
