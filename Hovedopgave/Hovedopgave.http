@@ -1,0 +1,6 @@
+@Hovedopgave_HostAddress = http://localhost:5031
+
+GET {{Hovedopgave_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

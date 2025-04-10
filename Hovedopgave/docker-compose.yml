@@ -1,0 +1,16 @@
+﻿version: "17"
+services:
+  postgres:
+    image: postgres
+    container_name: hovedopgave-container
+    restart: always
+    environment:
+      POSTGRES_DB: "hovedopgave_db"
+      POSTGRES_PASSWORD: "hovedopgave"
+      POSTGRES_USER: "postgres"
+    ports:
+      - "5432:5432"
+    volumes:
+      - HOVEDOPGAVE:/var/lib/postgresql/data
+volumes:
+  HOVEDOPGAVE:
