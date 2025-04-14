@@ -1,17 +1,22 @@
-import { Link } from 'react-router';
-import LoginForm from '../features/account/LoginForm';
+import { Outlet, useLocation } from 'react-router';
+import NavBar from './NavBar';
+import HomePage from '../features/home/HomePage';
 
 function App() {
+    const location = useLocation();
+
     return (
         <>
-            <h1 className='text-center text-2xl font-bold'>
-                Welcome to DnD Manager
-            </h1>
-            <LoginForm />
-            <div>
-                Don't have an account?{' '}
-                <Link to={'/register'}>Sign up here!</Link>
-            </div>
+            {location.pathname === '/' ? (
+                <HomePage />
+            ) : (
+                <div>
+                    <NavBar />
+                    <div>
+                        <Outlet />
+                    </div>
+                </div>
+            )}
         </>
     );
 }

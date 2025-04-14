@@ -2,6 +2,10 @@ import { createBrowserRouter, Navigate } from 'react-router';
 import RequireAuth from './RequireAuth';
 import App from '../layout/App';
 import RegisterForm from '../features/account/RegisterForm';
+import NotFound from '../features/errors/NotFound';
+import Campaigns from '../features/campaigns/Campaigns';
+import LoginForm from '../features/account/LoginForm';
+import HomePage from '../features/home/HomePage';
 
 export const router = createBrowserRouter([
     {
@@ -11,20 +15,20 @@ export const router = createBrowserRouter([
             {
                 element: <RequireAuth />,
                 children: [
-                    // { path: 'activities', element: <ActivityDashboard /> },
+                    { path: 'campaigns', element: <Campaigns /> },
                     // { path: 'activities/:id', element: <ActivityDetailPage /> },
                     // { path: 'createActivity', element: <ActivityForm key='create' /> },
                     // { path: 'manage/:id', element: <ActivityForm /> },
                     // { path: 'profiles/:id', element: <ProfilePage /> },
                 ],
             },
-            // { path: '', element: <HomePage /> },
+            { path: 'register', element: <RegisterForm /> },
+            { path: 'login', element: <LoginForm /> },
+            { path: '', element: <HomePage /> },
             // { path: 'counter', element: <Counter /> },
             // { path: 'errors', element: <TestErrors /> },
-            // { path: 'not-found', element: <NotFound /> },
             // { path: 'server-error', element: <ServerError /> },
-            // { path: 'login', element: <LoginForm /> },
-            // { path: 'register', element: <RegisterForm /> },
+            { path: 'not-found', element: <NotFound /> },
             {
                 path: '*',
                 element: (
