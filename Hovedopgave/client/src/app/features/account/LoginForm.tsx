@@ -42,62 +42,70 @@ export default function LoginForm() {
     };
 
     return (
-        <>
-            <h1 className='text-center text-2xl font-bold'>Sign in</h1>
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className='w-2/3 space-y-6'
-                >
-                    <FormField
-                        control={form.control}
-                        name='email'
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type='email'
-                                        placeholder='Email'
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name='password'
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Password</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type='password'
-                                        placeholder='Password'
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <Button
-                        type='submit'
-                        disabled={
-                            !form.formState.isValid ||
-                            form.formState.isSubmitting
-                        }
+        <div className='flex min-h-[80vh] flex-col items-center justify-center'>
+            <div className='w-full max-w-md rounded-lg bg-white p-6 shadow-sm'>
+                <h1 className='mb-6 text-center text-2xl font-bold'>Sign in</h1>
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className='space-y-6'
                     >
-                        Sign in
-                    </Button>
-                </form>
-            </Form>
-            <div>
-                Don't have an account?{' '}
-                <Link to={'/register'}>Sign up here!</Link>
+                        <FormField
+                            control={form.control}
+                            name='email'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type='email'
+                                            placeholder='Email'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name='password'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Password</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type='password'
+                                            placeholder='Password'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button
+                            type='submit'
+                            className='w-full'
+                            disabled={
+                                !form.formState.isValid ||
+                                form.formState.isSubmitting
+                            }
+                        >
+                            Sign in
+                        </Button>
+                    </form>
+                </Form>
+                <div className='mt-4 text-center text-sm'>
+                    Don't have an account?{' '}
+                    <Link
+                        to='/register'
+                        className='text-blue-600 hover:underline'
+                    >
+                        Sign up here!
+                    </Link>
+                </div>
             </div>
-        </>
+        </div>
     );
 }

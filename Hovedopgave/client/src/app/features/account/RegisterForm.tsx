@@ -46,92 +46,106 @@ export default function RegisterForm() {
     };
 
     return (
-        <>
-            <h1 className='text-center text-2xl font-bold'>Register account</h1>
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className='w-2/3 space-y-6'
-                >
-                    <FormField
-                        control={form.control}
-                        name='email'
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type='email'
-                                        placeholder='Email'
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name='displayName'
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Display name</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder='Display name'
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name='password'
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Password</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type='password'
-                                        placeholder='Password'
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name='confirmPassword'
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Confirm Password</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type='password'
-                                        placeholder='Confirm Password'
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <Button
-                        type='submit'
-                        // disabled={
-                        //     !form.formState.isValid ||
-                        //     form.formState.isSubmitting
-                        // }
+        <div className='flex min-h-[80vh] flex-col items-center justify-center'>
+            <div className='w-full max-w-md rounded-lg bg-white p-6 shadow-sm'>
+                <h1 className='mb-6 text-center text-2xl font-bold'>
+                    Register account
+                </h1>
+
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className='space-y-6'
                     >
-                        Sign up
-                    </Button>
-                </form>
-            </Form>
-            <Link to={'/'}>Already have an account?</Link>
-        </>
+                        <FormField
+                            control={form.control}
+                            name='email'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type='email'
+                                            placeholder='Email'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name='displayName'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Display name</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder='Display name'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name='password'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Password</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type='password'
+                                            placeholder='Password'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name='confirmPassword'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Confirm Password</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type='password'
+                                            placeholder='Confirm Password'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button
+                            type='submit'
+                            className='w-full'
+                            disabled={
+                                !form.formState.isValid ||
+                                form.formState.isSubmitting
+                            }
+                        >
+                            Sign up
+                        </Button>
+                    </form>
+                </Form>
+                <div className='mt-4 text-center text-sm'>
+                    Already have an account?{' '}
+                    <Link
+                        to='/login'
+                        className='text-blue-600 hover:underline'
+                    >
+                        Sign in here
+                    </Link>
+                </div>
+            </div>
+        </div>
     );
 }
