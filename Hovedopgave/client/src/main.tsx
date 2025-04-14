@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { router } from './app/router/Routes.tsx';
 import { RouterProvider } from 'react-router';
 import { ToastContainer } from 'react-toastify';
-import './app/layout/styles.css';
+import './index.css';
 
 const queryClient = new QueryClient();
 

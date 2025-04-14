@@ -1,12 +1,12 @@
-import { useAccount } from '@/lib/hooks/useAccount';
 import {
     DropdownMenu,
-    DropdownMenuTrigger,
     DropdownMenuContent,
+    DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
-    DropdownMenuItem,
-} from '@radix-ui/react-dropdown-menu';
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { useAccount } from '@/lib/hooks/useAccount';
 
 export default function UserMenu() {
     const { currentUser, logoutUser } = useAccount();
@@ -14,7 +14,7 @@ export default function UserMenu() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>Open</DropdownMenuTrigger>
-            <DropdownMenuContent className='rounded-2xl bg-slate-300 p-2'>
+            <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
