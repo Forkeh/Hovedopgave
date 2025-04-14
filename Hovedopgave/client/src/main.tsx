@@ -10,15 +10,15 @@ import './app/layout/styles.css';
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
-	<StrictMode>
-		<QueryClientProvider client={queryClient}>
-			<ReactQueryDevtools />
-			<ToastContainer
-				position='bottom-right'
-				hideProgressBar
-				theme='colored'
-			/>
-			<RouterProvider router={router} />
-		</QueryClientProvider>
-	</StrictMode>
+    <StrictMode>
+        <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools />
+            <ToastContainer
+                position='bottom-right'
+                hideProgressBar
+                theme='colored'
+            />
+            <RouterProvider router={router} />
+        </QueryClientProvider>
+    </StrictMode>,
 );
