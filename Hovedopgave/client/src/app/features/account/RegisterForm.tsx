@@ -46,11 +46,9 @@ export default function RegisterForm() {
     };
 
     return (
-        <div className='flex min-h-[80vh] flex-col items-center justify-center'>
+        <section className='prose flex min-h-[80vh] flex-col items-center justify-center'>
             <div className='w-full max-w-md rounded-lg bg-white p-6 shadow-sm'>
-                <h1 className='mb-6 text-center text-2xl font-bold'>
-                    Register account
-                </h1>
+                <h1 className='mb-6 text-center'>Register account</h1>
 
                 <Form {...form}>
                     <form
@@ -146,6 +144,6 @@ export default function RegisterForm() {
                     </Link>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }

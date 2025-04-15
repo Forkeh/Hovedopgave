@@ -42,9 +42,9 @@ export default function LoginForm() {
     };
 
     return (
-        <div className='flex min-h-[80vh] flex-col items-center justify-center'>
+        <div className='prose flex min-h-[80vh] flex-col items-center justify-center'>
             <div className='w-full max-w-md rounded-lg bg-white p-6 shadow-sm'>
-                <h1 className='mb-6 text-center text-2xl font-bold'>Sign in</h1>
+                <h1 className='mb-6 text-center'>Sign in</h1>
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
