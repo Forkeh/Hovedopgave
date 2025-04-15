@@ -1,6 +1,8 @@
 using DotNetEnv;
 using Hovedopgave.Core.Data;
+using Hovedopgave.Core.MappingProfiles;
 using Hovedopgave.Core.Middleware;
+using Hovedopgave.Core.Services;
 using Hovedopgave.Features.Account.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +28,8 @@ if (File.Exists(envFile))
 builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.AddTransient<ExceptionMiddleware>();
+builder.Services.AddScoped<IUserAccessor, UserAccessor>();
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
 
 // Postgres for dev og prod
