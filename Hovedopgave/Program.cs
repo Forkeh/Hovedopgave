@@ -4,6 +4,7 @@ using Hovedopgave.Core.MappingProfiles;
 using Hovedopgave.Core.Middleware;
 using Hovedopgave.Core.Services;
 using Hovedopgave.Features.Account.Models;
+using Hovedopgave.Features.Campaign.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -30,6 +31,7 @@ builder.Configuration.AddEnvironmentVariables();
 builder.Services.AddTransient<ExceptionMiddleware>();
 builder.Services.AddScoped<IUserAccessor, UserAccessor>();
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+builder.Services.AddScoped<ICampaignService, CampaignService>();
 
 
 // Postgres for dev og prod

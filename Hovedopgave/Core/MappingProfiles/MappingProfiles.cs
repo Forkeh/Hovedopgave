@@ -10,6 +10,7 @@ public class MappingProfiles : Profile
     {
 
         CreateMap<CreateCampaignDto, Campaign>();
+        CreateMap<Campaign, CampaignDto>();
       
     }
 }
