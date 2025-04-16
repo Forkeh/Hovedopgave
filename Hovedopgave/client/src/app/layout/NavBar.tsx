@@ -9,7 +9,10 @@ export default function NavBar() {
         <div className='flex h-15 items-center justify-between bg-slate-800 px-5 text-white'>
             NavBar
             {currentUser ? (
-                <UserMenu />
+                <div>
+                    <div>Logged in as {currentUser.displayName}</div>
+                    <UserMenu />
+                </div>
             ) : (
                 <div className='flex gap-5'>
                     <Link to={'/login'}>Login</Link>

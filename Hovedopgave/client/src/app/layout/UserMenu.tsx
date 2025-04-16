@@ -9,11 +9,11 @@ import {
 import { useAccount } from '@/lib/hooks/useAccount';
 
 export default function UserMenu() {
-    const { currentUser, logoutUser } = useAccount();
+    const { logoutUser } = useAccount();
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+            <DropdownMenuTrigger>Dropdown Menu</DropdownMenuTrigger>
             <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />

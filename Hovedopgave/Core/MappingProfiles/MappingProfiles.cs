@@ -16,7 +16,7 @@ public class MappingProfiles : Profile
             .ForMember(d => d.Players, o => o.MapFrom(s => s.Users));
         
         CreateMap<User, CampaignUserDto>()
-            .ForMember(d => d.DisplayName, o => o.MapFrom(s => s.UserName)); 
+            .ForMember(d => d.DisplayName, o => o.MapFrom(s => s.DisplayName)); 
       
     }
 }

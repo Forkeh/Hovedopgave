@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Hovedopgave.Features.Campaign;
 
-public class CampaignController(ICampaignService campaignService) : BaseApiController
+public class CampaignsController(ICampaignService campaignService) : BaseApiController
 {
-    [HttpGet("user")]
+    [HttpGet]
     public async Task<IActionResult> GetUserCampaigns()
     {
         var campaigns = await campaignService.GetUserCampaigns();
