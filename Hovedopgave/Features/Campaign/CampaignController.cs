@@ -6,12 +6,10 @@ namespace Hovedopgave.Features.Campaign;
 
 public class CampaignController(ICampaignService campaignService) : BaseApiController
 {
-    private readonly ICampaignService _campaignService = campaignService;
-
     [HttpGet("user")]
     public async Task<IActionResult> GetUserCampaigns()
     {
-        var campaigns = await _campaignService.GetUserCampaigns();
+        var campaigns = await campaignService.GetUserCampaigns();
 
         if (campaigns.Count == 0)
         {

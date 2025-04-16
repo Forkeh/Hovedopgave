@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Hovedopgave.Features.Account.Models;
 using Hovedopgave.Features.Campaign.DTOs;
 using Hovedopgave.Features.Campaign.Models;
 
@@ -10,7 +11,12 @@ public class MappingProfiles : Profile
     {
 
         CreateMap<CreateCampaignDto, Campaign>();
-        CreateMap<Campaign, CampaignDto>();
+        
+        CreateMap<Campaign, CampaignDto>()
+            .ForMember(d => d.Players, o => o.MapFrom(s => s.Users));
+        
+        CreateMap<User, CampaignUserDto>()
+            .ForMember(d => d.DisplayName, o => o.MapFrom(s => s.UserName)); 
       
     }
 }

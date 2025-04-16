@@ -14,6 +14,12 @@ public class AppDbContext(DbContextOptions options) : IdentityDbContext<User>(op
     {
         base.OnModelCreating(builder);
         
+        builder.Entity<Campaign>()
+            .HasOne(c => c.DungeonMaster)
+            .WithMany()
+            .HasForeignKey("DungeonMasterId")
+            .IsRequired();
+        
         // TODO: Rename columns to be singular?
         builder.Entity<Campaign>()
             .HasMany(c => c.Users)

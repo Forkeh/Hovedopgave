@@ -29,7 +29,7 @@ public class DbInitializer
             {
                 new()
                 {
-                    DungeonMasterId = users[0].Id,
+                    DungeonMaster = users[0],
                     Name = "Campaign 1",
                     MapUrl = "https://example.com/map1.jpg",
                     Users = [users[1], users[2]]
@@ -37,7 +37,7 @@ public class DbInitializer
                 },
                 new()
                 {
-                    DungeonMasterId = users[1].Id,
+                    DungeonMaster = users[1],
                     Name = "Campaign 2",
                     MapUrl = "https://example.com/map2.jpg",
                     Users = [users[0]]
@@ -45,7 +45,7 @@ public class DbInitializer
                 },
                 new()
                 {
-                    DungeonMasterId = users[2].Id,
+                    DungeonMaster = users[2],
                     Name = "Campaign 3",
                     MapUrl = "https://example.com/map3.jpg"
                 }
