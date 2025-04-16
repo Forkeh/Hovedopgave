@@ -31,13 +31,17 @@ public class DbInitializer
                 {
                     DungeonMasterId = users[0].Id,
                     Name = "Campaign 1",
-                    MapUrl = "https://example.com/map1.jpg"
+                    MapUrl = "https://example.com/map1.jpg",
+                    Users = [users[1], users[2]]
+                    
                 },
                 new()
                 {
                     DungeonMasterId = users[1].Id,
                     Name = "Campaign 2",
-                    MapUrl = "https://example.com/map2.jpg"
+                    MapUrl = "https://example.com/map2.jpg",
+                    Users = [users[0]]
+                    
                 },
                 new()
                 {
@@ -49,6 +53,8 @@ public class DbInitializer
             
             await context.Campaigns.AddRangeAsync(campaigns);
         }
+        
+       
         
         
         
