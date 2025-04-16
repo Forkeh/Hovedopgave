@@ -11,23 +11,9 @@ public class CampaignService(AppDbContext context, IUserAccessor userAccessor, I
     public async Task<List<CampaignDto>> GetUserCampaigns()
     {
         var user = await userAccessor.GetUserAsync();
-        
-        // First check if any campaigns exist at all
-        var allCampaigns = await context.Campaigns.ToListAsync();
-        Console.WriteLine($"Total campaigns: {allCampaigns.Count}");
-
-// Then check if your DungeonMaster relationship is working correctly
-        var dmCampaigns = await context.Campaigns
-            .Include(x => x.DungeonMaster)
-            .ToListAsync();
-
-        foreach (var campaign in dmCampaigns)
-        {
-            Console.WriteLine($"Campaign: {campaign.Name}, DM: {campaign.DungeonMaster?.Id ?? "null"}");
-        }
 
         var campaigns = await context.Campaigns
-            .Where(x => x.DungeonMaster.Id == user.Id)
+            .Where(x => x.DungeonMaster.Id == user.Id || x.Users.Any(u => u.Id == user.Id))
             .ProjectTo<CampaignDto>(mapper.ConfigurationProvider)
             .ToListAsync();
 
