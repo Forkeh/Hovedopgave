@@ -10,12 +10,11 @@ function App() {
             {location.pathname === '/' ? (
                 <HomePage />
             ) : (
-                <div>
+                <main>
                     <NavBar />
-                    <div>
-                        <Outlet />
-                    </div>
-                </div>
+
+                    <Outlet />
+                </main>
             )}
         </>
     );

@@ -42,8 +42,8 @@ export default function LoginForm() {
     };
 
     return (
-        <div className='prose flex min-h-[80vh] flex-col items-center justify-center'>
-            <div className='w-full max-w-md rounded-lg bg-white p-6 shadow-sm'>
+        <div className='flex h-screen w-full items-center justify-center'>
+            <div className='prose w-full max-w-md rounded-lg bg-white p-6 shadow-sm'>
                 <h1 className='mb-6 text-center'>Sign in</h1>
                 <Form {...form}>
                     <form
