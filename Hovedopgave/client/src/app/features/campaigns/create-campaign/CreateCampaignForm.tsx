@@ -1,4 +1,3 @@
-import { useAccount } from '@/lib/hooks/useAccount';
 import {
     createCampaignSchema,
     CreateCampaignSchema,
@@ -15,21 +14,27 @@ import {
     FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useCampaigns } from '@/lib/hooks/useCampaigns';
+import { useNavigate } from 'react-router';
 
 export default function CreateCampaignForm() {
-    const { registerUser } = useAccount();
+    const { createCampaign } = useCampaigns();
+    const navigate = useNavigate();
 
     const form = useForm<CreateCampaignSchema>({
         resolver: zodResolver(createCampaignSchema),
         mode: 'onTouched',
         defaultValues: {
-            name: '',
-            mapUrl: '',
+            Name: '',
         },
     });
 
     const onSubmit = async (data: CreateCampaignSchema) => {
         console.log(data);
+
+        createCampaign.mutate(data, {
+            onSuccess: () => navigate(`/campaigns`),
+        });
     };
 
     return (
@@ -43,7 +48,7 @@ export default function CreateCampaignForm() {
                 >
                     <FormField
                         control={form.control}
-                        name='name'
+                        name='Name'
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Campaign name</FormLabel>
@@ -57,29 +62,14 @@ export default function CreateCampaignForm() {
                             </FormItem>
                         )}
                     />
-                    <FormField
-                        control={form.control}
-                        name='mapUrl'
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Map Url</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder='Map URL'
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
 
                     <Button
                         type='submit'
                         className='w-full'
                         disabled={
                             !form.formState.isValid ||
-                            form.formState.isSubmitting
+                            form.formState.isSubmitting ||
+                            createCampaign.isPending
                         }
                     >
                         Create Campaign
