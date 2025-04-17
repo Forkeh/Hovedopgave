@@ -7,7 +7,8 @@ export default function NavBar() {
 
     return (
         <div className='flex h-15 items-center justify-between bg-slate-800 px-5 text-white'>
-            NavBar
+            <Link to={'/campaigns'}>Dungeon and Dragons thingie-ma-bob</Link>
+
             {currentUser ? (
                 <div>
                     <div>Logged in as {currentUser.displayName}</div>

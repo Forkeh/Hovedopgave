@@ -38,44 +38,46 @@ export default function CreateCampaignForm() {
     };
 
     return (
-        <div className='prose w-full max-w-md rounded-lg bg-white p-6 shadow-sm'>
-            <h1 className='mb-6 text-center'>Create new campaign</h1>
+        <div className='flex h-screen w-full items-center justify-center'>
+            <div className='prose w-full max-w-md rounded-lg bg-white p-6 shadow-sm'>
+                <h1 className='mb-6 text-center'>Create new campaign</h1>
 
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className='space-y-6'
-                >
-                    <FormField
-                        control={form.control}
-                        name='Name'
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Campaign name</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder='Type campaign name'
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <Button
-                        type='submit'
-                        className='w-full'
-                        disabled={
-                            !form.formState.isValid ||
-                            form.formState.isSubmitting ||
-                            createCampaign.isPending
-                        }
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className='space-y-6'
                     >
-                        Create Campaign
-                    </Button>
-                </form>
-            </Form>
+                        <FormField
+                            control={form.control}
+                            name='Name'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Campaign name</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder='Type campaign name'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <Button
+                            type='submit'
+                            className='w-full'
+                            disabled={
+                                !form.formState.isValid ||
+                                form.formState.isSubmitting ||
+                                createCampaign.isPending
+                            }
+                        >
+                            Create Campaign
+                        </Button>
+                    </form>
+                </Form>
+            </div>
         </div>
     );
 }

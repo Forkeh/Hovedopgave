@@ -10,7 +10,7 @@ function App() {
             {location.pathname === '/' ? (
                 <HomePage />
             ) : (
-                <main>
+                <main className='flex h-screen flex-col'>
                     <NavBar />
 
                     <Outlet />
