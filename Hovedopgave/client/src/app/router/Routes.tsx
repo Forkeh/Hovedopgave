@@ -3,9 +3,10 @@ import RequireAuth from './RequireAuth';
 import App from '../layout/App';
 import RegisterForm from '../features/account/RegisterForm';
 import NotFound from '../features/errors/NotFound';
-import CampaignsList from '../features/campaigns/list_view/CampaignsList';
+import CampaignsList from '../features/campaigns/list-view/CampaignsList';
 import LoginForm from '../features/account/LoginForm';
 import HomePage from '../features/home/HomePage';
+import CreateCampaignPage from '../features/campaigns/create-campaign/CreateCampaignPage';
 
 export const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ export const router = createBrowserRouter([
                 element: <RequireAuth />,
                 children: [
                     { path: 'campaigns', element: <CampaignsList /> },
+                    {
+                        path: 'campaigns/create',
+                        element: <CreateCampaignPage />,
+                    },
                     // { path: 'activities/:id', element: <ActivityDetailPage /> },
                     // { path: 'createActivity', element: <ActivityForm key='create' /> },
                     // { path: 'manage/:id', element: <ActivityForm /> },
