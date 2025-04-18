@@ -1,13 +1,20 @@
-import {
-    FileText,
-    HelpCircle,
-    Home,
-    Menu,
-    Settings,
-    Users,
-} from 'lucide-react';
+import { BookOpenText, Map, Menu } from 'lucide-react';
 import { useState } from 'react';
-import { NavLink, Outlet } from 'react-router';
+import { Outlet } from 'react-router';
+import SidebarItem from './SidebarItem';
+
+const sideBarItems = [
+    {
+        name: 'Map',
+        icon: Map,
+        linkTo: '.',
+    },
+    {
+        name: 'Wiki',
+        icon: BookOpenText,
+        linkTo: 'wiki',
+    },
+];
 
 export default function DashboardSidebar() {
     const [collapsed, setCollapsed] = useState(false);
@@ -19,7 +26,7 @@ export default function DashboardSidebar() {
     return (
         <div className='flex h-screen bg-gray-100'>
             {/* Sidebar */}
-            <div
+            <aside
                 className={`bg-gray-800 text-white transition-all duration-200 ${
                     collapsed ? 'w-16' : 'w-64'
                 }`}
@@ -37,35 +44,24 @@ export default function DashboardSidebar() {
                 </div>
 
                 <nav className='mt-6'>
-                    <NavLink
-                        to='.'
-                        end
-                        className={({ isActive }) =>
-                            `flex items-center p-4 ${isActive ? 'bg-gray-700' : ''} transition-colors hover:bg-gray-700`
-                        }
-                    >
-                        <Home size={20} />
-                        {!collapsed && <span className='ml-4'>Map</span>}
-                    </NavLink>
-
-                    <NavLink
-                        to='wiki'
-                        className={({ isActive }) =>
-                            `flex items-center p-4 ${isActive ? 'bg-gray-700' : ''} transition-colors hover:bg-gray-700`
-                        }
-                    >
-                        <Users size={20} />
-                        {!collapsed && <span className='ml-4'>Wiki</span>}
-                    </NavLink>
+                    {sideBarItems.map((item) => (
+                        <SidebarItem
+                            key={item.name}
+                            name={item.name}
+                            icon={item.icon}
+                            linkTo={item.linkTo}
+                            collapsed={collapsed}
+                        />
+                    ))}
                 </nav>
-            </div>
+            </aside>
 
             {/* Main content */}
-            <div className='flex-1 overflow-auto'>
+            <section className='flex-1 overflow-auto'>
                 <main className='p-8'>
                     <Outlet />
                 </main>
-            </div>
+            </section>
         </div>
     );
 }

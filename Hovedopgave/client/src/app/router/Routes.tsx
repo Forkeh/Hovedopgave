@@ -9,7 +9,7 @@ import HomePage from '../features/home/HomePage';
 import CreateCampaignForm from '../features/campaigns/create-campaign/CreateCampaignForm';
 import Map from '../features/dashboard/Map';
 import Wiki from '../features/dashboard/Wiki';
-import DashboardSidebar from '../layout/DashboardSidebar';
+import DashboardSidebar from '../layout/dashboard-sidebar/DashboardSidebar';
 
 export const router = createBrowserRouter([
     {
