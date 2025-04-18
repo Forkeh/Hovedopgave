@@ -1,5 +1,6 @@
 import { BookOpenText, Menu, Map } from 'lucide-react';
 import SidebarItem from './SidebarItem';
+import { useState } from 'react';
 
 const sideBarItems = [
     {
@@ -14,12 +15,12 @@ const sideBarItems = [
     },
 ];
 
-type Props = {
-    collapsed: boolean;
-    toggleSidebar: () => void;
-};
+export default function Sidebar() {
+    const [collapsed, setCollapsed] = useState(false);
 
-export default function Sidebar({ collapsed, toggleSidebar }: Props) {
+    const toggleSidebar = () => {
+        setCollapsed(!collapsed);
+    };
     return (
         <aside
             className={`bg-gray-800 text-white transition-all duration-200 ${
