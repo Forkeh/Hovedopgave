@@ -9,7 +9,7 @@ import HomePage from '../features/home/HomePage';
 import CreateCampaignForm from '../features/campaigns/create-campaign/CreateCampaignForm';
 import Map from '../features/dashboard/Map';
 import Wiki from '../features/dashboard/Wiki';
-import DashboardSidebar from '../layout/dashboard-sidebar/DashboardSidebar';
+import DashboardPage from '../features/dashboard/layout/DashboardPage';
 
 export const router = createBrowserRouter([
     {
@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
                             { path: 'create', element: <CreateCampaignForm /> },
                             {
                                 path: 'dashboard/:id',
-                                element: <DashboardSidebar />,
+                                element: <DashboardPage />,
                                 children: [
                                     { index: true, element: <Map /> },
                                     { path: 'wiki', element: <Wiki /> },

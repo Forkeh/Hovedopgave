@@ -6,12 +6,17 @@ export default function NavBar() {
     const { currentUser } = useAccount();
 
     return (
-        <div className='flex h-15 items-center justify-between bg-slate-800 px-5 text-white'>
-            <Link to={'/campaigns'}>Dungeon and Dragons thingie-ma-bob</Link>
+        <div className='flex h-30 items-center justify-between bg-slate-800 px-5 text-white'>
+            <Link
+                className='text-3xl font-extrabold'
+                to={'/campaigns'}
+            >
+                Dungeon and Dragons thingie-ma-bob
+            </Link>
 
             {currentUser ? (
-                <div>
-                    <div>Logged in as {currentUser.displayName}</div>
+                <div className='flex items-center gap-5'>
+                    <div>Hello {currentUser.displayName}</div>
                     <UserMenu />
                 </div>
             ) : (
