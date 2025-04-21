@@ -6,9 +6,9 @@ import { Link } from 'react-router';
 
 export default function CampaignsList() {
     const { currentUser } = useAccount();
-    const { campaigns, isLoading } = useCampaigns();
+    const { campaigns, campaignsIsLoading } = useCampaigns();
 
-    if (isLoading) {
+    if (campaignsIsLoading) {
         return (
             <div className='flex justify-center p-8'>
                 <p>Loading campaigns...</p>

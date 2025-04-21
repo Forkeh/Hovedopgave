@@ -1,9 +1,12 @@
 import { Outlet, useParams } from 'react-router';
 import Sidebar from './Sidebar';
+import { useCampaigns } from '@/lib/hooks/useCampaigns';
 
 export default function DashboardPage() {
     const { id } = useParams();
     console.log(id);
+    const {campaign, campaignIsLoading} = useCampaigns(id);
+    
 
     return (
         <div className='flex h-screen bg-gray-100'>

@@ -8,9 +8,9 @@ namespace Hovedopgave.Features.Campaign;
 public class CampaignsController(ICampaignService campaignService) : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<List<CampaignDto>>> GetUserCampaigns()
+    public async Task<ActionResult<List<CampaignDto>>> GetAllUserCampaigns()
     {
-        var campaigns = await campaignService.GetUserCampaigns();
+        var campaigns = await campaignService.GetAllUserCampaigns();
 
         if (campaigns.Count == 0)
         {
@@ -18,6 +18,20 @@ public class CampaignsController(ICampaignService campaignService) : BaseApiCont
         }
 
         return Ok(campaigns);
+    }
+
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<CampaignDto>> GetCampaign(string id)
+    {
+        var result = await campaignService.GetCampaign(id);
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(result.Error);
+        }
+
+        return Ok(result.Value);
     }
 
     [HttpPost]

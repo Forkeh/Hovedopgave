@@ -10,7 +10,7 @@ namespace Hovedopgave.Features.Campaign.Services;
 
 public class CampaignService(AppDbContext context, IUserAccessor userAccessor, IMapper mapper) : ICampaignService
 {
-    public async Task<List<CampaignDto>> GetUserCampaigns()
+    public async Task<List<CampaignDto>> GetAllUserCampaigns()
     {
         var user = await userAccessor.GetUserAsync();
 
@@ -20,6 +20,20 @@ public class CampaignService(AppDbContext context, IUserAccessor userAccessor, I
             .ToListAsync();
 
         return campaigns;
+    }
+
+    public async Task<Result<CampaignDto>> GetCampaign(string id)
+    {
+        var user = await userAccessor.GetUserAsync();
+
+        var result = await context.Campaigns
+            .Where(x => x.Id == id && (x.DungeonMaster.Id == user.Id || x.Users.Any(u => u.Id == user.Id)))
+            .ProjectTo<CampaignDto>(mapper.ConfigurationProvider)
+            .FirstOrDefaultAsync();
+
+        return result == null
+            ? Result<CampaignDto>.Failure($"Failed to find campaign with id: {id} (or you are not DM/player)", 400)
+            : Result<CampaignDto>.Success(result);
     }
 
     public async Task<Result<string>> CreateCampaign(CreateCampaignDto campaign)

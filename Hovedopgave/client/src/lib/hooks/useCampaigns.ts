@@ -6,13 +6,22 @@ export const useCampaigns = (id?: string) => {
     const queryClient = useQueryClient();
     const { currentUser } = useAccount();
 
-    const { data: campaigns, isLoading } = useQuery({
+    const { data: campaigns, isLoading: campaignsIsLoading } = useQuery({
         queryKey: ['campaigns'],
         queryFn: async () => {
             const response = await agent.get<Campaign[]>('/campaigns');
             return response.data;
         },
         enabled: !id && location.pathname === '/campaigns',
+    });
+
+    const { data: campaign, isLoading: campaignIsLoading } = useQuery({
+        queryKey: ['campaign', id],
+        queryFn: async () => {
+            const response = await agent.get<Campaign>(`/campaigns/${id}`);
+            return response.data;
+        },
+        enabled: !!id,
     });
 
     const createCampaign = useMutation({
@@ -27,5 +36,11 @@ export const useCampaigns = (id?: string) => {
         },
     });
 
-    return { campaigns, isLoading, createCampaign };
+    return {
+        campaigns,
+        campaignsIsLoading,
+        campaign,
+        campaignIsLoading,
+        createCampaign,
+    };
 };
