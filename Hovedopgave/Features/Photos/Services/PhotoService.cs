@@ -3,6 +3,7 @@ using Hovedopgave.Core.Interfaces;
 using Hovedopgave.Core.Results;
 using Hovedopgave.Core.Services;
 using Hovedopgave.Features.Photos.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hovedopgave.Features.Photos.Services;
 
@@ -10,12 +11,22 @@ public class PhotoService(ICloudinaryService cloudinaryService,IUserAccessor use
 {
     public async Task<Result<Photo>> AddCampaignPhoto(IFormFile file, string campaignId)
     {
-        var campaign = await context.Campaigns.FindAsync(campaignId);
+        var campaign = await context.Campaigns
+            .Include(c => c.DungeonMaster)
+            .FirstOrDefaultAsync(c => c.Id == campaignId);
         
         if (campaign == null)
         {
             return Result<Photo>.Failure("Campaign not found", 404);
         }
+        
+        var user = await userAccessor.GetUserAsync();
+
+        if (campaign.DungeonMaster.Id != user.Id)
+        {
+            return Result<Photo>.Failure("You are not the DM of this campaign", 403);
+        }
+        
         
         var uploadResult = await cloudinaryService.UploadPhoto(file);
 
@@ -24,8 +35,7 @@ public class PhotoService(ICloudinaryService cloudinaryService,IUserAccessor use
             return Result<Photo>.Failure("Failed to upload photo", 400);
         }
         
-        var user = await userAccessor.GetUserAsync();
-
+        
         var photo = new Photo
         {
             Url = uploadResult.Url,
