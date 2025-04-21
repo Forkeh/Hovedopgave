@@ -1,5 +1,7 @@
 using DotNetEnv;
+using Hovedopgave.Core.Configuration;
 using Hovedopgave.Core.Data;
+using Hovedopgave.Core.Interfaces;
 using Hovedopgave.Core.MappingProfiles;
 using Hovedopgave.Core.Middleware;
 using Hovedopgave.Core.Services;
@@ -30,6 +32,9 @@ builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.AddTransient<ExceptionMiddleware>();
 builder.Services.AddScoped<IUserAccessor, UserAccessor>();
+builder.Services.AddScoped<ICloudinaryService, CloudinaryService>();
+builder.Services.Configure<CloudinarySettings>(builder.Configuration
+    .GetSection("CloudinarySettings"));
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 builder.Services.AddScoped<ICampaignService, CampaignService>();
 

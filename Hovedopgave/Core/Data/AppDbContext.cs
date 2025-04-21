@@ -1,5 +1,6 @@
 ﻿using Hovedopgave.Features.Account.Models;
 using Hovedopgave.Features.Campaign.Models;
+using Hovedopgave.Features.Photos.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ namespace Hovedopgave.Core.Data;
 public class AppDbContext(DbContextOptions options) : IdentityDbContext<User>(options)
 {
     public required DbSet<Campaign> Campaigns { get; set; }
+    public required DbSet<Photo> Photos { get; set; }
 
    protected override void OnModelCreating(ModelBuilder builder)
     {
