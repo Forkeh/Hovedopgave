@@ -21,6 +21,9 @@ type Photo = {
 
 type Pin = {
     id: string;
+    campaignId?: string;
     positionX: number;
     positionY: number;
+    title?: string;
+    description?: string;
 };

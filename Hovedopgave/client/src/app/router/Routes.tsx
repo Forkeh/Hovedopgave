@@ -7,7 +7,7 @@ import CampaignsList from '../features/campaigns/list-view/CampaignsList';
 import LoginForm from '../features/account/LoginForm';
 import HomePage from '../features/home/HomePage';
 import CreateCampaignForm from '../features/campaigns/create-campaign/CreateCampaignForm';
-import Map from '../features/dashboard/Map';
+import MapPage from '../features/dashboard/pages/map/MapPage';
 import Wiki from '../features/dashboard/Wiki';
 import DashboardPage from '../features/dashboard/layout/DashboardPage';
 
@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
                                 path: 'dashboard/:id',
                                 element: <DashboardPage />,
                                 children: [
-                                    { index: true, element: <Map /> },
+                                    { index: true, element: <MapPage /> },
                                     { path: 'wiki', element: <Wiki /> },
                                 ],
                             },

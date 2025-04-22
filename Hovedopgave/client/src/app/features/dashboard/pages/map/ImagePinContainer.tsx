@@ -1,11 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-
-// Define types for pins and props
-type Pin = {
-    id: string;
-    positionX: number;
-    positionY: number;
-};
+import Pin from '../../../../../components/ui/Pin';
 
 type ImagePinContainerProps = {
     image: string;
@@ -17,6 +11,7 @@ type ImagePinContainerProps = {
     onExistingPin?: (pin: Pin) => void;
     onDraggedPin?: (pin: Pin) => void;
     onDeletedPin?: (pinId: string) => void;
+    onEditPin?: (pin: Pin) => void;
 };
 
 const ImagePinContainer = ({
@@ -29,6 +24,7 @@ const ImagePinContainer = ({
     onExistingPin,
     onDraggedPin,
     onDeletedPin,
+    onEditPin,
 }: ImagePinContainerProps) => {
     const [localPins, setLocalPins] = useState<Pin[]>(pins);
     const [activePinId, setActivePinId] = useState<string | null>(null);
@@ -177,6 +173,12 @@ const ImagePinContainer = ({
         };
     }, [isDragging]);
 
+    const handlePinEdit = (pin: Pin) => {
+        if (onEditPin) {
+            onEditPin(pin);
+        }
+    };
+
     return (
         <div
             ref={containerRef}
@@ -203,25 +205,16 @@ const ImagePinContainer = ({
                             left: `${pin.positionX * 100}%`,
                             top: `${pin.positionY * 100}%`,
                         }}
-                        onClick={(e) => handlePinClick(e, pin)}
-                        onContextMenu={(e) => handlePinRightClick(e, pin.id)}
-                        onMouseDown={(e) => handlePinMouseDown(e, pin.id)}
                     >
-                        <div
-                            className={`flex h-6 w-6 items-center justify-center ${
-                                pin.id === activePinId
-                                    ? 'text-blue-500'
-                                    : 'text-red-500'
-                            }`}
-                        >
-                            <svg
-                                viewBox='0 0 24 24'
-                                fill='currentColor'
-                                className='h-6 w-6'
-                            >
-                                <path d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z' />
-                            </svg>
-                        </div>
+                        <Pin
+                            pin={pin}
+                            isActive={pin.id === activePinId}
+                            onClick={handlePinClick}
+                            onRightClick={handlePinRightClick}
+                            onMouseDown={handlePinMouseDown}
+                            onEdit={handlePinEdit}
+                            disableHoverCard={isDragging || viewOnly}
+                        />
                     </div>
                 ))}
 

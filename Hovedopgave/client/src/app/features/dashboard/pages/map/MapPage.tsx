@@ -1,42 +1,44 @@
-import ImagePinContainer from '@/components/ImagePinContainer';
+import ImagePinContainer from '@/app/features/dashboard/pages/map/ImagePinContainer';
 import { useCampaigns } from '@/lib/hooks/useCampaigns';
 import { useState } from 'react';
 import { useParams } from 'react-router';
+import EditPinDialog from './EditPinDialog';
 
-export default function Map() {
+export default function MapPage() {
     const { id } = useParams();
     const { campaign, campaignIsLoading } = useCampaigns(id);
 
+    const [selectedPin, setSelectedPin] = useState<string>();
+    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+    const [editingPin, setEditingPin] = useState<Pin | null>(null);
+    const [pinTitle, setPinTitle] = useState('');
+    const [pinDescription, setPinDescription] = useState('');
     const [pins, setPins] = useState<Pin[]>([
         {
             id: '1',
-            positionX: 10.5,
-            positionY: 13.5,
+            positionX: 0.5,
+            positionY: 0.3,
+            title: 'Castle',
+            description: 'The main castle in the kingdom',
         },
         {
             id: '2',
             positionX: 0.2,
             positionY: 0.8,
+            title: 'Forest',
+            description: 'A dangerous magical forest',
         },
     ]);
 
-    const [selectedPin, setSelectedPin] = useState<string>();
-
-    // Handler for new pins
     const handleNewPin = (pin: Pin) => {
-        console.log('new pin: ', pin);
         setPins((prevPins) => [...prevPins, pin]);
     };
 
-    // Handler for existing pins
     const handleExistingPin = (pin: Pin) => {
-        console.log('existing pin: ', pin);
         setSelectedPin(pin.id);
     };
 
-    // Handler for dragged pins
     const handleDraggedPin = (updatedPin: Pin) => {
-        console.log('drag pin: ', updatedPin);
         setPins((prevPins) =>
             prevPins.map((pin) =>
                 pin.id === updatedPin.id ? updatedPin : pin,
@@ -45,14 +47,42 @@ export default function Map() {
     };
 
     const handleDeletedPin = (pinId: string) => {
-        console.log('deleted pin: ', pinId);
         setPins((prevPins) => prevPins.filter((pin) => pin.id !== pinId));
+        if (selectedPin === pinId) {
+            setSelectedPin(undefined);
+        }
+    };
+
+    const handleEditPin = (pin: Pin) => {
+        setEditingPin(pin);
+        setPinTitle(pin.title || '');
+        setPinDescription(pin.description || '');
+        setIsEditDialogOpen(true);
+    };
+
+    const handleSaveEditedPin = () => {
+        if (!editingPin) return;
+
+        const updatedPin = {
+            ...editingPin,
+            title: pinTitle,
+            description: pinDescription,
+        };
+
+        setPins((prevPins) =>
+            prevPins.map((pin) =>
+                pin.id === editingPin.id ? updatedPin : pin,
+            ),
+        );
+
+        setIsEditDialogOpen(false);
+        setEditingPin(null);
     };
 
     // Handler to save pins to backend
     const handleSavePins = () => {
-        // Add your API call here to save pins
         console.log('Saving pins to backend:', pins);
+        // Implement your API call here
     };
 
     if (campaignIsLoading) {
@@ -64,7 +94,7 @@ export default function Map() {
             <div>Map</div>
             <div>Name: {campaign?.name}</div>
             <div>Selected pin: {selectedPin}</div>
-            <div className='select-none'>
+            <div>
                 <ImagePinContainer
                     image={campaign!.photo.url}
                     imageAlt='Map image'
@@ -75,6 +105,7 @@ export default function Map() {
                     onExistingPin={handleExistingPin}
                     onDraggedPin={handleDraggedPin}
                     onDeletedPin={handleDeletedPin}
+                    onEditPin={handleEditPin}
                 />
             </div>
             <button
@@ -83,6 +114,16 @@ export default function Map() {
             >
                 Save Pins
             </button>
+
+            <EditPinDialog
+                isEditDialogOpen={isEditDialogOpen}
+                setIsEditDialogOpen={setIsEditDialogOpen}
+                setPinTitle={setPinTitle}
+                setPinDescription={setPinDescription}
+                handleSaveEditedPin={handleSaveEditedPin}
+                pinDescription={pinDescription}
+                pinTitle={pinTitle}
+            />
         </>
     );
 }
