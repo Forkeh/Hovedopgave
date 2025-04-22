@@ -3,14 +3,18 @@ import { useCampaigns } from '@/lib/hooks/useCampaigns';
 import { useState } from 'react';
 import { useParams } from 'react-router';
 import EditPinDialog from './EditPinDialog';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 export default function MapPage() {
+    const viewOnly = false; // TODO make dynamic
+
     const { id } = useParams();
     const { campaign, campaignIsLoading } = useCampaigns(id);
 
     const [selectedPin, setSelectedPin] = useState<Pin>();
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [editingPin, setEditingPin] = useState<Pin | null>(null);
+    const [isPanning, setIsPanning] = useState(false);
     const [pins, setPins] = useState<Pin[]>([
         {
             id: '1',
@@ -87,19 +91,37 @@ export default function MapPage() {
             <div>Map</div>
             <div>Name: {campaign?.name}</div>
             <div>Selected pin: {selectedPin?.id}</div>
-            <div>
-                <ImagePinContainer
-                    image={campaign!.photo.url}
-                    imageAlt='Map image'
-                    draggable={true}
-                    viewOnly={false}
-                    pins={pins}
-                    onNewPin={handleNewPin}
-                    onExistingPin={handleExistingPin}
-                    onDraggedPin={handleDraggedPin}
-                    onDeletedPin={handleDeletedPin}
-                    onEditPin={handleEditPin}
-                />
+            <div className='relative h-150 w-150'>
+                <TransformWrapper
+                    onPanningStart={() => setIsPanning(true)}
+                    onPanningStop={() => {
+                        setTimeout(() => setIsPanning(false), 100);
+                    }}
+                    doubleClick={{ disabled: true }}
+                >
+                    <TransformComponent>
+                        <ImagePinContainer
+                            image={campaign!.photo.url}
+                            imageAlt='Map image'
+                            draggable={true}
+                            viewOnly={false}
+                            pins={pins}
+                            onNewPin={handleNewPin}
+                            onExistingPin={handleExistingPin}
+                            onDraggedPin={handleDraggedPin}
+                            onDeletedPin={handleDeletedPin}
+                            onEditPin={handleEditPin}
+                            isPanning={isPanning}
+                        />
+                    </TransformComponent>
+                </TransformWrapper>
+                {!viewOnly && (
+                    <div className='bg-opacity-75 absolute right-2 bottom-2 rounded bg-white p-2 text-xs text-gray-700 shadow-sm'>
+                        <p>Double Click: Add pin</p>
+                        <p>Drag: Move pin</p>
+                        <p>Right-click: Delete pin</p>
+                    </div>
+                )}
             </div>
             <button
                 onClick={handleSavePins}

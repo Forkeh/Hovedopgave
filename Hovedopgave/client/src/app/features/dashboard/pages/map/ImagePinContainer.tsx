@@ -12,6 +12,7 @@ type Props = {
     onDraggedPin?: (pin: Pin) => void;
     onDeletedPin?: (pin: Pin) => void;
     onEditPin?: (pin: Pin) => void;
+    isPanning: boolean;
 };
 
 const ImagePinContainer = ({
@@ -25,6 +26,7 @@ const ImagePinContainer = ({
     onDraggedPin,
     onDeletedPin,
     onEditPin,
+    isPanning,
 }: Props) => {
     const [localPins, setLocalPins] = useState<Pin[]>(pins);
     const [activePinId, setActivePinId] = useState<string | null>(null);
@@ -43,6 +45,7 @@ const ImagePinContainer = ({
         if (
             viewOnly ||
             isDragging ||
+            isPanning ||
             !containerRef.current ||
             !isClickPending ||
             (e.target !== containerRef.current &&
@@ -220,13 +223,13 @@ const ImagePinContainer = ({
                     </div>
                 ))}
 
-            {draggable && !viewOnly && (
+            {/* {draggable && !viewOnly && (
                 <div className='bg-opacity-75 absolute right-2 bottom-2 rounded bg-white p-2 text-xs text-gray-700'>
-                    <p>Click: Add pin</p>
+                    <p>Double Click: Add pin</p>
                     <p>Drag: Move pin</p>
                     <p>Right-click: Delete pin</p>
                 </div>
-            )}
+            )} */}
         </div>
     );
 };
