@@ -10,7 +10,7 @@ type ImagePinContainerProps = {
     onNewPin?: (pin: Pin) => void;
     onExistingPin?: (pin: Pin) => void;
     onDraggedPin?: (pin: Pin) => void;
-    onDeletedPin?: (pinId: string) => void;
+    onDeletedPin?: (pin: Pin) => void;
     onEditPin?: (pin: Pin) => void;
 };
 
@@ -98,17 +98,19 @@ const ImagePinContainer = ({
     };
 
     // Function to delete a pin with right click
-    const handlePinRightClick = (e: React.MouseEvent, pinId: string) => {
+    const handlePinRightClick = (e: React.MouseEvent, deletedPin: Pin) => {
         e.preventDefault();
         e.stopPropagation();
 
         // Skip in view-only mode
         if (viewOnly) return;
 
-        setLocalPins((prevPins) => prevPins.filter((pin) => pin.id !== pinId));
+        setLocalPins((prevPins) =>
+            prevPins.filter((pin) => pin.id !== deletedPin.id),
+        );
 
         if (onDeletedPin) {
-            onDeletedPin(pinId);
+            onDeletedPin(deletedPin);
         }
 
         setActivePinId(null);

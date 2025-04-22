@@ -8,7 +8,7 @@ export default function MapPage() {
     const { id } = useParams();
     const { campaign, campaignIsLoading } = useCampaigns(id);
 
-    const [selectedPin, setSelectedPin] = useState<string>();
+    const [selectedPin, setSelectedPin] = useState<Pin>();
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [editingPin, setEditingPin] = useState<Pin | null>(null);
     const [pinTitle, setPinTitle] = useState('');
@@ -36,7 +36,7 @@ export default function MapPage() {
     };
 
     const handleExistingPin = (pin: Pin) => {
-        setSelectedPin(pin.id);
+        setSelectedPin(pin);
     };
 
     const handleDraggedPin = (updatedPin: Pin) => {
@@ -47,9 +47,11 @@ export default function MapPage() {
         );
     };
 
-    const handleDeletedPin = (pinId: string) => {
-        setPins((prevPins) => prevPins.filter((pin) => pin.id !== pinId));
-        if (selectedPin === pinId) {
+    const handleDeletedPin = (deletedPin: Pin) => {
+        setPins((prevPins) =>
+            prevPins.filter((pin) => pin.id !== deletedPin.id),
+        );
+        if (selectedPin === deletedPin) {
             setSelectedPin(undefined);
         }
     };
@@ -94,7 +96,7 @@ export default function MapPage() {
         <>
             <div>Map</div>
             <div>Name: {campaign?.name}</div>
-            <div>Selected pin: {selectedPin}</div>
+            <div>Selected pin: {selectedPin?.id}</div>
             <div>
                 <ImagePinContainer
                     image={campaign!.photo.url}

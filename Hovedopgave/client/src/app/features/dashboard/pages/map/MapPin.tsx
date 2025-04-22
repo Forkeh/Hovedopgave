@@ -9,7 +9,7 @@ type PinComponentProps = {
     pin: Pin;
     isActive: boolean;
     onClick: (e: React.MouseEvent, pin: Pin) => void;
-    onRightClick: (e: React.MouseEvent, pinId: string) => void;
+    onRightClick: (e: React.MouseEvent, pin: Pin) => void;
     onMouseDown: (e: React.MouseEvent, pinId: string) => void;
     onEdit?: (pin: Pin) => void;
     disableHoverCard?: boolean;
@@ -51,7 +51,7 @@ const MapPin = ({
         return (
             <div
                 onClick={(e) => onClick(e, pin)}
-                onContextMenu={(e) => onRightClick(e, pin.id)}
+                onContextMenu={(e) => onRightClick(e, pin)}
                 onMouseDown={(e) => onMouseDown(e, pin.id)}
             >
                 {pinIcon}
@@ -64,7 +64,7 @@ const MapPin = ({
             <HoverCardTrigger asChild>
                 <div
                     onClick={(e) => onClick(e, pin)}
-                    onContextMenu={(e) => onRightClick(e, pin.id)}
+                    onContextMenu={(e) => onRightClick(e, pin)}
                     onMouseDown={(e) => onMouseDown(e, pin.id)}
                 >
                     {pinIcon}
