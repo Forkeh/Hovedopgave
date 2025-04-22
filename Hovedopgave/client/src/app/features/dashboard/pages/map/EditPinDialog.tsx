@@ -13,21 +13,17 @@ import { Textarea } from '@/components/ui/textarea';
 type Props = {
     isEditDialogOpen: boolean;
     setIsEditDialogOpen: (open: boolean) => void;
-    pinTitle: string;
-    setPinTitle: (value: string) => void;
-    pinDescription: string;
-    setPinDescription: (value: string) => void;
     handleSaveEditedPin: () => void;
+    editingPin: Pin;
+    setEditingPin: React.Dispatch<React.SetStateAction<Pin | null>>;
 };
 
 export default function EditPinDialog({
     isEditDialogOpen,
     setIsEditDialogOpen,
-    pinTitle,
-    setPinTitle,
-    pinDescription,
-    setPinDescription,
     handleSaveEditedPin,
+    editingPin,
+    setEditingPin,
 }: Props) {
     return (
         <Dialog
@@ -46,8 +42,14 @@ export default function EditPinDialog({
                         <label htmlFor='title'>Title</label>
                         <Input
                             id='title'
-                            value={pinTitle}
-                            onChange={(e) => setPinTitle(e.target.value)}
+                            value={editingPin.title}
+                            onChange={(e) => {
+                                const updatedPin = {
+                                    ...editingPin,
+                                    title: e.target.value,
+                                };
+                                setEditingPin(updatedPin);
+                            }}
                             placeholder='Enter a title for this pin'
                         />
                     </div>
@@ -55,8 +57,14 @@ export default function EditPinDialog({
                         <label htmlFor='description'>Description</label>
                         <Textarea
                             id='description'
-                            value={pinDescription}
-                            onChange={(e) => setPinDescription(e.target.value)}
+                            value={editingPin.description}
+                            onChange={(e) => {
+                                const updatedPin = {
+                                    ...editingPin,
+                                    description: e.target.value,
+                                };
+                                setEditingPin(updatedPin);
+                            }}
                             placeholder='Enter a description'
                             rows={4}
                         />

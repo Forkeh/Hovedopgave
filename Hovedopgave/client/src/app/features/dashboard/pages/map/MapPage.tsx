@@ -11,8 +11,6 @@ export default function MapPage() {
     const [selectedPin, setSelectedPin] = useState<Pin>();
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [editingPin, setEditingPin] = useState<Pin | null>(null);
-    const [pinTitle, setPinTitle] = useState('');
-    const [pinDescription, setPinDescription] = useState('');
     const [pins, setPins] = useState<Pin[]>([
         {
             id: '1',
@@ -58,23 +56,15 @@ export default function MapPage() {
 
     const handleEditPin = (pin: Pin) => {
         setEditingPin(pin);
-        setPinTitle(pin.title || '');
-        setPinDescription(pin.description || '');
         setIsEditDialogOpen(true);
     };
 
     const handleSaveEditedPin = () => {
         if (!editingPin) return;
 
-        const updatedPin = {
-            ...editingPin,
-            title: pinTitle,
-            description: pinDescription,
-        };
-
         setPins((prevPins) =>
             prevPins.map((pin) =>
-                pin.id === editingPin.id ? updatedPin : pin,
+                pin.id === editingPin.id ? editingPin : pin,
             ),
         );
 
@@ -118,15 +108,15 @@ export default function MapPage() {
                 Save Pins
             </button>
 
-            <EditPinDialog
-                isEditDialogOpen={isEditDialogOpen}
-                setIsEditDialogOpen={setIsEditDialogOpen}
-                setPinTitle={setPinTitle}
-                setPinDescription={setPinDescription}
-                handleSaveEditedPin={handleSaveEditedPin}
-                pinDescription={pinDescription}
-                pinTitle={pinTitle}
-            />
+            {editingPin && (
+                <EditPinDialog
+                    isEditDialogOpen={isEditDialogOpen}
+                    setIsEditDialogOpen={setIsEditDialogOpen}
+                    handleSaveEditedPin={handleSaveEditedPin}
+                    editingPin={editingPin}
+                    setEditingPin={setEditingPin}
+                />
+            )}
         </>
     );
 }

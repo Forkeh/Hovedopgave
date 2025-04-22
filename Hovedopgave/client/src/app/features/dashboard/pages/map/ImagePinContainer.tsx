@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import MapPin from './MapPin';
 
-type ImagePinContainerProps = {
+type Props = {
     image: string;
     imageAlt: string;
     draggable: boolean;
@@ -25,7 +25,7 @@ const ImagePinContainer = ({
     onDraggedPin,
     onDeletedPin,
     onEditPin,
-}: ImagePinContainerProps) => {
+}: Props) => {
     const [localPins, setLocalPins] = useState<Pin[]>(pins);
     const [activePinId, setActivePinId] = useState<string | null>(null);
     const [isDragging, setIsDragging] = useState(false);
