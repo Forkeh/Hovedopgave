@@ -215,7 +215,7 @@ const ImagePinContainer = ({
                             onRightClick={handlePinRightClick}
                             onMouseDown={handlePinMouseDown}
                             onEdit={handlePinEdit}
-                            disableHoverCard={isDragging || viewOnly}
+                            disableHoverCard={isDragging}
                         />
                     </div>
                 ))}
