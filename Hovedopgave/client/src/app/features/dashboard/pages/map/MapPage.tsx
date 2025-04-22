@@ -31,6 +31,7 @@ export default function MapPage() {
     ]);
 
     const handleNewPin = (pin: Pin) => {
+        pin.campaignId = campaign?.id;
         setPins((prevPins) => [...prevPins, pin]);
     };
 

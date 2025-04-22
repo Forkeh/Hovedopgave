@@ -5,15 +5,6 @@ import {
     HoverCardTrigger,
 } from '@/components/ui/hover-card';
 
-type Pin = {
-    id: string;
-    positionX: number;
-    positionY: number;
-    title?: string;
-    description?: string;
-    // Add any other fields you need for pin content
-};
-
 type PinComponentProps = {
     pin: Pin;
     isActive: boolean;
@@ -24,7 +15,7 @@ type PinComponentProps = {
     disableHoverCard?: boolean;
 };
 
-const Pin = ({
+const MapPin = ({
     pin,
     isActive,
     onClick,
@@ -99,4 +90,4 @@ const Pin = ({
     );
 };
 
-export default Pin;
+export default MapPin;

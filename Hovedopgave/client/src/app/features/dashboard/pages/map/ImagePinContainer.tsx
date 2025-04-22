@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import Pin from '../../../../../components/ui/Pin';
+import MapPin from './MapPin';
 
 type ImagePinContainerProps = {
     image: string;
@@ -206,7 +206,7 @@ const ImagePinContainer = ({
                             top: `${pin.positionY * 100}%`,
                         }}
                     >
-                        <Pin
+                        <MapPin
                             pin={pin}
                             isActive={pin.id === activePinId}
                             onClick={handlePinClick}
