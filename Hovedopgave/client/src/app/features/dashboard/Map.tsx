@@ -3,13 +3,6 @@ import { useCampaigns } from '@/lib/hooks/useCampaigns';
 import { useState } from 'react';
 import { useParams } from 'react-router';
 
-// Define the Pin type
-type Pin = {
-    id: string;
-    positionX: number;
-    positionY: number;
-};
-
 export default function Map() {
     const { id } = useParams();
     const { campaign, campaignIsLoading } = useCampaigns(id);
@@ -71,11 +64,12 @@ export default function Map() {
             <div>Map</div>
             <div>Name: {campaign?.name}</div>
             <div>Selected pin: {selectedPin}</div>
-            <div className='h-96 w-full select-none'>
+            <div className='select-none'>
                 <ImagePinContainer
                     image={campaign!.photo.url}
                     imageAlt='Map image'
                     draggable={true}
+                    viewOnly={false}
                     pins={pins}
                     onNewPin={handleNewPin}
                     onExistingPin={handleExistingPin}

@@ -12,6 +12,7 @@ type ImagePinContainerProps = {
     imageAlt: string;
     draggable: boolean;
     pins?: Pin[];
+    viewOnly?: boolean; // New property to disable editing
     onNewPin?: (pin: Pin) => void;
     onExistingPin?: (pin: Pin) => void;
     onDraggedPin?: (pin: Pin) => void;
@@ -23,6 +24,7 @@ const ImagePinContainer = ({
     imageAlt,
     draggable,
     pins = [], // Provide default empty array
+    viewOnly = false, // Default to editing mode
     onNewPin,
     onExistingPin,
     onDraggedPin,
@@ -41,8 +43,9 @@ const ImagePinContainer = ({
 
     // Function to create a new pin
     const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        // Use event.target vs currentTarget to check if we clicked on the container or a child
+        // Exit if view-only mode is enabled or other conditions are met
         if (
+            viewOnly ||
             isDragging ||
             !containerRef.current ||
             !isClickPending ||
@@ -76,6 +79,9 @@ const ImagePinContainer = ({
 
     // Handle mousedown on container
     const handleContainerMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+        // Skip in view-only mode
+        if (viewOnly) return;
+
         // Check if the click is directly on the container or image (not on a pin)
         if (
             e.target === containerRef.current ||
@@ -100,6 +106,9 @@ const ImagePinContainer = ({
         e.preventDefault();
         e.stopPropagation();
 
+        // Skip in view-only mode
+        if (viewOnly) return;
+
         setLocalPins((prevPins) => prevPins.filter((pin) => pin.id !== pinId));
 
         if (onDeletedPin) {
@@ -112,7 +121,8 @@ const ImagePinContainer = ({
 
     // Functions for dragging pins
     const handlePinMouseDown = (e: React.MouseEvent, pinId: string) => {
-        if (!draggable) return;
+        // Skip in view-only mode or if dragging is disabled
+        if (viewOnly || !draggable) return;
 
         e.stopPropagation();
         setIsClickPending(false);
@@ -121,7 +131,9 @@ const ImagePinContainer = ({
     };
 
     const handleMouseMove = (e: React.MouseEvent) => {
-        if (!isDragging || !activePinId || !containerRef.current) return;
+        // Skip in view-only mode
+        if (viewOnly || !isDragging || !activePinId || !containerRef.current)
+            return;
 
         // Cancel any pending clicks when we start dragging
         setIsClickPending(false);
@@ -213,7 +225,7 @@ const ImagePinContainer = ({
                     </div>
                 ))}
 
-            {draggable && (
+            {draggable && !viewOnly && (
                 <div className='bg-opacity-75 absolute right-2 bottom-2 rounded bg-white p-2 text-xs text-gray-700'>
                     <p>Click: Add pin</p>
                     <p>Drag: Move pin</p>

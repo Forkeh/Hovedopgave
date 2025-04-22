@@ -18,3 +18,9 @@ type Photo = {
     publicId: string;
     userId: string;
 };
+
+type Pin = {
+    id: string;
+    positionX: number;
+    positionY: number;
+};
