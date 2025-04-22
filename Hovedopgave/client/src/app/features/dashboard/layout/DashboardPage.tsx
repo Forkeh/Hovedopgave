@@ -7,6 +7,7 @@ export default function DashboardPage() {
     console.log(id);
     const {campaign, campaignIsLoading} = useCampaigns(id);
     
+    
 
     return (
         <div className='flex h-screen bg-gray-100'>

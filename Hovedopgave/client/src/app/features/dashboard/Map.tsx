@@ -5,6 +5,7 @@ export default function Map() {
     const { id } = useParams();
     console.log(id);
     const { campaign, campaignIsLoading } = useCampaigns(id);
+    console.log('Campaign: ', campaign);
 
     if (campaignIsLoading) {
         return <div>Campaign is loading...</div>;
@@ -15,7 +16,7 @@ export default function Map() {
             <div>Map</div>
             <div>Name: {campaign?.name}</div>
             <img
-                src={campaign?.mapUrl}
+                src={campaign?.photo.url}
                 alt='map image'
             />
         </>

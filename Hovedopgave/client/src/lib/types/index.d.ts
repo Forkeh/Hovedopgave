@@ -7,7 +7,7 @@ type User = {
 type Campaign = {
     id: string;
     name: string;
-    mapUrl: string;
+    photo: Photo;
     dungeonMaster: User;
     players: User[];
 };
@@ -15,4 +15,6 @@ type Campaign = {
 type Photo = {
     id: string;
     url: string;
+    publicId: string;
+    userId: string;
 };
