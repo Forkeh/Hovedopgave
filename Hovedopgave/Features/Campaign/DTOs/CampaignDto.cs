@@ -10,4 +10,5 @@ public class CampaignDto
 
     // navigation properties
     public ICollection<CampaignUserDto> Players { get; set; } = [];
+    public ICollection<MapPinDto> MapPins { get; set; } = [];
 }

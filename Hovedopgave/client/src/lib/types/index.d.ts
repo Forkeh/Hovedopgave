@@ -10,6 +10,7 @@ type Campaign = {
     photo: Photo;
     dungeonMaster: User;
     players: User[];
+    mapPins: Pin[];
 };
 
 type Photo = {
@@ -24,6 +25,6 @@ type Pin = {
     campaignId?: string;
     positionX: number;
     positionY: number;
-    title?: string;
-    description?: string;
+    title: string;
+    description: string;
 };

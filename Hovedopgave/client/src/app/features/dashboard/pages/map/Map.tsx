@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import MapPinCanvas from './MapPinCanvas';
 import EditPinDialog from './EditPinDialog';
+import { useCampaigns } from '@/lib/hooks/useCampaigns';
+import { toast } from 'react-toastify';
+import { Button } from '@/components/ui/button';
 
 type Props = {
     viewOnly: boolean;
@@ -13,24 +16,9 @@ export default function Map({ viewOnly, campaign }: Props) {
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [editingPin, setEditingPin] = useState<Pin | null>(null);
     const [isPanning, setIsPanning] = useState(false);
-    const [pins, setPins] = useState<Pin[]>([
-        {
-            id: '1',
-            campaignId: '960210ac-3862-4f78-ae71-ce27936e7824',
-            positionX: 0.5,
-            positionY: 0.3,
-            title: 'Castle',
-            description: 'The main castle in the kingdom',
-        },
-        {
-            id: '2',
-            campaignId: '960210ac-3862-4f78-ae71-ce27936e7824',
-            positionX: 0.2,
-            positionY: 0.8,
-            title: 'Forest',
-            description: 'A dangerous magical forest',
-        },
-    ]);
+    const [pins, setPins] = useState<Pin[]>([...campaign.mapPins]);
+
+    const { setCampaignMapPins } = useCampaigns(campaign.id);
 
     const handleNewPin = (pin: Pin) => {
         pin.campaignId = campaign?.id;
@@ -76,10 +64,19 @@ export default function Map({ viewOnly, campaign }: Props) {
         setEditingPin(null);
     };
 
-    // Handler to save pins to backend
     const handleSavePins = () => {
-        console.log('Saving pins to backend:', pins);
-        // Implement your API call here
+        setCampaignMapPins.mutate(pins, {
+            onSuccess: () => {
+                toast('Saved map pins! 😎', {
+                    type: 'success',
+                });
+            },
+            onError: () => {
+                toast('Something went wrong saving the pins 😬', {
+                    type: 'error',
+                });
+            },
+        });
     };
 
     return (
@@ -118,12 +115,12 @@ export default function Map({ viewOnly, campaign }: Props) {
                         </div>
                     )}
                 </div>
-                <button
+                <Button
                     onClick={handleSavePins}
-                    className='mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600'
+                    disabled={setCampaignMapPins.isPending}
                 >
                     Save Pins
-                </button>
+                </Button>
             </div>
 
             {editingPin && (

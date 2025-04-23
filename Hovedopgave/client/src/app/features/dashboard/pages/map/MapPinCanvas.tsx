@@ -63,6 +63,8 @@ const MapPinCanvas = ({
         const positionY = Math.max(0, Math.min(1, y));
 
         const newPin: Pin = {
+            title: '',
+            description: '',
             id: Date.now().toString(),
             positionX,
             positionY,

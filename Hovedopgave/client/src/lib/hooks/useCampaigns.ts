@@ -54,6 +54,18 @@ export const useCampaigns = (id?: string) => {
         },
     });
 
+    const setCampaignMapPins = useMutation({
+        mutationFn: async (pins: Pin[]) => {
+            const response = await agent.post(`/campaigns/${id}/pins`, pins);
+            return response.data;
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ['campaign', id],
+            });
+        },
+    });
+
     return {
         campaigns,
         campaignsIsLoading,
@@ -61,5 +73,6 @@ export const useCampaigns = (id?: string) => {
         campaignIsLoading,
         createCampaign,
         uploadCampaignMap,
+        setCampaignMapPins,
     };
 };
