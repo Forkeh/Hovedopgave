@@ -13,4 +13,5 @@ public class Campaign
 
     // Navigation property
     public ICollection<User> Users { get; set; } = [];
+    public ICollection<MapPin> MapPins { get; set; } = [];
 }

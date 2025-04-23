@@ -46,4 +46,17 @@ public class CampaignsController(ICampaignService campaignService) : BaseApiCont
 
         return Ok(result.Value);
     }
+
+    [HttpPost("{id}/pins")]
+    public async Task<IActionResult> SetCampaignMapPins(string id, [FromBody] List<MapPinDto> pins)
+    {
+        var result = await campaignService.SetCampaignMapPins(id, pins);
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(result.Error);
+        }
+
+        return Ok(result.Value);
+    }
 }

@@ -3,6 +3,7 @@ using System;
 using Hovedopgave.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hovedopgave.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250423192917_RequiredCampaignIdOnMapPin")]
+    partial class RequiredCampaignIdOnMapPin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,15 +145,15 @@ namespace Hovedopgave.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<double>("PositionX")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("PositionY")
-                        .HasColumnType("double precision");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<double>("positionX")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("positionY")
+                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 

@@ -3,6 +3,7 @@ using System;
 using Hovedopgave.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hovedopgave.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250423192132_MapPinEntityAdded")]
+    partial class MapPinEntityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,22 +138,21 @@ namespace Hovedopgave.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("CampaignId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<double>("PositionX")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("PositionY")
-                        .HasColumnType("double precision");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<double>("positionX")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("positionY")
+                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
@@ -349,13 +351,9 @@ namespace Hovedopgave.Migrations
 
             modelBuilder.Entity("Hovedopgave.Features.Campaign.Models.MapPin", b =>
                 {
-                    b.HasOne("Hovedopgave.Features.Campaign.Models.Campaign", "Campaign")
+                    b.HasOne("Hovedopgave.Features.Campaign.Models.Campaign", null)
                         .WithMany("MapPins")
-                        .HasForeignKey("CampaignId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Campaign");
+                        .HasForeignKey("CampaignId");
                 });
 
             modelBuilder.Entity("Hovedopgave.Features.Photos.Models.Photo", b =>
