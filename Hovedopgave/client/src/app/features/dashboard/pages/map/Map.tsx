@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
-import ImagePinContainer from './ImagePinContainer';
+import MapPinCanvas from './MapPinCanvas';
 import EditPinDialog from './EditPinDialog';
 
 type Props = {
@@ -16,6 +16,7 @@ export default function Map({ viewOnly, campaign }: Props) {
     const [pins, setPins] = useState<Pin[]>([
         {
             id: '1',
+            campaignId: '960210ac-3862-4f78-ae71-ce27936e7824',
             positionX: 0.5,
             positionY: 0.3,
             title: 'Castle',
@@ -23,6 +24,7 @@ export default function Map({ viewOnly, campaign }: Props) {
         },
         {
             id: '2',
+            campaignId: '960210ac-3862-4f78-ae71-ce27936e7824',
             positionX: 0.2,
             positionY: 0.8,
             title: 'Forest',
@@ -93,7 +95,7 @@ export default function Map({ viewOnly, campaign }: Props) {
                         doubleClick={{ disabled: true }}
                     >
                         <TransformComponent>
-                            <ImagePinContainer
+                            <MapPinCanvas
                                 image={campaign.photo.url}
                                 imageAlt='Map image'
                                 draggable={true}

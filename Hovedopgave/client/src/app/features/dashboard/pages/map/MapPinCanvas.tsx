@@ -15,7 +15,7 @@ type Props = {
     isPanning: boolean;
 };
 
-const ImagePinContainer = ({
+const MapPinCanvas = ({
     image,
     imageAlt,
     draggable,
@@ -221,4 +221,4 @@ const ImagePinContainer = ({
     );
 };
 
-export default ImagePinContainer;
+export default MapPinCanvas;
