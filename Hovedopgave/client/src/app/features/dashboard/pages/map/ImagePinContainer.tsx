@@ -29,7 +29,7 @@ const ImagePinContainer = ({
     isPanning,
 }: Props) => {
     const [localPins, setLocalPins] = useState<Pin[]>(pins);
-    const [activePinId, setActivePinId] = useState<string | null>(null);
+    const [activePin, setActivePin] = useState<Pin | null>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [isClickPending, setIsClickPending] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -90,16 +90,6 @@ const ImagePinContainer = ({
         }
     };
 
-    // Function to handle pin click
-    const handlePinClick = (e: React.MouseEvent, pin: Pin) => {
-        e.stopPropagation();
-        setIsClickPending(false);
-        if (onExistingPin) {
-            onExistingPin(pin);
-        }
-        setActivePinId(pin.id);
-    };
-
     // Function to delete a pin with right click
     const handlePinRightClick = (e: React.MouseEvent, deletedPin: Pin) => {
         e.preventDefault();
@@ -116,24 +106,30 @@ const ImagePinContainer = ({
             onDeletedPin(deletedPin);
         }
 
-        setActivePinId(null);
+        setActivePin(null);
         setIsClickPending(false);
     };
 
     // Functions for dragging pins
-    const handlePinMouseDown = (e: React.MouseEvent, pinId: string) => {
+    const handlePinMouseDown = (e: React.MouseEvent, pin: Pin) => {
+        console.log('click');
+
         // Skip in view-only mode or if dragging is disabled
         if (viewOnly || !draggable) return;
 
         e.stopPropagation();
         setIsClickPending(false);
-        setActivePinId(pinId);
+        setActivePin(pin);
         setIsDragging(true);
+
+        if (onExistingPin) {
+            onExistingPin(pin);
+        }
     };
 
     const handleMouseMove = (e: React.MouseEvent) => {
         // Skip in view-only mode
-        if (viewOnly || !isDragging || !activePinId || !containerRef.current)
+        if (viewOnly || !isDragging || !activePin || !containerRef.current)
             return;
 
         // Cancel any pending clicks when we start dragging
@@ -148,12 +144,12 @@ const ImagePinContainer = ({
         const positionY = Math.max(0, Math.min(1, y));
 
         const updatedPins = localPins.map((pin) =>
-            pin.id === activePinId ? { ...pin, positionX, positionY } : pin,
+            pin.id === activePin.id ? { ...pin, positionX, positionY } : pin,
         );
 
         setLocalPins(updatedPins);
 
-        const updatedPin = updatedPins.find((pin) => pin.id === activePinId);
+        const updatedPin = updatedPins.find((pin) => pin.id === activePin.id);
         if (updatedPin && onDraggedPin) {
             onDraggedPin(updatedPin);
         }
@@ -205,7 +201,7 @@ const ImagePinContainer = ({
                 localPins.map((pin) => (
                     <div
                         key={pin.id}
-                        className={`absolute -mt-6 -ml-3 h-6 w-6 cursor-pointer ${isDragging && pin.id === activePinId ? 'z-20' : 'z-10'}`}
+                        className={`absolute -mt-6 -ml-3 h-6 w-6 cursor-pointer ${isDragging && pin.id === activePin?.id ? 'z-20' : 'z-10'}`}
                         style={{
                             left: `${pin.positionX * 100}%`,
                             top: `${pin.positionY * 100}%`,
@@ -213,8 +209,7 @@ const ImagePinContainer = ({
                     >
                         <MapPin
                             pin={pin}
-                            isActive={pin.id === activePinId}
-                            onClick={handlePinClick}
+                            isActive={pin.id === activePin?.id}
                             onRightClick={handlePinRightClick}
                             onMouseDown={handlePinMouseDown}
                             onEdit={handlePinEdit}
@@ -222,14 +217,6 @@ const ImagePinContainer = ({
                         />
                     </div>
                 ))}
-
-            {/* {draggable && !viewOnly && (
-                <div className='bg-opacity-75 absolute right-2 bottom-2 rounded bg-white p-2 text-xs text-gray-700'>
-                    <p>Double Click: Add pin</p>
-                    <p>Drag: Move pin</p>
-                    <p>Right-click: Delete pin</p>
-                </div>
-            )} */}
         </div>
     );
 };

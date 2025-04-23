@@ -5,12 +5,11 @@ import {
     HoverCardTrigger,
 } from '@/components/ui/hover-card';
 
-type PinComponentProps = {
+type Props = {
     pin: Pin;
     isActive: boolean;
-    onClick: (e: React.MouseEvent, pin: Pin) => void;
     onRightClick: (e: React.MouseEvent, pin: Pin) => void;
-    onMouseDown: (e: React.MouseEvent, pinId: string) => void;
+    onMouseDown: (e: React.MouseEvent, pin: Pin) => void;
     onEdit?: (pin: Pin) => void;
     disableHoverCard?: boolean;
 };
@@ -18,12 +17,11 @@ type PinComponentProps = {
 const MapPin = ({
     pin,
     isActive,
-    onClick,
     onRightClick,
     onMouseDown,
     onEdit,
     disableHoverCard = false,
-}: PinComponentProps) => {
+}: Props) => {
     const pinIcon = (
         <div
             className={`flex h-6 w-6 items-center justify-center ${
@@ -50,9 +48,8 @@ const MapPin = ({
     if (disableHoverCard) {
         return (
             <div
-                onClick={(e) => onClick(e, pin)}
                 onContextMenu={(e) => onRightClick(e, pin)}
-                onMouseDown={(e) => onMouseDown(e, pin.id)}
+                onMouseDown={(e) => onMouseDown(e, pin)}
             >
                 {pinIcon}
             </div>
@@ -63,9 +60,8 @@ const MapPin = ({
         <HoverCard>
             <HoverCardTrigger asChild>
                 <div
-                    onClick={(e) => onClick(e, pin)}
                     onContextMenu={(e) => onRightClick(e, pin)}
-                    onMouseDown={(e) => onMouseDown(e, pin.id)}
+                    onMouseDown={(e) => onMouseDown(e, pin)}
                 >
                     {pinIcon}
                 </div>

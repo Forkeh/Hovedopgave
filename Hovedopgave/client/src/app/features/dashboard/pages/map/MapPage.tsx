@@ -53,7 +53,7 @@ export default function MapPage() {
         setPins((prevPins) =>
             prevPins.filter((pin) => pin.id !== deletedPin.id),
         );
-        if (selectedPin === deletedPin) {
+        if (selectedPin?.id === deletedPin.id) {
             setSelectedPin(undefined);
         }
     };
