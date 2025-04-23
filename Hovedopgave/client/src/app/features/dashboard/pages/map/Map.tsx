@@ -7,11 +7,11 @@ import { toast } from 'react-toastify';
 import { Button } from '@/components/ui/button';
 
 type Props = {
-    viewOnly: boolean;
+    isViewOnly: boolean;
     campaign: Campaign;
 };
 
-export default function Map({ viewOnly, campaign }: Props) {
+export default function Map({ isViewOnly, campaign }: Props) {
     const [selectedPin, setSelectedPin] = useState<Pin>();
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [editingPin, setEditingPin] = useState<Pin | null>(null);
@@ -96,7 +96,7 @@ export default function Map({ viewOnly, campaign }: Props) {
                                 image={campaign.photo.url}
                                 imageAlt='Map image'
                                 draggable={true}
-                                viewOnly={false}
+                                viewOnly={isViewOnly}
                                 pins={pins}
                                 onNewPin={handleNewPin}
                                 onExistingPin={handleExistingPin}
@@ -107,7 +107,7 @@ export default function Map({ viewOnly, campaign }: Props) {
                             />
                         </TransformComponent>
                     </TransformWrapper>
-                    {!viewOnly && (
+                    {!isViewOnly && (
                         <div className='bg-opacity-75 absolute right-2 bottom-2 rounded bg-white p-2 text-xs text-gray-700 shadow-sm'>
                             <p>Double Click: Add pin</p>
                             <p>Drag: Move pin</p>
@@ -115,12 +115,14 @@ export default function Map({ viewOnly, campaign }: Props) {
                         </div>
                     )}
                 </div>
-                <Button
-                    onClick={handleSavePins}
-                    disabled={setCampaignMapPins.isPending}
-                >
-                    Save Pins
-                </Button>
+                {!isViewOnly && (
+                    <Button
+                        onClick={handleSavePins}
+                        disabled={setCampaignMapPins.isPending}
+                    >
+                        Save Pins
+                    </Button>
+                )}
             </div>
 
             {editingPin && (

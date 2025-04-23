@@ -10,10 +10,9 @@ export default function MapPage() {
     const { currentUser } = useAccount();
 
     const isViewOnly = currentUser?.id !== campaign?.dungeonMaster.id;
+    console.log(isViewOnly);
 
     const handlePhotoUpload = (file: Blob) => {
-        console.log(file);
-
         uploadCampaignMap.mutate(file);
     };
 
@@ -27,7 +26,7 @@ export default function MapPage() {
             <div>Name: {campaign?.name}</div>
             {campaign?.photo?.url ? (
                 <Map
-                    viewOnly={isViewOnly}
+                    isViewOnly={isViewOnly}
                     campaign={campaign}
                 />
             ) : (
