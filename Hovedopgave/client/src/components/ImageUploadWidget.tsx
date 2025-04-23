@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Cropper, { ReactCropperElement } from 'react-cropper';
 import { useDropzone } from 'react-dropzone';
 import 'cropperjs/dist/cropper.css';
+import { CloudUpload } from 'lucide-react';
 
 type Props = {
     uploadPhoto: (file: Blob) => void;
@@ -42,7 +43,7 @@ export default function ImageUploadWidget({ uploadPhoto, loading }: Props) {
         <div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
             <div>
                 <p className='mb-2 text-xs font-medium tracking-wider text-purple-600 uppercase'>
-                    Step 1 - Add photo
+                    Step 1 - Add image
                 </p>
                 <div
                     {...getRootProps()}
@@ -51,29 +52,29 @@ export default function ImageUploadWidget({ uploadPhoto, loading }: Props) {
                     }`}
                 >
                     <input {...getInputProps()} />
-
-                    <p className='mt-2 text-xl'>
-                        Drop image here (Add drop image)
-                    </p>
+                    <CloudUpload size={60} />
+                    <p className='mt-2 text-xl'>Drop image here</p>
                 </div>
             </div>
 
             <div>
-                <p className='mb-2 text-xs font-medium tracking-wider text-purple-600 uppercase'>
-                    Step 2 - Resize image
-                </p>
                 {files[0]?.preview && (
-                    <Cropper
-                        src={files[0].preview}
-                        style={{ height: 300, width: '90%' }}
-                        initialAspectRatio={1}
-                        aspectRatio={1}
-                        preview='.img-preview'
-                        guides={false}
-                        viewMode={1}
-                        background={false}
-                        ref={cropperRef}
-                    />
+                    <>
+                        <p className='mb-2 text-xs font-medium tracking-wider text-purple-600 uppercase'>
+                            Step 2 - Resize image
+                        </p>
+                        <Cropper
+                            src={files[0].preview}
+                            style={{ height: 300, width: '90%' }}
+                            initialAspectRatio={1}
+                            aspectRatio={1}
+                            preview='.img-preview'
+                            guides={false}
+                            viewMode={1}
+                            background={false}
+                            ref={cropperRef}
+                        />
+                    </>
                 )}
             </div>
 
