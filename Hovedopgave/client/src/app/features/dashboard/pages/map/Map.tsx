@@ -41,9 +41,11 @@ export default function Map({ isViewOnly, campaign }: Props) {
         setPins((prevPins) =>
             prevPins.filter((pin) => pin.id !== deletedPin.id),
         );
+
         if (selectedPin?.id === deletedPin.id) {
             setSelectedPin(undefined);
         }
+        setIsEditDialogOpen(false);
     };
 
     const handleEditPin = (pin: Pin) => {
@@ -101,7 +103,6 @@ export default function Map({ isViewOnly, campaign }: Props) {
                                 onNewPin={handleNewPin}
                                 onExistingPin={handleExistingPin}
                                 onDraggedPin={handleDraggedPin}
-                                onDeletedPin={handleDeletedPin}
                                 onEditPin={handleEditPin}
                                 isPanning={isPanning}
                             />
@@ -132,6 +133,7 @@ export default function Map({ isViewOnly, campaign }: Props) {
                     handleSaveEditedPin={handleSaveEditedPin}
                     editingPin={editingPin}
                     setEditingPin={setEditingPin}
+                    handleDeletePin={handleDeletedPin}
                 />
             )}
         </>

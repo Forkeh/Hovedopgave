@@ -10,7 +10,6 @@ type Props = {
     onNewPin?: (pin: Pin) => void;
     onExistingPin?: (pin: Pin) => void;
     onDraggedPin?: (pin: Pin) => void;
-    onDeletedPin?: (pin: Pin) => void;
     onEditPin?: (pin: Pin) => void;
     isPanning: boolean;
 };
@@ -24,7 +23,6 @@ const MapPinCanvas = ({
     onNewPin,
     onExistingPin,
     onDraggedPin,
-    onDeletedPin,
     onEditPin,
     isPanning,
 }: Props) => {
@@ -90,26 +88,6 @@ const MapPinCanvas = ({
         ) {
             setIsClickPending(true);
         }
-    };
-
-    // Function to delete a pin with right click
-    const handlePinRightClick = (e: React.MouseEvent, deletedPin: Pin) => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        // Skip in view-only mode
-        if (viewOnly) return;
-
-        setLocalPins((prevPins) =>
-            prevPins.filter((pin) => pin.id !== deletedPin.id),
-        );
-
-        if (onDeletedPin) {
-            onDeletedPin(deletedPin);
-        }
-
-        setActivePin(null);
-        setIsClickPending(false);
     };
 
     // Functions for dragging pins
@@ -212,7 +190,6 @@ const MapPinCanvas = ({
                         <MapPin
                             pin={pin}
                             isActive={pin.id === activePin?.id}
-                            onRightClick={handlePinRightClick}
                             onMouseDown={handlePinMouseDown}
                             onEdit={handlePinEdit}
                             disableHoverCard={isDragging}

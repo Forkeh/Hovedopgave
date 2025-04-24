@@ -3,7 +3,6 @@ import {
     Dialog,
     DialogContent,
     DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
@@ -16,6 +15,7 @@ type Props = {
     handleSaveEditedPin: () => void;
     editingPin: Pin;
     setEditingPin: React.Dispatch<React.SetStateAction<Pin | null>>;
+    handleDeletePin: (deletedPin: Pin) => void;
 };
 
 export default function EditPinDialog({
@@ -24,6 +24,7 @@ export default function EditPinDialog({
     handleSaveEditedPin,
     editingPin,
     setEditingPin,
+    handleDeletePin,
 }: Props) {
     return (
         <Dialog
@@ -70,15 +71,27 @@ export default function EditPinDialog({
                         />
                     </div>
                 </div>
-                <DialogFooter>
-                    <Button
-                        variant='outline'
-                        onClick={() => setIsEditDialogOpen(false)}
-                    >
-                        Cancel
-                    </Button>
-                    <Button onClick={handleSaveEditedPin}>Save Changes</Button>
-                </DialogFooter>
+                <section className='flex justify-between'>
+                    <div>
+                        <Button
+                            variant='destructive'
+                            onClick={() => handleDeletePin(editingPin)}
+                        >
+                            Delete pin
+                        </Button>
+                    </div>
+                    <div className='flex gap-2'>
+                        <Button
+                            variant='outline'
+                            onClick={() => setIsEditDialogOpen(false)}
+                        >
+                            Cancel
+                        </Button>
+                        <Button onClick={handleSaveEditedPin}>
+                            Save Changes
+                        </Button>
+                    </div>
+                </section>
             </DialogContent>
         </Dialog>
     );

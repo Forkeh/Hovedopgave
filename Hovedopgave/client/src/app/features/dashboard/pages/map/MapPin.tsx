@@ -8,7 +8,6 @@ import {
 type Props = {
     pin: Pin;
     isActive: boolean;
-    onRightClick: (e: React.MouseEvent, pin: Pin) => void;
     onMouseDown: (e: React.MouseEvent, pin: Pin) => void;
     onEdit?: (pin: Pin) => void;
     disableHoverCard?: boolean;
@@ -17,7 +16,6 @@ type Props = {
 const MapPin = ({
     pin,
     isActive,
-    onRightClick,
     onMouseDown,
     onEdit,
     disableHoverCard = false,
@@ -46,25 +44,13 @@ const MapPin = ({
     };
 
     if (disableHoverCard) {
-        return (
-            <div
-                onContextMenu={(e) => onRightClick(e, pin)}
-                onMouseDown={(e) => onMouseDown(e, pin)}
-            >
-                {pinIcon}
-            </div>
-        );
+        return <div onMouseDown={(e) => onMouseDown(e, pin)}>{pinIcon}</div>;
     }
 
     return (
         <HoverCard>
             <HoverCardTrigger asChild>
-                <div
-                    onContextMenu={(e) => onRightClick(e, pin)}
-                    onMouseDown={(e) => onMouseDown(e, pin)}
-                >
-                    {pinIcon}
-                </div>
+                <div onMouseDown={(e) => onMouseDown(e, pin)}>{pinIcon}</div>
             </HoverCardTrigger>
             <HoverCardContent className='w-80 p-4'>
                 <div className='space-y-2'>
