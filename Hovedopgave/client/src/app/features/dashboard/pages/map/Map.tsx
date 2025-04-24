@@ -67,6 +67,8 @@ export default function Map({ isViewOnly, campaign }: Props) {
     };
 
     const handleSavePins = () => {
+        console.log(pins);
+
         setCampaignMapPins.mutate(pins, {
             onSuccess: () => {
                 toast('Saved map pins! 😎', {

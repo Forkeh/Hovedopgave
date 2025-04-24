@@ -6,8 +6,16 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { IconsMap } from './icons/PinIconsMap';
 
 type Props = {
     isEditDialogOpen: boolean;
@@ -41,18 +49,60 @@ export default function EditPinDialog({
                 <div className='space-y-4 py-4'>
                     <div className='space-y-2'>
                         <label htmlFor='title'>Title</label>
-                        <Input
-                            id='title'
-                            value={editingPin.title}
-                            onChange={(e) => {
-                                const updatedPin = {
-                                    ...editingPin,
-                                    title: e.target.value,
-                                };
-                                setEditingPin(updatedPin);
-                            }}
-                            placeholder='Enter a title for this pin'
-                        />
+                        <div className='flex gap-2'>
+                            <Input
+                                id='title'
+                                value={editingPin.title}
+                                onChange={(e) => {
+                                    const updatedPin = {
+                                        ...editingPin,
+                                        title: e.target.value,
+                                    };
+                                    setEditingPin(updatedPin);
+                                }}
+                                placeholder='Enter a title for this pin'
+                            />
+                            <Select
+                                onValueChange={(value) => {
+                                    const updatedPin = {
+                                        ...editingPin,
+                                        icon: value,
+                                    };
+                                    setEditingPin(updatedPin);
+                                }}
+                                defaultValue='default'
+                            >
+                                <SelectTrigger className='w-[180px]'>
+                                    <SelectValue placeholder='Icon' />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value='default'>
+                                        <IconsMap.default />
+                                        <span>Default</span>
+                                    </SelectItem>
+                                    <SelectItem value='dungeon'>
+                                        <IconsMap.dungeon />
+                                        <span>Dungeon</span>
+                                    </SelectItem>
+                                    <SelectItem value='forest'>
+                                        <IconsMap.forest />
+                                        <span>Forest</span>
+                                    </SelectItem>
+                                    <SelectItem value='camp'>
+                                        <IconsMap.camp />
+                                        <span>Camp</span>
+                                    </SelectItem>
+                                    <SelectItem value='castle'>
+                                        <IconsMap.castle />
+                                        <span>Castle</span>
+                                    </SelectItem>
+                                    <SelectItem value='hut'>
+                                        <IconsMap.hut />
+                                        <span>Hut</span>
+                                    </SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
                     </div>
                     <div className='space-y-2'>
                         <label htmlFor='description'>Description</label>

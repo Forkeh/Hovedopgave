@@ -66,6 +66,7 @@ const MapPinCanvas = ({
             id: Date.now().toString(),
             positionX,
             positionY,
+            icon: 'default',
         };
 
         if (onNewPin) {

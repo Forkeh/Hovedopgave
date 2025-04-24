@@ -81,6 +81,7 @@ public class CampaignService(AppDbContext context, IUserAccessor userAccessor, I
                 existingPin.Description = pin.Description;
                 existingPin.PositionX = pin.PositionX;
                 existingPin.PositionY = pin.PositionY;
+                existingPin.Icon = pin.Icon;
             }
             else
             {
