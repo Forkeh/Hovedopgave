@@ -34,6 +34,19 @@ public class CampaignsController(ICampaignService campaignService) : BaseApiCont
         return Ok(result.Value);
     }
 
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<string>> DeleteCampaign(string id)
+    {
+        var result = await campaignService.DeleteCampaign(id);
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(result.Error);
+        }
+
+        return Ok(result.Value);
+    }
+
     [HttpPost]
     public async Task<ActionResult<string>> CreateCampaign([FromBody] CreateCampaignDto campaign)
     {

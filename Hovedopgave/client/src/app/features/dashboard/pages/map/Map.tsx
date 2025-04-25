@@ -14,6 +14,7 @@ type Props = {
 export default function Map({ isViewOnly, campaign }: Props) {
     const [selectedPin, setSelectedPin] = useState<Pin>();
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
     const [editingPin, setEditingPin] = useState<Pin | null>(null);
     const [isPanning, setIsPanning] = useState(false);
     const [pins, setPins] = useState<Pin[]>([...campaign.mapPins]);
@@ -67,8 +68,6 @@ export default function Map({ isViewOnly, campaign }: Props) {
     };
 
     const handleSavePins = () => {
-        console.log(pins);
-
         setCampaignMapPins.mutate(pins, {
             onSuccess: () => {
                 toast('Saved map pins! 😎', {
@@ -86,7 +85,7 @@ export default function Map({ isViewOnly, campaign }: Props) {
     return (
         <>
             <div>Selected pin: {selectedPin?.id}</div>
-            <div>
+            <section className='overflow-hidden rounded-2xl border shadow-md'>
                 <div className='relative h-150 w-150'>
                     <TransformWrapper
                         onPanningStart={() => setIsPanning(true)}
@@ -94,6 +93,7 @@ export default function Map({ isViewOnly, campaign }: Props) {
                             setTimeout(() => setIsPanning(false), 100);
                         }}
                         doubleClick={{ disabled: true }}
+                        disablePadding
                     >
                         <TransformComponent>
                             <MapPinCanvas
@@ -112,13 +112,20 @@ export default function Map({ isViewOnly, campaign }: Props) {
                     </TransformWrapper>
                     {!isViewOnly && (
                         <div className='bg-opacity-75 absolute right-2 bottom-2 rounded bg-white p-2 text-xs text-gray-700 shadow-sm'>
-                            <p>Double Click: Add pin</p>
-                            <p>Drag: Move pin</p>
-                            <p>Right-click: Delete pin</p>
+                            <p>
+                                <span className='font-bold'>Double Click:</span>{' '}
+                                Add pin
+                            </p>
+                            <p>
+                                <span className='font-bold'>Drag:</span> Move
+                                pin
+                            </p>
                         </div>
                     )}
                 </div>
-                {!isViewOnly && (
+            </section>
+            {!isViewOnly && (
+                <div className='mt-2 flex justify-center gap-3'>
                     <Button
                         onClick={handleSavePins}
                         disabled={setCampaignMapPins.isPending}
@@ -127,8 +134,8 @@ export default function Map({ isViewOnly, campaign }: Props) {
                             ? 'Saving...'
                             : 'Save Pins'}
                     </Button>
-                )}
-            </div>
+                </div>
+            )}
 
             {editingPin && (
                 <EditPinDialog

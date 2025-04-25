@@ -34,6 +34,18 @@ export const useCampaigns = (id?: string) => {
         },
     });
 
+    const deleteCampaign = useMutation({
+        mutationFn: async () => {
+            const response = await agent.delete(`/campaigns/${id}`);
+            return response.data;
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ['campaigns', id],
+            });
+        },
+    });
+
     const uploadCampaignMap = useMutation({
         mutationFn: async (file: Blob) => {
             const formData = new FormData();
@@ -74,5 +86,6 @@ export const useCampaigns = (id?: string) => {
         createCampaign,
         uploadCampaignMap,
         setCampaignMapPins,
+        deleteCampaign,
     };
 };

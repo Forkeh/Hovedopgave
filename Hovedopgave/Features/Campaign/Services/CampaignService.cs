@@ -37,6 +37,28 @@ public class CampaignService(AppDbContext context, IUserAccessor userAccessor, I
             : Result<CampaignDto>.Success(result);
     }
 
+    public async Task<Result<string>> DeleteCampaign(string id)
+    {
+        var user = await userAccessor.GetUserAsync();
+
+        var campaign = await context.Campaigns
+            .Where(x => x.Id == id && x.DungeonMaster.Id == user.Id)
+            .FirstOrDefaultAsync();
+
+        if (campaign == null)
+        {
+            return Result<string>.Failure("Failed to find campaign with id or you are not the DM: " + id, 400);
+        }
+
+        context.Campaigns.Remove(campaign);
+
+        var result = await context.SaveChangesAsync() > 0;
+
+        return !result
+            ? Result<string>.Failure("Failed to delete the campaign", 400)
+            : Result<string>.Success($"Campaign with id: {id} deleted successfully");
+    }
+
     public async Task<Result<string>> CreateCampaign(CreateCampaignDto campaign)
     {
         var user = await userAccessor.GetUserAsync();
