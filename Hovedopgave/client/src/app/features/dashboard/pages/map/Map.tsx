@@ -123,7 +123,9 @@ export default function Map({ isViewOnly, campaign }: Props) {
                         onClick={handleSavePins}
                         disabled={setCampaignMapPins.isPending}
                     >
-                        Save Pins
+                        {setCampaignMapPins.isPending
+                            ? 'Saving...'
+                            : 'Save Pins'}
                     </Button>
                 )}
             </div>

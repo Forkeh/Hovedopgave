@@ -1,4 +1,4 @@
-import { JSX, SVGProps } from 'react';
+import { SVGProps } from 'react';
 
 const DefaultIcon = (props: SVGProps<SVGSVGElement>) => {
     return (
@@ -110,9 +110,7 @@ const HutIcon = (props: SVGProps<SVGSVGElement>) => {
     );
 };
 
-export const IconsMap: {
-    [key: string]: (props: SVGProps<SVGSVGElement>) => JSX.Element;
-} = {
+export const PinIconsMap = {
     default: DefaultIcon,
     dungeon: DungeonIcon,
     forest: ForestIcon,

@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { IconsMap } from './icons/PinIconsMap';
+import PinIcon from './icons/PinIcon';
 
 type Props = {
     isEditDialogOpen: boolean;
@@ -77,27 +77,27 @@ export default function EditPinDialog({
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value='default'>
-                                        <IconsMap.default />
+                                        <PinIcon />
                                         <span>Default</span>
                                     </SelectItem>
                                     <SelectItem value='dungeon'>
-                                        <IconsMap.dungeon />
+                                        <PinIcon name='dungeon' />
                                         <span>Dungeon</span>
                                     </SelectItem>
                                     <SelectItem value='forest'>
-                                        <IconsMap.forest />
+                                        <PinIcon name='forest' />
                                         <span>Forest</span>
                                     </SelectItem>
                                     <SelectItem value='camp'>
-                                        <IconsMap.camp />
+                                        <PinIcon name='camp' />
                                         <span>Camp</span>
                                     </SelectItem>
                                     <SelectItem value='castle'>
-                                        <IconsMap.castle />
+                                        <PinIcon name='castle' />
                                         <span>Castle</span>
                                     </SelectItem>
                                     <SelectItem value='hut'>
-                                        <IconsMap.hut />
+                                        <PinIcon name='hut' />
                                         <span>Hut</span>
                                     </SelectItem>
                                 </SelectContent>

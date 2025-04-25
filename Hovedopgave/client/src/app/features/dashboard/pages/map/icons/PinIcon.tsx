@@ -1,12 +1,13 @@
 import { SVGProps } from 'react';
-import { IconsMap } from './PinIconsMap';
+import { PinIconsMap } from './PinIconsMap';
+
+type IconName = keyof typeof PinIconsMap;
 
 type Props = {
-    name?: string;
+    name?: IconName;
 } & SVGProps<SVGSVGElement>;
 
 export default function PinIcon({ name = 'default', ...props }: Props) {
-    const PinIcon =
-        IconsMap[name as keyof typeof IconsMap] || IconsMap['default'];
+    const PinIcon = PinIconsMap[name] || PinIconsMap['default'];
     return <PinIcon {...props} />;
 }

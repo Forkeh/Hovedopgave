@@ -6,7 +6,7 @@ type Props = {
     imageAlt: string;
     draggable: boolean;
     pins?: Pin[];
-    viewOnly?: boolean; // New property to disable editing
+    viewOnly?: boolean;
     onNewPin?: (pin: Pin) => void;
     onExistingPin?: (pin: Pin) => void;
     onDraggedPin?: (pin: Pin) => void;
