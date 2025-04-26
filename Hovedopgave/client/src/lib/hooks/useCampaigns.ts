@@ -78,6 +78,21 @@ export const useCampaigns = (id?: string) => {
         },
     });
 
+    const addPlayerToCampaign = useMutation({
+        mutationFn: async (playerEmail: string) => {
+            const response = await agent.post(
+                `/campaigns/${id}/add-player`,
+                {username: playerEmail},
+            );
+            return response.data;
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ['campaign', id],
+            });
+        },
+    });
+
     return {
         campaigns,
         campaignsIsLoading,
@@ -87,5 +102,6 @@ export const useCampaigns = (id?: string) => {
         uploadCampaignMap,
         setCampaignMapPins,
         deleteCampaign,
+        addPlayerToCampaign,
     };
 };

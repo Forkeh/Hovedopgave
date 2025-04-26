@@ -10,5 +10,5 @@ public interface ICampaignService
     Task<Result<string>> DeleteCampaign(string id);
     Task<Result<string>> CreateCampaign(CreateCampaignDto campaign);
     Task<Result<string>> SetCampaignMapPins(string campaignId, List<MapPinDto> pins);
-    Task<Result<string>> AddPlayerToCampaign(string campaignId, string playerId);
+    Task<Result<string>> AddPlayerToCampaign(string campaignId, AddPlayerToCampaignDto player);
 }

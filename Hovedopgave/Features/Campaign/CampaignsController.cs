@@ -73,10 +73,11 @@ public class CampaignsController(ICampaignService campaignService) : BaseApiCont
         return Ok(result.Value);
     }
 
-    [HttpPost("{campaignId}/add-player/{playerId}")]
-    public async Task<ActionResult<string>> AddPlayerToCampaign(string campaignId, string playerId)
+    [HttpPost("{campaignId}/add-player")]
+    public async Task<ActionResult<string>> AddPlayerToCampaign(string campaignId,
+        [FromBody] AddPlayerToCampaignDto player)
     {
-        var result = await campaignService.AddPlayerToCampaign(campaignId, playerId);
+        var result = await campaignService.AddPlayerToCampaign(campaignId, player);
 
         if (!result.IsSuccess)
         {

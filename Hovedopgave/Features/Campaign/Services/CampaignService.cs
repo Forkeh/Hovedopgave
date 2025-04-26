@@ -129,7 +129,7 @@ public class CampaignService(AppDbContext context, IUserAccessor userAccessor, I
             : Result<string>.Success("Map pins saved successfully");
     }
 
-    public async Task<Result<string>> AddPlayerToCampaign(string campaignId, string playerId)
+    public async Task<Result<string>> AddPlayerToCampaign(string campaignId, AddPlayerToCampaignDto player)
     {
         var user = await userAccessor.GetUserAsync();
 
@@ -144,26 +144,26 @@ public class CampaignService(AppDbContext context, IUserAccessor userAccessor, I
                 400);
         }
 
-        var player = await context.Users
-            .Where(x => x.Id == playerId)
+        var foundPlayer = await context.Users
+            .Where(x => x.UserName == player.Username)
             .FirstOrDefaultAsync();
 
-        if (player == null)
+        if (foundPlayer == null)
         {
-            return Result<string>.Failure("Failed to find player with id: " + playerId, 400);
+            return Result<string>.Failure("Failed to find player with id: " + player, 400);
         }
 
-        if (campaign.Users.Any(x => x.Id == playerId))
+        if (campaign.Users.Any(x => x.Id == foundPlayer.Id))
         {
             return Result<string>.Failure("Player is already in the campaign", 400);
         }
 
-        campaign.Users.Add(player);
+        campaign.Users.Add(foundPlayer);
 
         var result = await context.SaveChangesAsync() > 0;
 
         return !result
             ? Result<string>.Failure("Failed to add player to the campaign", 400)
-            : Result<string>.Success($"Player with id: {playerId} added to campaign with id: {campaignId}");
+            : Result<string>.Success($"Player with id: {player} added to campaign with id: {campaignId}");
     }
 }

@@ -3,29 +3,31 @@ import { useCampaigns } from '@/lib/hooks/useCampaigns';
 import { useState } from 'react';
 import { useParams } from 'react-router';
 import AddPlayerDialog from './AddPlayerDialog';
+import { toast } from 'react-toastify';
+import { useAccount } from '@/lib/hooks/useAccount';
 
 export default function Players() {
     const { id } = useParams();
-    const { campaign, campaignIsLoading } = useCampaigns(id);
+    const { campaign, campaignIsLoading, addPlayerToCampaign } =
+        useCampaigns(id);
+    const { currentUser } = useAccount();
 
     const [isAddPlayerOpen, setIsAddPlayerOpen] = useState(false);
 
     const handleAddPlayer = (playerEmail: string) => {
-        console.log(playerEmail);
-
-        // deleteCampaign.mutate(undefined, {
-        //     onSuccess: () => {
-        //         toast('Deleted campaign! 😎', {
-        //             type: 'success',
-        //         });
-        //         navigate('/campaigns');
-        //     },
-        //     onError: () => {
-        //         toast('Something went wrong deleting campaign 😬', {
-        //             type: 'error',
-        //         });
-        //     },
-        // });
+        addPlayerToCampaign.mutate(playerEmail, {
+            onSuccess: () => {
+                toast('Added player to campaign! 😎', {
+                    type: 'success',
+                });
+                setIsAddPlayerOpen(false);
+            },
+            onError: () => {
+                toast('Something went wrong adding player 😬', {
+                    type: 'error',
+                });
+            },
+        });
     };
 
     if (campaignIsLoading) {
@@ -35,14 +37,19 @@ export default function Players() {
     return (
         <>
             <h1 className='text-3xl font-extrabold'>Players is campaign</h1>
-            <Button
-                className='my-8'
-                onClick={() => setIsAddPlayerOpen(true)}
-            >
-                Add player
-            </Button>
+            {currentUser?.id === campaign?.dungeonMaster.id && (
+                <Button
+                    className='my-8'
+                    onClick={() => setIsAddPlayerOpen(true)}
+                >
+                    Add player
+                </Button>
+            )}
+
             {campaign?.players.length ? (
-                <div>players</div>
+                campaign?.players.map((player) => (
+                    <div>{player.displayName}</div>
+                ))
             ) : (
                 <div>Currently no players in campaign</div>
             )}
