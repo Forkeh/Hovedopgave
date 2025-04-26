@@ -7,7 +7,7 @@ type Props = {
 export default function CampaignListCard({ campaign }: Props) {
     return (
         <Link
-            to={`dashboard/${campaign.id}`}
+            to={`dashboard/${campaign.id}/map`}
             className='rounded-md border p-4 transition-shadow hover:shadow-md'
         >
             <div className='flex items-start justify-between'>

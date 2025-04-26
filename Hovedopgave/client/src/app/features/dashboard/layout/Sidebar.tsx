@@ -1,4 +1,4 @@
-import { BookOpenText, Menu, Map } from 'lucide-react';
+import { BookOpenText, Menu, Map, Users } from 'lucide-react';
 import SidebarItem from './SidebarItem';
 import { useState } from 'react';
 
@@ -6,7 +6,12 @@ const sideBarItems = [
     {
         name: 'Map',
         icon: Map,
-        linkTo: '.',
+        linkTo: 'map',
+    },
+    {
+        name: 'Players',
+        icon: Users,
+        linkTo: 'players',
     },
     {
         name: 'Wiki',

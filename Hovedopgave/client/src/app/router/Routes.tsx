@@ -8,8 +8,9 @@ import LoginForm from '../features/account/LoginForm';
 import HomePage from '../features/home/HomePage';
 import CreateCampaignForm from '../features/campaigns/create-campaign/CreateCampaignForm';
 import MapPage from '../features/dashboard/pages/map/MapPage';
-import Wiki from '../features/dashboard/Wiki';
+import Wiki from '../features/dashboard/pages/wiki/Wiki';
 import DashboardPage from '../features/dashboard/layout/DashboardPage';
+import Players from '../features/dashboard/pages/players/Players';
 
 export const router = createBrowserRouter([
     {
@@ -28,8 +29,13 @@ export const router = createBrowserRouter([
                                 path: 'dashboard/:id',
                                 element: <DashboardPage />,
                                 children: [
-                                    { index: true, element: <MapPage /> },
+                                    {
+                                        index: true,
+                                        path: 'map',
+                                        element: <MapPage />,
+                                    },
                                     { path: 'wiki', element: <Wiki /> },
+                                    { path: 'players', element: <Players /> },
                                 ],
                             },
                         ],

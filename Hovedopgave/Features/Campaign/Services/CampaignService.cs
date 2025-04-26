@@ -123,12 +123,47 @@ public class CampaignService(AppDbContext context, IUserAccessor userAccessor, I
 
         var result = await context.SaveChangesAsync() > 0;
 
-        if (!result)
+
+        return !result
+            ? Result<string>.Failure("Failed to save map pins", 400)
+            : Result<string>.Success("Map pins saved successfully");
+    }
+
+    public async Task<Result<string>> AddPlayerToCampaign(string campaignId, string playerId)
+    {
+        var user = await userAccessor.GetUserAsync();
+
+        var campaign = await context.Campaigns
+            .Where(x => x.Id == campaignId && x.DungeonMaster.Id == user.Id)
+            .Include(campaign => campaign.Users)
+            .FirstOrDefaultAsync();
+
+        if (campaign == null)
         {
-            return Result<string>.Failure("Failed to save map pins", 400);
+            return Result<string>.Failure("Failed to find campaign with id or you are not the DM: " + campaignId,
+                400);
         }
 
+        var player = await context.Users
+            .Where(x => x.Id == playerId)
+            .FirstOrDefaultAsync();
 
-        return Result<string>.Success("Map pins saved successfully");
+        if (player == null)
+        {
+            return Result<string>.Failure("Failed to find player with id: " + playerId, 400);
+        }
+
+        if (campaign.Users.Any(x => x.Id == playerId))
+        {
+            return Result<string>.Failure("Player is already in the campaign", 400);
+        }
+
+        campaign.Users.Add(player);
+
+        var result = await context.SaveChangesAsync() > 0;
+
+        return !result
+            ? Result<string>.Failure("Failed to add player to the campaign", 400)
+            : Result<string>.Success($"Player with id: {playerId} added to campaign with id: {campaignId}");
     }
 }
