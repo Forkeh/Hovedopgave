@@ -4,7 +4,7 @@ import { PinIconsMap } from './PinIconsMap';
 type IconName = keyof typeof PinIconsMap;
 
 type Props = {
-    name?: IconName;
+    name?: IconName | undefined;
 } & SVGProps<SVGSVGElement>;
 
 export default function PinIcon({ name = 'default', ...props }: Props) {

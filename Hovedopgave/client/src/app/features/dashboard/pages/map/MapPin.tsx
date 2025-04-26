@@ -5,6 +5,7 @@ import {
     HoverCardTrigger,
 } from '@/components/ui/hover-card';
 import PinIcon from './icons/PinIcon';
+import { PinIconsMap } from './icons/PinIconsMap';
 
 type Props = {
     pin: Pin;
@@ -12,6 +13,7 @@ type Props = {
     onMouseDown: (e: React.MouseEvent, pin: Pin) => void;
     onEdit?: (pin: Pin) => void;
     disableHoverCard?: boolean;
+    isViewOnly: boolean;
 };
 
 const MapPin = ({
@@ -20,10 +22,13 @@ const MapPin = ({
     onMouseDown,
     onEdit,
     disableHoverCard = false,
+    isViewOnly,
 }: Props) => {
+    const iconName = pin.icon as keyof typeof PinIconsMap | undefined;
+
     const pinIcon = (
         <PinIcon
-            name={pin.icon}
+            name={iconName}
             className={`h-6 w-6 ${isActive ? 'text-blue-500' : 'text-red-500'}`}
         />
     );
@@ -52,12 +57,14 @@ const MapPin = ({
                     <p className='text-sm'>
                         {pin.description || 'No description'}
                     </p>
-                    <button
-                        onClick={handleEdit}
-                        className='text-xs text-blue-500 hover:text-blue-700'
-                    >
-                        Edit
-                    </button>
+                    {!isViewOnly && (
+                        <button
+                            onClick={handleEdit}
+                            className='text-xs text-blue-500 hover:text-blue-700'
+                        >
+                            Edit
+                        </button>
+                    )}
                 </div>
             </HoverCardContent>
         </HoverCard>

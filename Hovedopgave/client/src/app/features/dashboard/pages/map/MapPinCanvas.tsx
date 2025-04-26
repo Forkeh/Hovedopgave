@@ -194,6 +194,7 @@ const MapPinCanvas = ({
                             onMouseDown={handlePinMouseDown}
                             onEdit={handlePinEdit}
                             disableHoverCard={isDragging}
+                            isViewOnly={viewOnly}
                         />
                     </div>
                 ))}
