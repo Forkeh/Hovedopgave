@@ -23,19 +23,25 @@ export default function WikiSideMenu({
                 <AccordionItem value='item-1'>
                     <AccordionTrigger>NPC's</AccordionTrigger>
                     <AccordionContent>
-                        <div onClick={() => handleWikiEntry('1')}>Entry 1</div>
+                        <div onClick={() => handleWikiEntry('<p>1</p>')}>
+                            Entry 1
+                        </div>
                     </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value='item-2'>
                     <AccordionTrigger>Locations</AccordionTrigger>
                     <AccordionContent>
-                        <div onClick={() => handleWikiEntry('2')}>Entry 1</div>
+                        <div onClick={() => handleWikiEntry('<p>2</p>')}>
+                            Entry 1
+                        </div>
                     </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value='item-3'>
                     <AccordionTrigger>Lore</AccordionTrigger>
                     <AccordionContent>
-                        <div onClick={() => handleWikiEntry('3')}>Entry 1</div>
+                        <div onClick={() => handleWikiEntry('<p>3</p>')}>
+                            Entry 1
+                        </div>
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
