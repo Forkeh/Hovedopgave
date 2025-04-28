@@ -1,9 +1,9 @@
 ﻿using Hovedopgave.Core.Controllers;
-using Hovedopgave.Features.Campaign.DTOs;
-using Hovedopgave.Features.Campaign.Services;
+using Hovedopgave.Features.Campaigns.DTOs;
+using Hovedopgave.Features.Campaigns.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hovedopgave.Features.Campaign;
+namespace Hovedopgave.Features.Campaigns;
 
 public class CampaignsController(ICampaignService campaignService) : BaseApiController
 {

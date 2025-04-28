@@ -1,4 +1,4 @@
-﻿namespace Hovedopgave.Features.Campaign.Models;
+﻿namespace Hovedopgave.Features.Campaigns.Models;
 
 public class MapPin
 {

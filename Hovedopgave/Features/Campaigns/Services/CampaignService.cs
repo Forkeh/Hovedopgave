@@ -4,11 +4,12 @@ using Hovedopgave.Core.Data;
 using Hovedopgave.Core.Interfaces;
 using Hovedopgave.Core.Results;
 using Hovedopgave.Core.Services;
-using Hovedopgave.Features.Campaign.DTOs;
-using Hovedopgave.Features.Campaign.Models;
+using Hovedopgave.Features.Campaigns.DTOs;
+using Hovedopgave.Features.Campaigns.Services;
+using Hovedopgave.Features.Campaigns.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hovedopgave.Features.Campaign.Services;
+namespace Hovedopgave.Features.Campaigns.Services;
 
 public class CampaignService(
     AppDbContext context,

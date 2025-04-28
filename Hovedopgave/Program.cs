@@ -6,7 +6,7 @@ using Hovedopgave.Core.MappingProfiles;
 using Hovedopgave.Core.Middleware;
 using Hovedopgave.Core.Services;
 using Hovedopgave.Features.Account.Models;
-using Hovedopgave.Features.Campaign.Services;
+using Hovedopgave.Features.Campaigns.Services;
 using Hovedopgave.Features.Photos.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -45,7 +45,8 @@ builder.Services.AddScoped<IPhotoService, PhotoService>();
 var connectionString = builder.Configuration.GetValue<string>("CONNECTION_STRING");
 if (string.IsNullOrEmpty(connectionString))
 {
-    throw new InvalidOperationException("Connection string not found. Ensure the .env file is correctly configured and placed in the root directory.");
+    throw new InvalidOperationException(
+        "Connection string not found. Ensure the .env file is correctly configured and placed in the root directory.");
 }
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -81,11 +82,8 @@ app.UseCors(opt =>
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/openapi/v1.json", "Hovedopgave API");
-    });
+
+    app.UseSwaggerUI(options => { options.SwaggerEndpoint("/openapi/v1.json", "Hovedopgave API"); });
 }
 
 app.UseHttpsRedirection();

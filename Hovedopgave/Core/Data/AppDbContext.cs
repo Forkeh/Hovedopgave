@@ -1,5 +1,5 @@
 ﻿using Hovedopgave.Features.Account.Models;
-using Hovedopgave.Features.Campaign.Models;
+using Hovedopgave.Features.Campaigns.Models;
 using Hovedopgave.Features.Photos.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

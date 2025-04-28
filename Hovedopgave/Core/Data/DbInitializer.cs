@@ -1,5 +1,5 @@
 ﻿using Hovedopgave.Features.Account.Models;
-using Hovedopgave.Features.Campaign.Models;
+using Hovedopgave.Features.Campaigns.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace Hovedopgave.Core.Data;
@@ -32,29 +32,24 @@ public class DbInitializer
                     DungeonMaster = users[0],
                     Name = "Campaign 1",
                     Users = [users[1], users[2]]
-                    
                 },
                 new()
                 {
                     DungeonMaster = users[1],
                     Name = "Campaign 2",
                     Users = [users[0]]
-                    
                 },
                 new()
                 {
                     DungeonMaster = users[2],
-                    Name = "Campaign 3",
+                    Name = "Campaign 3"
                 }
             };
-            
+
             await context.Campaigns.AddRangeAsync(campaigns);
         }
-        
-       
-        
-        
-        
+
+
         await context.SaveChangesAsync();
     }
 }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Hovedopgave.Features.Account.Models;
-using Hovedopgave.Features.Campaign.DTOs;
-using Hovedopgave.Features.Campaign.Models;
+using Hovedopgave.Features.Campaigns.DTOs;
+using Hovedopgave.Features.Campaigns.Models;
 
 namespace Hovedopgave.Core.MappingProfiles;
 

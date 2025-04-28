@@ -1,4 +1,4 @@
-﻿using Hovedopgave.Features.Campaign.DTOs;
+﻿using Hovedopgave.Features.Campaigns.DTOs;
 using Hovedopgave.Features.Photos.Models;
 
 public class CampaignDto

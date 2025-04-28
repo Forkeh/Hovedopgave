@@ -1,7 +1,7 @@
 ﻿using Hovedopgave.Core.Results;
-using Hovedopgave.Features.Campaign.DTOs;
+using Hovedopgave.Features.Campaigns.DTOs;
 
-namespace Hovedopgave.Features.Campaign.Services;
+namespace Hovedopgave.Features.Campaigns.Services;
 
 public interface ICampaignService
 {

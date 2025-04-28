@@ -1,7 +1,7 @@
 ﻿using Hovedopgave.Features.Account.Models;
 using Hovedopgave.Features.Photos.Models;
 
-namespace Hovedopgave.Features.Campaign.Models;
+namespace Hovedopgave.Features.Campaigns.Models;
 
 public class Campaign
 {

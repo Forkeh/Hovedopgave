@@ -1,4 +1,4 @@
-﻿namespace Hovedopgave.Features.Campaign.DTOs;
+﻿namespace Hovedopgave.Features.Campaigns.DTOs;
 
 public class CreateCampaignDto
 {
