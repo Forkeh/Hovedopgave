@@ -9,7 +9,7 @@ public class Campaign
     public required User DungeonMaster { get; set; }
     public required string Name { get; set; }
     public string? PhotoId { get; set; }
-    public Photo Photo { get; set; } = null!;
+    public Photo? Photo { get; set; }
 
     // Navigation property
     public ICollection<User> Users { get; set; } = [];

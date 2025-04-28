@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Hovedopgave.Core.Data;
+using Hovedopgave.Core.Interfaces;
 using Hovedopgave.Core.Results;
 using Hovedopgave.Core.Services;
 using Hovedopgave.Features.Campaign.DTOs;
@@ -9,7 +10,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hovedopgave.Features.Campaign.Services;
 
-public class CampaignService(AppDbContext context, IUserAccessor userAccessor, IMapper mapper) : ICampaignService
+public class CampaignService(
+    AppDbContext context,
+    IUserAccessor userAccessor,
+    IMapper mapper,
+    ICloudinaryService cloudinaryService) : ICampaignService
 {
     public async Task<List<CampaignDto>> GetAllUserCampaigns()
     {
@@ -43,11 +48,17 @@ public class CampaignService(AppDbContext context, IUserAccessor userAccessor, I
 
         var campaign = await context.Campaigns
             .Where(x => x.Id == id && x.DungeonMaster.Id == user.Id)
+            .Include(x => x.Photo)
             .FirstOrDefaultAsync();
 
         if (campaign == null)
         {
             return Result<string>.Failure("Failed to find campaign with id or you are not the DM: " + id, 400);
+        }
+
+        if (campaign.Photo != null)
+        {
+            await cloudinaryService.DeletePhoto(campaign.Photo.PublicId);
         }
 
         context.Campaigns.Remove(campaign);
