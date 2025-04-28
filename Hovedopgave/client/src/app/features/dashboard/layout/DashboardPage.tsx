@@ -8,11 +8,9 @@ export default function DashboardPage() {
             <Sidebar />
 
             {/* Main content */}
-            <section className='flex-1 overflow-auto'>
-                <main className='p-8'>
-                    <Outlet />
-                </main>
-            </section>
+            <main className='flex-1 overflow-auto'>
+                <Outlet />
+            </main>
         </div>
     );
 }
