@@ -1,6 +1,7 @@
 ﻿using Hovedopgave.Features.Account.Models;
 using Hovedopgave.Features.Campaigns.Models;
 using Hovedopgave.Features.Photos.Models;
+using Hovedopgave.Features.Wiki.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ public class AppDbContext(DbContextOptions options) : IdentityDbContext<User>(op
     public required DbSet<Campaign> Campaigns { get; set; }
     public required DbSet<Photo> Photos { get; set; }
     public required DbSet<MapPin> MapPins { get; set; }
+    public required DbSet<WikiEntry> WikiEntries { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -27,5 +29,11 @@ public class AppDbContext(DbContextOptions options) : IdentityDbContext<User>(op
             .HasMany(c => c.Users)
             .WithMany(u => u.Campaigns)
             .UsingEntity(j => j.ToTable("CampaignUsers"));
+
+        builder.Entity<WikiEntry>()
+            .Property(e => e.Xmin)
+            .HasColumnType("xid")
+            .ValueGeneratedOnAddOrUpdate()
+            .IsConcurrencyToken();
     }
 }

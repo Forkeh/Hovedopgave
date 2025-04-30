@@ -5,7 +5,6 @@ using Hovedopgave.Core.Interfaces;
 using Hovedopgave.Core.Results;
 using Hovedopgave.Core.Services;
 using Hovedopgave.Features.Campaigns.DTOs;
-using Hovedopgave.Features.Campaigns.Services;
 using Hovedopgave.Features.Campaigns.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -75,7 +74,7 @@ public class CampaignService(
     {
         var user = await userAccessor.GetUserAsync();
 
-        var newCampaign = mapper.Map<Models.Campaign>(campaign);
+        var newCampaign = mapper.Map<Campaign>(campaign);
         newCampaign.DungeonMaster = user;
 
         await context.Campaigns.AddAsync(newCampaign);

@@ -8,6 +8,7 @@ using Hovedopgave.Core.Services;
 using Hovedopgave.Features.Account.Models;
 using Hovedopgave.Features.Campaigns.Services;
 using Hovedopgave.Features.Photos.Services;
+using Hovedopgave.Features.Wiki.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -39,6 +40,7 @@ builder.Services.Configure<CloudinarySettings>(builder.Configuration
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 builder.Services.AddScoped<ICampaignService, CampaignService>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
+builder.Services.AddScoped<IWikiService, WikiService>();
 
 
 // Postgres for dev og prod
