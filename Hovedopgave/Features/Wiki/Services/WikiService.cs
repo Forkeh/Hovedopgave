@@ -58,8 +58,6 @@ public class WikiService(
 
     public async Task<Result<List<WikiEntryDto>>> GetWikiEntriesForCampaign(string campaignId)
     {
-        var user = await userAccessor.GetUserAsync();
-
         var campaign = await context.Campaigns
             .Where(x => x.Id == campaignId)
             .FirstOrDefaultAsync();
@@ -119,8 +117,10 @@ public class WikiService(
             return Result<WikiEntryDto>.Failure("Entry has already been updated recently", 400);
         }
 
+        var sanitizer = new HtmlSanitizer();
+
         wikiEntry.Name = wikiEntryDto.Name;
-        wikiEntry.Content = wikiEntryDto.Content;
+        wikiEntry.Content = sanitizer.Sanitize(wikiEntryDto.Content);
         wikiEntry.Type = wikiEntryDto.Type;
 
         if (!string.IsNullOrEmpty(wikiEntryDto.Photo?.Id))
@@ -134,7 +134,7 @@ public class WikiService(
         }
 
         context.WikiEntries.Update(wikiEntry);
-        
+
         var result = await context.SaveChangesAsync() > 0;
 
         return result
