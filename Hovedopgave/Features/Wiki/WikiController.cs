@@ -45,4 +45,17 @@ public class WikiController(IWikiService wikiService) : BaseApiController
 
         return Ok(result.Value);
     }
+
+    [HttpPut]
+    public async Task<ActionResult<WikiEntryDto>> UpdateWikiEntry(WikiEntryDto wikiEntryDto)
+    {
+        var result = await wikiService.UpdateWikiEntry(wikiEntryDto);
+
+        if (!result.IsSuccess)
+        {
+            return BadRequest(result.Error);
+        }
+
+        return Ok(result.Value);
+    }
 }

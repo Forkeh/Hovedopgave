@@ -104,4 +104,41 @@ public class WikiService(
             ? Result<string>.Failure("Failed to delete wiki entry", 400)
             : Result<string>.Success(entry.Id);
     }
+
+    public async Task<Result<WikiEntryDto>> UpdateWikiEntry(WikiEntryDto wikiEntryDto)
+    {
+        var wikiEntry = await context.WikiEntries.FindAsync(wikiEntryDto.Id);
+
+        if (wikiEntry is null)
+        {
+            return Result<WikiEntryDto>.Failure("Failed to find wiki entry", 404);
+        }
+
+        if (wikiEntryDto.Xmin != wikiEntry.Xmin)
+        {
+            return Result<WikiEntryDto>.Failure("Entry has already been updated recently", 400);
+        }
+
+        wikiEntry.Name = wikiEntryDto.Name;
+        wikiEntry.Content = wikiEntryDto.Content;
+        wikiEntry.Type = wikiEntryDto.Type;
+
+        if (!string.IsNullOrEmpty(wikiEntryDto.Photo?.Id))
+        {
+            var photo = await context.Photos.FindAsync(wikiEntryDto.Photo.Id);
+
+            if (photo is not null)
+            {
+                wikiEntry.Photo = photo;
+            }
+        }
+
+        context.WikiEntries.Update(wikiEntry);
+        
+        var result = await context.SaveChangesAsync() > 0;
+
+        return result
+            ? Result<WikiEntryDto>.Success(mapper.Map<WikiEntryDto>(wikiEntry))
+            : Result<WikiEntryDto>.Failure("Failed to update wiki entry", 400);
+    }
 }
