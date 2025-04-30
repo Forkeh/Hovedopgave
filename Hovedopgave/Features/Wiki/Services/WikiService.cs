@@ -66,7 +66,7 @@ public class WikiService(
 
         if (campaign == null)
         {
-            return Result<List<WikiEntryDto>>.Failure($"Failed to find campaign with id: {campaignId}", 400);
+            return Result<List<WikiEntryDto>>.Failure($"Failed to find campaign with id: {campaignId}", 404);
         }
 
         var wikiEntries = await context.WikiEntries
@@ -75,5 +75,33 @@ public class WikiService(
             .ToListAsync();
 
         return Result<List<WikiEntryDto>>.Success(mapper.Map<List<WikiEntryDto>>(wikiEntries));
+    }
+
+    public async Task<Result<string>> DeleteWikiEntry(string wikiEntryId)
+    {
+        var user = await userAccessor.GetUserAsync();
+
+        var entry = await context.WikiEntries
+            .Include(x => x.Campaign.DungeonMaster)
+            .Where(x => x.Id == wikiEntryId)
+            .FirstOrDefaultAsync();
+
+        if (entry == null)
+        {
+            return Result<string>.Failure("Failed to find wiki entry", 404);
+        }
+
+        if (entry.Campaign.DungeonMaster.Id != user.Id)
+        {
+            return Result<string>.Failure("Only the DM can delete wiki entries", 403);
+        }
+
+        context.WikiEntries.Remove(entry);
+
+        var result = await context.SaveChangesAsync() > 0;
+
+        return !result
+            ? Result<string>.Failure("Failed to delete wiki entry", 400)
+            : Result<string>.Success(entry.Id);
     }
 }

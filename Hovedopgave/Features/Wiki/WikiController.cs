@@ -32,4 +32,17 @@ public class WikiController(IWikiService wikiService) : BaseApiController
 
         return Ok(result.Value);
     }
+
+    [HttpDelete("{wikiEntryId}")]
+    public async Task<ActionResult<string>> DeleteWikiEntry(string wikiEntryId)
+    {
+        var result = await wikiService.DeleteWikiEntry(wikiEntryId);
+
+        if (!result.IsSuccess)
+        {
+            return BadRequest(result.Error);
+        }
+
+        return Ok(result.Value);
+    }
 }
