@@ -19,4 +19,17 @@ public class WikiController(IWikiService wikiService) : BaseApiController
 
         return Ok(result.Value);
     }
+
+    [HttpGet("campaign/{campaignId}")]
+    public async Task<ActionResult<List<WikiEntryDto>>> GetWikiEntriesForCampaign(string campaignId)
+    {
+        var result = await wikiService.GetWikiEntriesForCampaign(campaignId);
+
+        if (!result.IsSuccess)
+        {
+            return BadRequest(result.Error);
+        }
+
+        return Ok(result.Value);
+    }
 }

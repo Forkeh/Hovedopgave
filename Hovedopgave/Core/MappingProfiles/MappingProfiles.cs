@@ -25,5 +25,7 @@ public class MappingProfiles : Profile
         CreateMap<CreateWikiEntryDto, WikiEntry>()
             .ForMember(d => d.Campaign, opt => opt.Ignore())
             .ForMember(d => d.Photo, opt => opt.Ignore());
+
+        CreateMap<WikiEntry, WikiEntryDto>();
     }
 }

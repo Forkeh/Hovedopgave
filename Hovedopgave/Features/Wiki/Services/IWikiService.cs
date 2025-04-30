@@ -6,4 +6,5 @@ namespace Hovedopgave.Features.Wiki.Services;
 public interface IWikiService
 {
     Task<Result<string>> CreateWikiEntry(CreateWikiEntryDto wikiEntryDto);
+    Task<Result<List<WikiEntryDto>>> GetWikiEntriesForCampaign(string campaignId);
 }

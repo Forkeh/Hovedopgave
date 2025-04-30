@@ -25,7 +25,7 @@ public class WikiService(
 
         if (campaign == null)
         {
-            return Result<string>.Failure("Failed to find campaign with id or you are not the DM: ", 400);
+            return Result<string>.Failure("Failed to find campaign with id or you are not the DM", 400);
         }
 
 
@@ -54,5 +54,26 @@ public class WikiService(
         return !result
             ? Result<string>.Failure("Failed to create wiki entry", 400)
             : Result<string>.Success(entry.Id);
+    }
+
+    public async Task<Result<List<WikiEntryDto>>> GetWikiEntriesForCampaign(string campaignId)
+    {
+        var user = await userAccessor.GetUserAsync();
+
+        var campaign = await context.Campaigns
+            .Where(x => x.Id == campaignId)
+            .FirstOrDefaultAsync();
+
+        if (campaign == null)
+        {
+            return Result<List<WikiEntryDto>>.Failure($"Failed to find campaign with id: {campaignId}", 400);
+        }
+
+        var wikiEntries = await context.WikiEntries
+            .Where(x => x.CampaignId == campaignId)
+            .Include(x => x.Photo)
+            .ToListAsync();
+
+        return Result<List<WikiEntryDto>>.Success(mapper.Map<List<WikiEntryDto>>(wikiEntries));
     }
 }

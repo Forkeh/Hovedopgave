@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using DotNetEnv;
 using Hovedopgave.Core.Configuration;
 using Hovedopgave.Core.Data;
@@ -60,10 +61,9 @@ builder.Services.AddIdentityApiEndpoints<User>(opt => { opt.User.RequireUniqueEm
 
 builder.Services.AddControllers(opt =>
 {
-    // TODO Turn on authentication
     var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
     opt.Filters.Add(new AuthorizeFilter(policy));
-});
+}).AddJsonOptions(opt => { opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
