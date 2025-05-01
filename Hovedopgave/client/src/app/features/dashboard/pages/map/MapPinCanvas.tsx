@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import MapPin from './MapPin';
+import { Pin } from '@/lib/types';
 
 type Props = {
     image: string;

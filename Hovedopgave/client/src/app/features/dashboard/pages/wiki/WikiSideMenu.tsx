@@ -7,6 +7,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { WikiEntryType } from '@/lib/enums/wikiEntryType';
 import { WikiEntry } from '@/lib/types';
+import { useNavigate } from 'react-router';
 
 type Props = {
     wikiEntries: WikiEntry[] | undefined;
@@ -17,6 +18,8 @@ export default function WikiSideMenu({
     wikiEntries,
     onSelectWikiEntry,
 }: Props) {
+    const navigate = useNavigate();
+
     const npcEntries = wikiEntries!.filter(
         (entry) => entry.type === WikiEntryType.Npc,
     );
@@ -31,7 +34,12 @@ export default function WikiSideMenu({
 
     return (
         <nav className='flex w-64 flex-col bg-gray-800 p-3 text-white'>
-            <Button variant='secondary'>Create entry</Button>
+            <Button
+                onClick={() => navigate('create')}
+                variant='secondary'
+            >
+                Create entry
+            </Button>
             <Accordion
                 type='single'
                 collapsible

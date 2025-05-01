@@ -40,7 +40,7 @@ const Tiptap = ({ content, onChange }: Props) => {
         content: content,
         editorProps: {
             attributes: {
-                class: 'min-h-[156px] border rounded-md bg-slate-50 py-2 px-3 prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none',
+                class: 'min-h-[156px] border rounded-md bg-slate-50 py-2 px-3 prose m-5 focus:outline-none',
             },
         },
         onUpdate: ({ editor }) => {

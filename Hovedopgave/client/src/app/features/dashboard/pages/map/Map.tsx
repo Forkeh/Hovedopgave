@@ -5,6 +5,7 @@ import EditPinDialog from './EditPinDialog';
 import { useCampaigns } from '@/lib/hooks/useCampaigns';
 import { toast } from 'react-toastify';
 import { Button } from '@/components/ui/button';
+import { Campaign, Pin } from '@/lib/types';
 
 type Props = {
     isViewOnly: boolean;

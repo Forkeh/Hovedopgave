@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import agent from '../api/agent';
+import { Campaign, Pin } from '../types';
 
 export const useCampaigns = (id?: string) => {
     const queryClient = useQueryClient();

@@ -12,6 +12,7 @@ import WikiPage from '../features/dashboard/pages/wiki/WikiPage';
 import DashboardPage from '../features/dashboard/layout/DashboardPage';
 import Players from '../features/dashboard/pages/players/Players';
 import WikiEntryView from '../features/dashboard/pages/wiki/WikiEntryView';
+import WikiEntryForm from '../features/dashboard/pages/wiki/WikiEntryForm';
 
 export const router = createBrowserRouter([
     {
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
                                             {
                                                 path: ':entryId',
                                                 element: <WikiEntryView />,
+                                            },
+                                            {
+                                                path: 'create',
+                                                element: <WikiEntryForm />,
                                             },
                                         ],
                                     },

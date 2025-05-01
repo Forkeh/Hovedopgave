@@ -16,6 +16,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import PinIcon from './icons/PinIcon';
+import { Pin } from '@/lib/types';
 
 type Props = {
     isEditDialogOpen: boolean;

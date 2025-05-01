@@ -6,6 +6,7 @@ import {
 } from '@/components/ui/hover-card';
 import PinIcon from './icons/PinIcon';
 import { PinIconsMap } from './icons/PinIconsMap';
+import { Pin } from '@/lib/types';
 
 type Props = {
     pin: Pin;
