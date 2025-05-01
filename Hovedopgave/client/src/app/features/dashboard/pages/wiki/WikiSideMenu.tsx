@@ -5,14 +5,29 @@ import {
     AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
+import { WikiEntryType } from '@/lib/enums/wikiEntryType';
 
 type Props = {
+    wikiEntries: WikiEntry[] | undefined;
     onSelectWikiEntry: (id: string) => void;
 };
 
 export default function WikiSideMenu({
-    onSelectWikiEntry: handleWikiEntry,
+    wikiEntries,
+    onSelectWikiEntry,
 }: Props) {
+    const npcEntries = wikiEntries!.filter(
+        (entry) => entry.type === WikiEntryType.Npc,
+    );
+
+    const locationEntries = wikiEntries!.filter(
+        (entry) => entry.type === WikiEntryType.Location,
+    );
+
+    const loreEntries = wikiEntries!.filter(
+        (entry) => entry.type === WikiEntryType.Lore,
+    );
+
     return (
         <nav className='flex w-64 flex-col bg-gray-800 p-3 text-white'>
             <Button variant='secondary'>Create entry</Button>
@@ -23,25 +38,40 @@ export default function WikiSideMenu({
                 <AccordionItem value='item-1'>
                     <AccordionTrigger>NPC's</AccordionTrigger>
                     <AccordionContent>
-                        <div onClick={() => handleWikiEntry('<p>1</p>')}>
-                            Entry 1
-                        </div>
+                        {npcEntries.map((entry) => (
+                            <div
+                                key={entry.id}
+                                onClick={() => onSelectWikiEntry('<p>1</p>')}
+                            >
+                                {entry.name}
+                            </div>
+                        ))}
                     </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value='item-2'>
                     <AccordionTrigger>Locations</AccordionTrigger>
                     <AccordionContent>
-                        <div onClick={() => handleWikiEntry('<p>2</p>')}>
-                            Entry 1
-                        </div>
+                        {locationEntries.map((entry) => (
+                            <div
+                                key={entry.id}
+                                onClick={() => onSelectWikiEntry('<p>1</p>')}
+                            >
+                                {entry.name}
+                            </div>
+                        ))}
                     </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value='item-3'>
                     <AccordionTrigger>Lore</AccordionTrigger>
                     <AccordionContent>
-                        <div onClick={() => handleWikiEntry('<p>3</p>')}>
-                            Entry 1
-                        </div>
+                        {loreEntries.map((entry) => (
+                            <div
+                                key={entry.id}
+                                onClick={() => onSelectWikiEntry('<p>1</p>')}
+                            >
+                                {entry.name}
+                            </div>
+                        ))}
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>

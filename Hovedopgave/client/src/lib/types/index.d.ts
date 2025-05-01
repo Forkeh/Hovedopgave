@@ -29,3 +29,13 @@ type Pin = {
     description: string;
     icon: string;
 };
+
+type WikiEntry = {
+    id: string;
+    type: WikiEntryType;
+    name: string;
+    content: string;
+    xmin: number;
+    campaignId: string;
+    photo: Photo?;
+};

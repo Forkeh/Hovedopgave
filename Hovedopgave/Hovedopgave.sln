@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hovedopgave", "Hovedopgave.csproj", "{F76FB7E4-2F35-159B-9250-718595B52AB2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F76FB7E4-2F35-159B-9250-718595B52AB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F76FB7E4-2F35-159B-9250-718595B52AB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F76FB7E4-2F35-159B-9250-718595B52AB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F76FB7E4-2F35-159B-9250-718595B52AB2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B6AF3B4-18BB-4EB5-9BC2-4C2BEFC02289}
+	EndGlobalSection
+EndGlobal
