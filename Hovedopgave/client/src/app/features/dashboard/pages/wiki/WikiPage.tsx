@@ -1,11 +1,14 @@
 import WikiSideMenu from './WikiSideMenu';
-import WikiEntry from './WikiEntry';
+import WikiEntryView from './WikiEntry';
 import { useState } from 'react';
 import { useWiki } from '@/lib/hooks/useWiki';
 import { useParams } from 'react-router';
+import { WikiEntry } from '@/lib/types';
 
 export default function WikiPage() {
-    const [selectedWikiEntry, setSelectedWikiEntry] = useState<string>('');
+    const [selectedWikiEntry, setSelectedWikiEntry] = useState<
+        WikiEntry | undefined
+    >(undefined);
 
     const { id } = useParams();
 
@@ -18,7 +21,7 @@ export default function WikiPage() {
     return (
         <section className='flex h-full justify-between'>
             <main className='w-full'>
-                <WikiEntry content={selectedWikiEntry} />
+                <WikiEntryView wikiEntry={selectedWikiEntry} />
             </main>
             <WikiSideMenu
                 wikiEntries={wikiEntries}

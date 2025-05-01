@@ -6,10 +6,11 @@ import {
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { WikiEntryType } from '@/lib/enums/wikiEntryType';
+import { WikiEntry } from '@/lib/types';
 
 type Props = {
     wikiEntries: WikiEntry[] | undefined;
-    onSelectWikiEntry: (id: string) => void;
+    onSelectWikiEntry: (wikiEntry: WikiEntry) => void;
 };
 
 export default function WikiSideMenu({
@@ -41,7 +42,7 @@ export default function WikiSideMenu({
                         {npcEntries.map((entry) => (
                             <div
                                 key={entry.id}
-                                onClick={() => onSelectWikiEntry('<p>1</p>')}
+                                onClick={() => onSelectWikiEntry(entry)}
                             >
                                 {entry.name}
                             </div>
@@ -54,7 +55,7 @@ export default function WikiSideMenu({
                         {locationEntries.map((entry) => (
                             <div
                                 key={entry.id}
-                                onClick={() => onSelectWikiEntry('<p>1</p>')}
+                                onClick={() => onSelectWikiEntry(entry)}
                             >
                                 {entry.name}
                             </div>
@@ -67,7 +68,7 @@ export default function WikiSideMenu({
                         {loreEntries.map((entry) => (
                             <div
                                 key={entry.id}
-                                onClick={() => onSelectWikiEntry('<p>1</p>')}
+                                onClick={() => onSelectWikiEntry(entry)}
                             >
                                 {entry.name}
                             </div>

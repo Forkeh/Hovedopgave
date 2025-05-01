@@ -1,3 +1,5 @@
+import { WikiEntryType } from "../enums/wikiEntryType";
+
 type User = {
     id: string;
     email: string;
