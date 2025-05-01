@@ -7,6 +7,7 @@ public interface IWikiService
 {
     Task<Result<string>> CreateWikiEntry(CreateWikiEntryDto wikiEntryDto);
     Task<Result<List<WikiEntryDto>>> GetWikiEntriesForCampaign(string campaignId);
+    Task<Result<WikiEntryDto>> GetWikiEntry(string entryId);
     Task<Result<string>> DeleteWikiEntry(string wikiEntryId);
     Task<Result<WikiEntryDto>> UpdateWikiEntry(WikiEntryDto wikiEntryDto);
 }

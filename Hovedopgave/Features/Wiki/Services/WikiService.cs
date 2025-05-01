@@ -141,4 +141,19 @@ public class WikiService(
             ? Result<WikiEntryDto>.Success(mapper.Map<WikiEntryDto>(wikiEntry))
             : Result<WikiEntryDto>.Failure("Failed to update wiki entry", 400);
     }
+
+    public async Task<Result<WikiEntryDto>> GetWikiEntry(string entryId)
+    {
+         var wikiEntry = await context.WikiEntries
+            .Where(x => x.Id == entryId)
+            .Include(x => x.Photo)
+            .FirstAsync();
+
+        if (wikiEntry is null)
+        {
+            return Result<WikiEntryDto>.Failure("Failed to find wiki entry", 404);
+        }
+
+        return Result<WikiEntryDto>.Success(mapper.Map<WikiEntryDto>(wikiEntry));
+    }
 }

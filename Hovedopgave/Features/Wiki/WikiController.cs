@@ -33,6 +33,20 @@ public class WikiController(IWikiService wikiService) : BaseApiController
         return Ok(result.Value);
     }
 
+    [HttpGet("{entryId}")]
+    public async Task<ActionResult<WikiEntryDto>> GetWikiEntry(string entryId)
+    {
+        var result = await wikiService.GetWikiEntry(entryId);
+
+        if (!result.IsSuccess)
+        {
+            return BadRequest(result.Error);
+        }
+
+        return Ok(result.Value);
+    }
+
+
     [HttpDelete("{wikiEntryId}")]
     public async Task<ActionResult<string>> DeleteWikiEntry(string wikiEntryId)
     {

@@ -1,15 +1,27 @@
-import { WikiEntry } from '@/lib/types';
+import { useWiki } from '@/lib/hooks/useWiki';
 import { PencilIcon } from 'lucide-react';
+import { useParams } from 'react-router';
 
-type Props = {
-    wikiEntry: WikiEntry | undefined;
-};
+export default function WikiEntryView() {
+    const { entryId } = useParams();
+    const { wikiEntry, wikiEntryIsLoading } = useWiki(undefined, entryId);
 
-export default function WikiEntryView({ wikiEntry }: Props) {
+    const onEdit = () => {
+        console.log('Go to edit form page!');
+    };
+
+    if (wikiEntryIsLoading) {
+        return (
+            <div className='flex h-full items-center justify-center text-4xl font-semibold'>
+                Loading entry...
+            </div>
+        );
+    }
+
     if (!wikiEntry) {
         return (
             <div className='flex h-full items-center justify-center text-4xl font-semibold'>
-                Select an entry 👉
+                Could not find entry
             </div>
         );
     }
@@ -18,9 +30,8 @@ export default function WikiEntryView({ wikiEntry }: Props) {
         <div className='relative mx-auto mt-5 flex w-full max-w-3xl flex-col rounded-lg bg-white p-6 shadow-md'>
             {/* Edit button in top right corner */}
             <button
-                // onClick={onEdit}
+                onClick={onEdit}
                 className='absolute top-4 right-4 cursor-pointer rounded-full bg-gray-200 p-2 transition-colors hover:bg-gray-300'
-                aria-label='Edit wiki entry'
             >
                 <PencilIcon className='h-5 w-5 text-gray-600' />
             </button>

@@ -1,30 +1,29 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import agent from '../api/agent';
+import { WikiEntry } from '../types';
 
-export const useWiki = (campaignId?: string) => {
+export const useWiki = (campaignId?: string, entryId?: string) => {
     const queryClient = useQueryClient();
 
     const { data: wikiEntries, isLoading: wikiEntriesIsLoading } = useQuery({
-        queryKey: ['wiki', campaignId],
+        queryKey: ['wikiCampaignList', campaignId],
         queryFn: async () => {
             const response = await agent.get<WikiEntry[]>(
                 `/wiki/campaign/${campaignId}`,
             );
             return response.data;
         },
-        // enabled: !campaignId && location.pathname === '/campaigns',
+        enabled: !!campaignId,
     });
 
-    // const { data: campaign, isLoading: campaignIsLoading } = useQuery({
-    //     queryKey: ['campaign', campaignId],
-    //     queryFn: async () => {
-    //         const response = await agent.get<Campaign>(
-    //             `/campaigns/${campaignId}`,
-    //         );
-    //         return response.data;
-    //     },
-    //     enabled: !!campaignId,
-    // });
+    const { data: wikiEntry, isLoading: wikiEntryIsLoading } = useQuery({
+        queryKey: ['wikiEntry', entryId],
+        queryFn: async () => {
+            const response = await agent.get<WikiEntry>(`/wiki/${entryId}`);
+            return response.data;
+        },
+        enabled: !!entryId,
+    });
 
     // const createCampaign = useMutation({
     //     mutationFn: async (campaign: { Name: string }) => {
@@ -105,5 +104,7 @@ export const useWiki = (campaignId?: string) => {
     return {
         wikiEntries,
         wikiEntriesIsLoading,
+        wikiEntry,
+        wikiEntryIsLoading,
     };
 };

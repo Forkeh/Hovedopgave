@@ -11,6 +11,7 @@ import MapPage from '../features/dashboard/pages/map/MapPage';
 import WikiPage from '../features/dashboard/pages/wiki/WikiPage';
 import DashboardPage from '../features/dashboard/layout/DashboardPage';
 import Players from '../features/dashboard/pages/players/Players';
+import WikiEntryView from '../features/dashboard/pages/wiki/WikiEntryView';
 
 export const router = createBrowserRouter([
     {
@@ -34,17 +35,29 @@ export const router = createBrowserRouter([
                                         path: 'map',
                                         element: <MapPage />,
                                     },
-                                    { path: 'wiki', element: <WikiPage /> },
+                                    {
+                                        path: 'wiki',
+                                        element: <WikiPage />,
+                                        children: [
+                                            {
+                                                index: true,
+                                                element: (
+                                                    <div className='flex h-full items-center justify-center text-4xl font-semibold'>
+                                                        Select an entry 👉
+                                                    </div>
+                                                ),
+                                            },
+                                            {
+                                                path: ':entryId',
+                                                element: <WikiEntryView />,
+                                            },
+                                        ],
+                                    },
                                     { path: 'players', element: <Players /> },
                                 ],
                             },
                         ],
                     },
-
-                    // { path: 'activities/:id', element: <ActivityDetailPage /> },
-                    // { path: 'createActivity', element: <ActivityForm key='create' /> },
-                    // { path: 'manage/:id', element: <ActivityForm /> },
-                    // { path: 'profiles/:id', element: <ProfilePage /> },
                 ],
             },
             { path: 'register', element: <RegisterForm /> },

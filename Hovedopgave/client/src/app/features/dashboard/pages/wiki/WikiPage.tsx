@@ -1,31 +1,29 @@
 import WikiSideMenu from './WikiSideMenu';
-import WikiEntryView from './WikiEntry';
-import { useState } from 'react';
 import { useWiki } from '@/lib/hooks/useWiki';
-import { useParams } from 'react-router';
+import { Outlet, useNavigate, useParams } from 'react-router';
 import { WikiEntry } from '@/lib/types';
 
 export default function WikiPage() {
-    const [selectedWikiEntry, setSelectedWikiEntry] = useState<
-        WikiEntry | undefined
-    >(undefined);
-
     const { id } = useParams();
-
     const { wikiEntries, wikiEntriesIsLoading } = useWiki(id);
+    const navigate = useNavigate();
+
+    const handleSelectWikiEntry = (wikiEntry: WikiEntry) => {
+        navigate(`${wikiEntry.id}`);
+    };
 
     if (wikiEntriesIsLoading) {
         return <div>Wiki is loading...</div>;
     }
 
     return (
-        <section className='flex h-full justify-between'>
-            <main className='w-full'>
-                <WikiEntryView wikiEntry={selectedWikiEntry} />
+        <section className='flex h-full'>
+            <main className='flex-1'>
+                <Outlet />
             </main>
             <WikiSideMenu
                 wikiEntries={wikiEntries}
-                onSelectWikiEntry={setSelectedWikiEntry}
+                onSelectWikiEntry={handleSelectWikiEntry}
             />
         </section>
     );
