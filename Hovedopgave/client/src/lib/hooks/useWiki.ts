@@ -25,17 +25,17 @@ export const useWiki = (campaignId?: string, entryId?: string) => {
         enabled: !!entryId,
     });
 
-    // const createCampaign = useMutation({
-    //     mutationFn: async (campaign: { Name: string }) => {
-    //         const response = await agent.post('/campaigns', campaign);
-    //         return response.data;
-    //     },
-    //     onSuccess: async () => {
-    //         await queryClient.invalidateQueries({
-    //             queryKey: ['campaigns'],
-    //         });
-    //     },
-    // });
+    const createWikiEntry = useMutation({
+        mutationFn: async (wikiEntry: WikiEntry) => {
+            const response = await agent.post('/wiki', wikiEntry);
+            return response.data;
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ['wikiCampaignList', campaignId],
+            });
+        },
+    });
 
     // const deleteCampaign = useMutation({
     //     mutationFn: async () => {
@@ -106,5 +106,6 @@ export const useWiki = (campaignId?: string, entryId?: string) => {
         wikiEntriesIsLoading,
         wikiEntry,
         wikiEntryIsLoading,
+        createWikiEntry,
     };
 };
