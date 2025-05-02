@@ -28,7 +28,7 @@ export default function Sidebar() {
     };
     return (
         <aside
-            className={`bg-gray-800 text-white transition-all duration-200 ${
+            className={`min-h-full bg-gray-800 text-white transition-all duration-200 ${
                 collapsed ? 'w-16' : 'w-64'
             }`}
         >

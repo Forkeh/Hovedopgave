@@ -13,7 +13,9 @@ function App() {
                 <main className='flex h-screen flex-col'>
                     <NavBar />
 
-                    <Outlet />
+                    <div className='flex-1 overflow-auto'>
+                        <Outlet />
+                    </div>
                 </main>
             )}
         </>
