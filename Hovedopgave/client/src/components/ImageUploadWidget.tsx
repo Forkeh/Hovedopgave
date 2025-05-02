@@ -40,20 +40,23 @@ export default function ImageUploadWidget({ uploadPhoto, loading }: Props) {
     });
 
     return (
-        <div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
+        <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
             <div>
                 <p className='mb-2 text-xs font-medium tracking-wider text-purple-600 uppercase'>
                     Step 1 - Add image
                 </p>
                 <div
                     {...getRootProps()}
-                    className={`flex h-[280px] cursor-pointer flex-col items-center justify-center rounded-md border-3 border-dashed p-8 text-center ${
+                    className={`flex h-[200px] cursor-pointer flex-col items-center justify-center rounded-md border-3 border-dashed p-4 text-center sm:h-[280px] sm:p-8 ${
                         isDragActive ? 'border-green-500' : 'border-gray-200'
                     }`}
                 >
                     <input {...getInputProps()} />
-                    <CloudUpload size={60} />
-                    <p className='mt-2 text-xl'>Drop image here</p>
+                    <CloudUpload
+                        size={40}
+                        className='sm:size-60'
+                    />
+                    <p className='mt-2 text-base sm:text-xl'>Drop image here</p>
                 </div>
             </div>
 
@@ -65,7 +68,7 @@ export default function ImageUploadWidget({ uploadPhoto, loading }: Props) {
                         </p>
                         <Cropper
                             src={files[0].preview}
-                            style={{ height: 300, width: '90%' }}
+                            style={{ height: 200, width: '100%' }}
                             initialAspectRatio={1}
                             aspectRatio={1}
                             preview='.img-preview'
@@ -87,15 +90,16 @@ export default function ImageUploadWidget({ uploadPhoto, loading }: Props) {
                         <div
                             className='img-preview mb-3'
                             style={{
-                                width: 300,
-                                height: 300,
+                                width: '100%',
+                                maxWidth: 200,
+                                height: 200,
                                 overflow: 'hidden',
                             }}
                         />
                         <button
                             onClick={onCrop}
                             disabled={loading}
-                            className='w-[300px] rounded-md bg-purple-600 px-4 py-2 text-white transition hover:bg-purple-700 disabled:cursor-not-allowed disabled:bg-purple-300'
+                            className='w-full max-w-[200px] rounded-md bg-purple-600 px-4 py-2 text-white transition hover:bg-purple-700 disabled:cursor-not-allowed disabled:bg-purple-300'
                         >
                             Upload
                         </button>

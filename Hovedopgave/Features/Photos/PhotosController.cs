@@ -19,4 +19,17 @@ public class PhotosController(IPhotoService photoService) : BaseApiController
         
         return Ok(result.Value);
     }
+
+    [HttpPost("add-wiki-entry-photo/{campaignId}")]
+    public async Task<ActionResult<Photo>> AddWikiEntryPhoto(IFormFile file, string campaignId)
+    {
+        var result = await photoService.AddWikiEntryPhoto(file, campaignId);
+        
+        if (!result.IsSuccess)
+        {
+            return BadRequest(result.Error);
+        }
+        
+        return Ok(result.Value);
+    }
 }

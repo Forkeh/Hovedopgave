@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import agent from '../api/agent';
-import { WikiEntry } from '../types';
+import { Photo, WikiEntry } from '../types';
 
 export const useWiki = (campaignId?: string, entryId?: string) => {
     const queryClient = useQueryClient();
@@ -25,7 +25,22 @@ export const useWiki = (campaignId?: string, entryId?: string) => {
         enabled: !!entryId,
     });
 
-    const createWikiEntry = useMutation({
+    const uploadWikiEntryPhoto = useMutation<Photo, Error, Blob>({
+        mutationFn: async (file: Blob) => {
+            const formData = new FormData();
+            formData.append('file', file);
+            const response = await agent.post(
+                `/photos/add-wiki-entry-photo/${campaignId}`,
+                formData,
+                {
+                    headers: { 'Content-Type': 'multipart/form-data' },
+                },
+            );
+            return response.data;
+        },
+    });
+
+    const createWikiEntry = useMutation<string, Error, WikiEntry>({
         mutationFn: async (wikiEntry: WikiEntry) => {
             const response = await agent.post('/wiki', wikiEntry);
             return response.data;
@@ -37,75 +52,12 @@ export const useWiki = (campaignId?: string, entryId?: string) => {
         },
     });
 
-    // const deleteCampaign = useMutation({
-    //     mutationFn: async () => {
-    //         const response = await agent.delete(`/campaigns/${campaignId}`);
-    //         return response.data;
-    //     },
-    //     onSuccess: async () => {
-    //         await queryClient.invalidateQueries({
-    //             queryKey: ['campaigns', campaignId],
-    //         });
-    //     },
-    // });
-
-    // const uploadCampaignMap = useMutation({
-    //     mutationFn: async (file: Blob) => {
-    //         const formData = new FormData();
-    //         formData.append('file', file);
-    //         const response = await agent.post(
-    //             `/photos/add-campaign-photo/${campaignId}`,
-    //             formData,
-    //             {
-    //                 headers: { 'Content-Type': 'multipart/form-data' },
-    //             },
-    //         );
-    //         return response.data;
-    //     },
-    //     onSuccess: async () => {
-    //         await queryClient.invalidateQueries({
-    //             queryKey: ['campaign', campaignId],
-    //         });
-    //     },
-    // });
-
-    // const setCampaignMapPins = useMutation({
-    //     mutationFn: async (pins: Pin[]) => {
-    //         const response = await agent.post(
-    //             `/campaigns/${campaignId}/pins`,
-    //             pins,
-    //         );
-    //         return response.data;
-    //     },
-    //     onSuccess: async () => {
-    //         await queryClient.invalidateQueries({
-    //             queryKey: ['campaign', campaignId],
-    //         });
-    //     },
-    // });
-
-    // const addPlayerToCampaign = useMutation({
-    //     mutationFn: async (playerEmail: string) => {
-    //         const response = await agent.post(
-    //             `/campaigns/${campaignId}/add-player`,
-    //             {
-    //                 username: playerEmail,
-    //             },
-    //         );
-    //         return response.data;
-    //     },
-    //     onSuccess: async () => {
-    //         await queryClient.invalidateQueries({
-    //             queryKey: ['campaign', campaignId],
-    //         });
-    //     },
-    // });
-
     return {
         wikiEntries,
         wikiEntriesIsLoading,
         wikiEntry,
         wikiEntryIsLoading,
         createWikiEntry,
+        uploadWikiEntryPhoto,
     };
 };

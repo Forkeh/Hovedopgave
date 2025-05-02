@@ -1,4 +1,4 @@
-import { WikiEntryType } from "../enums/wikiEntryType";
+import { WikiEntryType } from '../enums/wikiEntryType';
 
 type User = {
     id: string;
@@ -34,10 +34,11 @@ type Pin = {
 
 type WikiEntry = {
     id: string;
-    type: WikiEntryType;
+    campaignId: string;
     name: string;
     content: string;
-    xmin: number;
-    campaignId: string;
-    photo: Photo?;
+    type: WikiEntryType;
+    xmin?: number;
+    photo?: Photo;
+    photoId?: string;
 };
