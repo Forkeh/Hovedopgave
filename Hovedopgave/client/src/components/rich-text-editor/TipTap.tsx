@@ -33,8 +33,6 @@ type Props = {
 };
 
 const Tiptap = ({ content, onChange }: Props) => {
-    console.log('content: ', content);
-
     const editor = useEditor({
         extensions,
         content: content,

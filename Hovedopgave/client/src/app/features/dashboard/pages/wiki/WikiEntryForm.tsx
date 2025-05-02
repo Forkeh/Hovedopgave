@@ -31,9 +31,16 @@ import WikiPhotoDialog from './WikiPhotoDialog';
 export default function WikiEntryForm() {
     const [isPhotoDialogOpen, setIsPhotoDialogOpen] = useState(false);
     const [photo, setPhoto] = useState<Blob | undefined>();
+
+    const { id, entryId } = useParams();
+    const {
+        createWikiEntry,
+        uploadWikiEntryPhoto,
+        wikiEntry,
+        wikiEntryIsLoading,
+    } = useWiki(id, entryId);
+
     const navigate = useNavigate();
-    const { id } = useParams();
-    const { createWikiEntry, uploadWikiEntryPhoto } = useWiki(id);
 
     const form = useForm<WikiEntrySchema>({
         resolver: zodResolver(wikiEntrySchema),
@@ -44,6 +51,19 @@ export default function WikiEntryForm() {
             type: '',
         },
     });
+
+    // Set form values when wiki entry data is loaded
+    useEffect(() => {
+        if (wikiEntry) {
+            form.reset({
+                name: wikiEntry.name,
+                content: wikiEntry.content,
+                type: wikiEntry.type,
+            });
+
+            console.log('Form values set:', form.getValues());
+        }
+    }, [wikiEntry, form]);
 
     const handleSubmit = async (data: WikiEntrySchema) => {
         const newEntry = {
@@ -87,11 +107,17 @@ export default function WikiEntryForm() {
         };
     }, [photoUrl]);
 
+    if (wikiEntryIsLoading) {
+        return <div>Loading entry</div>;
+    }
+
     return (
         <>
             <div className='mt-10 flex w-full items-center justify-center'>
                 <div className='prose max-w-lg rounded-lg bg-white p-6 shadow-sm'>
-                    <h1 className='mb-6 text-center'>Create wiki entry</h1>
+                    <h1 className='mb-6 text-center'>
+                        {wikiEntry ? 'Update Wiki Entry' : 'Create Wiki Entry'}
+                    </h1>
                     <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(handleSubmit)}
@@ -135,14 +161,14 @@ export default function WikiEntryForm() {
                                         control={form.control}
                                         name='type'
                                         render={({ field }) => (
-                                            <FormItem>
+                                            <FormItem key={field.value}>
                                                 <FormLabel>Type</FormLabel>
                                                 <Select
                                                     onValueChange={
                                                         field.onChange
                                                     }
-                                                    defaultValue={field.value}
                                                     value={field.value}
+                                                    defaultValue={field.value}
                                                 >
                                                     <FormControl>
                                                         <SelectTrigger className='w-full'>
@@ -202,7 +228,7 @@ export default function WikiEntryForm() {
                                     createWikiEntry.isPending
                                 }
                             >
-                                Create Entry
+                                {wikiEntry ? 'Update Entry' : 'Create Entry'}
                             </Button>
                         </form>
                     </Form>

@@ -50,11 +50,26 @@ export const router = createBrowserRouter([
                                             },
                                             {
                                                 path: ':entryId',
-                                                element: <WikiEntryView />,
+                                                children: [
+                                                    {
+                                                        index: true,
+                                                        element: (
+                                                            <WikiEntryView />
+                                                        ),
+                                                    },
+                                                    {
+                                                        path: 'edit',
+                                                        element: (
+                                                            <WikiEntryForm />
+                                                        ),
+                                                    },
+                                                ],
                                             },
                                             {
                                                 path: 'create',
-                                                element: <WikiEntryForm />,
+                                                element: (
+                                                    <WikiEntryForm key='create' />
+                                                ),
                                             },
                                         ],
                                     },

@@ -1,13 +1,14 @@
 import { useWiki } from '@/lib/hooks/useWiki';
 import { PencilIcon } from 'lucide-react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 export default function WikiEntryView() {
     const { entryId } = useParams();
     const { wikiEntry, wikiEntryIsLoading } = useWiki(undefined, entryId);
+    const navigate = useNavigate();
 
-    const onEdit = () => {
-        console.log('Go to edit form page!');
+    const handleEditNavigate = () => {
+        navigate(`edit`);
     };
 
     if (wikiEntryIsLoading) {
@@ -30,7 +31,7 @@ export default function WikiEntryView() {
         <div className='relative mx-auto mt-5 flex w-full max-w-3xl flex-col rounded-lg bg-white p-6 shadow-md'>
             {/* Edit button in top right corner */}
             <button
-                onClick={onEdit}
+                onClick={handleEditNavigate}
                 className='absolute top-4 right-4 cursor-pointer rounded-full bg-gray-200 p-2 transition-colors hover:bg-gray-300'
             >
                 <PencilIcon className='h-5 w-5 text-gray-600' />
