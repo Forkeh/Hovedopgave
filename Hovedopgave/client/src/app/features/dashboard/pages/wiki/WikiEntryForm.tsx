@@ -80,24 +80,28 @@ export default function WikiEntryForm() {
             campaignId: id,
         } as WikiEntry;
 
-        if (photo) {
-            uploadWikiEntryPhoto.mutate(photo, {
-                onSuccess: (photoData) => {
-                    newEntry.photoId = photoData.id;
+        if (!wikiEntry) {
+            if (photo) {
+                uploadWikiEntryPhoto.mutate(photo, {
+                    onSuccess: (photoData) => {
+                        newEntry.photoId = photoData.id;
 
-                    createWikiEntry.mutate(newEntry, {
-                        onSuccess: (wikiEntryId) => {
-                            navigate(`../${wikiEntryId}`);
-                        },
-                    });
-                },
-            });
+                        createWikiEntry.mutate(newEntry, {
+                            onSuccess: (wikiEntryId) => {
+                                navigate(`../${wikiEntryId}`);
+                            },
+                        });
+                    },
+                });
+            } else {
+                createWikiEntry.mutate(newEntry, {
+                    onSuccess: (wikiEntryId) => {
+                        navigate(`../${wikiEntryId}`);
+                    },
+                });
+            }
         } else {
-            createWikiEntry.mutate(newEntry, {
-                onSuccess: (wikiEntryId) => {
-                    navigate(`../${wikiEntryId}`);
-                },
-            });
+            
         }
     };
 

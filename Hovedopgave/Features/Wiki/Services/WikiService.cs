@@ -131,15 +131,16 @@ public class WikiService(
         wikiEntry.Content = sanitizer.Sanitize(wikiEntryDto.Content);
         wikiEntry.Type = wikiEntryDto.Type;
 
-        if (!string.IsNullOrEmpty(wikiEntryDto.Photo?.Id))
-        {
-            var photo = await context.Photos.FindAsync(wikiEntryDto.Photo.Id);
-
-            if (photo is not null)
-            {
-                wikiEntry.Photo = photo;
-            }
-        }
+        // TODO: Maybe add photo upload for existing wiki entries
+        // if (!string.IsNullOrEmpty(wikiEntryDto.Photo?.Id))
+        // {
+        //     var photo = await context.Photos.FindAsync(wikiEntryDto.Photo.Id);
+        //
+        //     if (photo is not null)
+        //     {
+        //         wikiEntry.Photo = photo;
+        //     }
+        // }
 
         context.WikiEntries.Update(wikiEntry);
 
