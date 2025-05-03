@@ -52,6 +52,18 @@ export const useWiki = (campaignId?: string, entryId?: string) => {
         },
     });
 
+    const deleteWikiEntry = useMutation({
+        mutationFn: async (wikiEntryId: string) => {
+            const response = await agent.delete(`/wiki/${wikiEntryId}`);
+            return response.data;
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ['wikiCampaignList', campaignId],
+            });
+        },
+    });
+
     return {
         wikiEntries,
         wikiEntriesIsLoading,
@@ -59,5 +71,6 @@ export const useWiki = (campaignId?: string, entryId?: string) => {
         wikiEntryIsLoading,
         createWikiEntry,
         uploadWikiEntryPhoto,
+        deleteWikiEntry,
     };
 };

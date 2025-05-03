@@ -27,17 +27,24 @@ import {
 import { useWiki } from '@/lib/hooks/useWiki';
 import { useEffect, useState } from 'react';
 import WikiPhotoDialog from './WikiPhotoDialog';
+import { useAccount } from '@/lib/hooks/useAccount';
+import { useCampaigns } from '@/lib/hooks/useCampaigns';
+import { toast } from 'react-toastify';
 
 export default function WikiEntryForm() {
     const [isPhotoDialogOpen, setIsPhotoDialogOpen] = useState(false);
     const [photo, setPhoto] = useState<Blob | undefined>();
 
     const { id, entryId } = useParams();
+
+    const { currentUser } = useAccount();
+    const { campaign } = useCampaigns(id);
     const {
         createWikiEntry,
         uploadWikiEntryPhoto,
         wikiEntry,
         wikiEntryIsLoading,
+        deleteWikiEntry,
     } = useWiki(id, entryId);
 
     const navigate = useNavigate();
@@ -94,12 +101,34 @@ export default function WikiEntryForm() {
         }
     };
 
+    const handleDelete = async () => {
+        deleteWikiEntry.mutate(wikiEntry!.id, {
+            onSuccess: (wikiEntryId) => {
+                navigate(`/campaigns/dashboard/${id}/wiki`);
+                toast(`Deleted wiki entry with id: ${wikiEntryId}`, {
+                    type: 'success',
+                });
+            },
+            onError: () => {
+                toast(`Soemthing went wrong deleting entry`, {
+                    type: 'error',
+                });
+            },
+        });
+    };
+
     const handleSetPhoto = (file: Blob) => {
         setPhoto(file);
         setIsPhotoDialogOpen(false);
     };
 
-    const photoUrl = photo ? URL.createObjectURL(photo) : undefined;
+    const photoUrl = wikiEntry
+        ? wikiEntry.photo?.url
+        : photo
+          ? URL.createObjectURL(photo)
+          : undefined;
+
+    const isUserDm = currentUser?.id === campaign?.dungeonMaster.id;
 
     useEffect(() => {
         return () => {
@@ -125,10 +154,14 @@ export default function WikiEntryForm() {
                         >
                             <div className='flex gap-4'>
                                 <div
-                                    onClick={() => setIsPhotoDialogOpen(true)}
-                                    className='flex aspect-square w-1/3 flex-1/2 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-gray-100 shadow-md'
+                                    onClick={
+                                        wikiEntry
+                                            ? undefined
+                                            : () => setIsPhotoDialogOpen(true)
+                                    }
+                                    className={`flex aspect-square w-1/3 flex-1/2 items-center justify-center overflow-hidden rounded-lg bg-gray-100 shadow-md ${wikiEntry ? '' : 'cursor-pointer'}`}
                                 >
-                                    {photo ? (
+                                    {photoUrl ? (
                                         <img
                                             src={photoUrl}
                                             alt='Photo preview'
@@ -219,17 +252,36 @@ export default function WikiEntryForm() {
                                     </FormItem>
                                 )}
                             />
-                            <Button
-                                type='submit'
-                                className='w-full'
-                                disabled={
-                                    !form.formState.isValid ||
-                                    form.formState.isSubmitting ||
-                                    createWikiEntry.isPending
-                                }
-                            >
-                                {wikiEntry ? 'Update Entry' : 'Create Entry'}
-                            </Button>
+                            <div className='flex justify-between'>
+                                {wikiEntry && isUserDm && (
+                                    <Button
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            handleDelete();
+                                        }}
+                                        className=''
+                                        disabled={deleteWikiEntry.isPending}
+                                        variant={'destructive'}
+                                    >
+                                        Delete entry
+                                    </Button>
+                                )}
+                                <Button
+                                    type='submit'
+                                    className={`${wikiEntry ? '' : 'w-full'}`}
+                                    disabled={
+                                        !form.formState.isValid ||
+                                        form.formState.isSubmitting ||
+                                        createWikiEntry.isPending ||
+                                        uploadWikiEntryPhoto.isPending ||
+                                        deleteWikiEntry.isPending
+                                    }
+                                >
+                                    {wikiEntry
+                                        ? 'Update Entry'
+                                        : 'Create Entry'}
+                                </Button>
+                            </div>
                         </form>
                     </Form>
                 </div>

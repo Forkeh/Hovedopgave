@@ -4,6 +4,7 @@ import agent from '../api/agent';
 import { useNavigate } from 'react-router';
 import { RegisterSchema } from '../schemas/registerSchema';
 import { toast } from 'react-toastify';
+import { User } from '../types';
 
 export const useAccount = () => {
     const queryClient = useQueryClient();

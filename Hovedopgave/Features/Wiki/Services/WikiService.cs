@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Ganss.Xss;
 using Hovedopgave.Core.Data;
+using Hovedopgave.Core.Interfaces;
 using Hovedopgave.Core.Results;
 using Hovedopgave.Core.Services;
 using Hovedopgave.Features.Wiki.DTOs;
@@ -12,7 +13,8 @@ namespace Hovedopgave.Features.Wiki.Services;
 public class WikiService(
     AppDbContext context,
     IUserAccessor userAccessor,
-    IMapper mapper) : IWikiService
+    IMapper mapper,
+    ICloudinaryService cloudinaryService) : IWikiService
 {
     public async Task<Result<string>> CreateWikiEntry(CreateWikiEntryDto wikiEntryDto)
     {
@@ -80,6 +82,7 @@ public class WikiService(
         var user = await userAccessor.GetUserAsync();
 
         var entry = await context.WikiEntries
+            .Include(x => x.Photo)
             .Include(x => x.Campaign.DungeonMaster)
             .Where(x => x.Id == wikiEntryId)
             .FirstOrDefaultAsync();
@@ -92,6 +95,11 @@ public class WikiService(
         if (entry.Campaign.DungeonMaster.Id != user.Id)
         {
             return Result<string>.Failure("Only the DM can delete wiki entries", 403);
+        }
+
+        if (entry.Photo != null)
+        {
+            await cloudinaryService.DeletePhoto(entry.Photo.PublicId);
         }
 
         context.WikiEntries.Remove(entry);
@@ -144,7 +152,7 @@ public class WikiService(
 
     public async Task<Result<WikiEntryDto>> GetWikiEntry(string entryId)
     {
-         var wikiEntry = await context.WikiEntries
+        var wikiEntry = await context.WikiEntries
             .Where(x => x.Id == entryId)
             .Include(x => x.Photo)
             .FirstAsync();
