@@ -45,6 +45,7 @@ export default function WikiEntryForm() {
         wikiEntry,
         wikiEntryIsLoading,
         deleteWikiEntry,
+        updateWikiEntry,
     } = useWiki(id, entryId);
 
     const navigate = useNavigate();
@@ -90,6 +91,11 @@ export default function WikiEntryForm() {
                             onSuccess: (wikiEntryId) => {
                                 navigate(`../${wikiEntryId}`);
                             },
+                            onError: () => {
+                                toast(`Soemthing went wrong creating entry`, {
+                                    type: 'error',
+                                });
+                            },
                         });
                     },
                 });
@@ -98,15 +104,36 @@ export default function WikiEntryForm() {
                     onSuccess: (wikiEntryId) => {
                         navigate(`../${wikiEntryId}`);
                     },
+                    onError: () => {
+                        toast(`Soemthing went wrong creating entry`, {
+                            type: 'error',
+                        });
+                    },
                 });
             }
         } else {
-            
+            newEntry.id = wikiEntry.id;
+            newEntry.photoId = wikiEntry.photo?.id;
+            newEntry.xmin = wikiEntry.xmin;
+
+            updateWikiEntry.mutate(newEntry, {
+                onSuccess: (wikiEntry) => {
+                    toast(`Updated wiki entry with id: ${wikiEntry.id}`, {
+                        type: 'success',
+                    });
+                    navigate(`../../${wikiEntry.id}`);
+                },
+                onError: () => {
+                    toast(`Soemthing went wrong updating entry`, {
+                        type: 'error',
+                    });
+                },
+            });
         }
     };
 
     const handleDelete = async () => {
-        deleteWikiEntry.mutate(wikiEntry!.id, {
+        deleteWikiEntry.mutate(wikiEntry!.id!, {
             onSuccess: (wikiEntryId) => {
                 navigate(`/campaigns/dashboard/${id}/wiki`);
                 toast(`Deleted wiki entry with id: ${wikiEntryId}`, {

@@ -13,5 +13,6 @@ public class WikiEntryDto
     public uint Xmin { get; set; }
 
     public required string CampaignId { get; set; }
+    public string? PhotoId { get; set; }
     public Photo? Photo { get; set; }
 }

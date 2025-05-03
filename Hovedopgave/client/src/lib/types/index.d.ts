@@ -33,7 +33,7 @@ type Pin = {
 };
 
 type WikiEntry = {
-    id: string;
+    id?: string;
     campaignId: string;
     name: string;
     content: string;

@@ -64,6 +64,18 @@ export const useWiki = (campaignId?: string, entryId?: string) => {
         },
     });
 
+    const updateWikiEntry = useMutation<WikiEntry, Error, WikiEntry>({
+        mutationFn: async (wikiEntry: WikiEntry) => {
+            const response = await agent.put('/wiki', wikiEntry);
+            return response.data;
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ['wikiEntry', entryId],
+            });
+        },
+    });
+
     return {
         wikiEntries,
         wikiEntriesIsLoading,
@@ -72,5 +84,6 @@ export const useWiki = (campaignId?: string, entryId?: string) => {
         createWikiEntry,
         uploadWikiEntryPhoto,
         deleteWikiEntry,
+        updateWikiEntry,
     };
 };
