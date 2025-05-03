@@ -30,13 +30,14 @@ import WikiPhotoDialog from './WikiPhotoDialog';
 import { useAccount } from '@/lib/hooks/useAccount';
 import { useCampaigns } from '@/lib/hooks/useCampaigns';
 import { toast } from 'react-toastify';
+import { WikiEntryType } from '@/lib/enums/wikiEntryType';
 
 export default function WikiEntryForm() {
     const [isPhotoDialogOpen, setIsPhotoDialogOpen] = useState(false);
     const [photo, setPhoto] = useState<Blob | undefined>();
 
+    const navigate = useNavigate();
     const { id, entryId } = useParams();
-
     const { currentUser } = useAccount();
     const { campaign } = useCampaigns(id);
     const {
@@ -48,7 +49,15 @@ export default function WikiEntryForm() {
         updateWikiEntry,
     } = useWiki(id, entryId);
 
-    const navigate = useNavigate();
+    const photoUrl = wikiEntry
+        ? wikiEntry.photo?.url
+        : photo
+          ? URL.createObjectURL(photo)
+          : undefined;
+
+    const isEditMode = !!wikiEntry;
+
+    const isUserDm = currentUser?.id === campaign?.dungeonMaster.id;
 
     const form = useForm<WikiEntrySchema>({
         resolver: zodResolver(wikiEntrySchema),
@@ -56,7 +65,7 @@ export default function WikiEntryForm() {
         defaultValues: {
             name: '',
             content: '',
-            type: '',
+            type: WikiEntryType.Npc,
         },
     });
 
@@ -68,72 +77,78 @@ export default function WikiEntryForm() {
                 content: wikiEntry.content,
                 type: wikiEntry.type,
             });
-
-            console.log('Form values set:', form.getValues());
         }
     }, [wikiEntry, form]);
 
     const handleSubmit = async (data: WikiEntrySchema) => {
-        const newEntry = {
+        const entryData: WikiEntry = {
             name: data.name,
             type: data.type,
             content: data.content,
-            campaignId: id,
-        } as WikiEntry;
+            campaignId: id!,
+            ...(isEditMode && {
+                id: wikiEntry.id,
+                photoId: wikiEntry.photo?.id,
+                xmin: wikiEntry.xmin,
+            }),
+        };
 
-        if (!wikiEntry) {
-            if (photo) {
-                uploadWikiEntryPhoto.mutate(photo, {
-                    onSuccess: (photoData) => {
-                        newEntry.photoId = photoData.id;
-
-                        createWikiEntry.mutate(newEntry, {
-                            onSuccess: (wikiEntryId) => {
-                                navigate(`../${wikiEntryId}`);
-                            },
-                            onError: () => {
-                                toast(`Soemthing went wrong creating entry`, {
-                                    type: 'error',
-                                });
-                            },
+        const handleCreateOrUpdate = () => {
+            if (isEditMode) {
+                // Update existing entry
+                updateWikiEntry.mutate(entryData, {
+                    onSuccess: () => {
+                        toast('Wiki entry updated successfully', {
+                            type: 'success',
+                        });
+                        navigate(`..`, { relative: 'path' });
+                    },
+                    onError: () => {
+                        toast('Failed to update wiki entry', {
+                            type: 'error',
                         });
                     },
                 });
             } else {
-                createWikiEntry.mutate(newEntry, {
-                    onSuccess: (wikiEntryId) => {
-                        navigate(`../${wikiEntryId}`);
+                // Create new entry
+                createWikiEntry.mutate(entryData, {
+                    onSuccess: (newEntryId) => {
+                        toast('Wiki entry created successfully', {
+                            type: 'success',
+                        });
+                        navigate(`../${newEntryId}`);
                     },
                     onError: () => {
-                        toast(`Soemthing went wrong creating entry`, {
+                        toast('Failed to create wiki entry', {
                             type: 'error',
                         });
                     },
                 });
             }
-        } else {
-            newEntry.id = wikiEntry.id;
-            newEntry.photoId = wikiEntry.photo?.id;
-            newEntry.xmin = wikiEntry.xmin;
+        };
 
-            updateWikiEntry.mutate(newEntry, {
-                onSuccess: (wikiEntry) => {
-                    toast(`Updated wiki entry with id: ${wikiEntry.id}`, {
-                        type: 'success',
-                    });
-                    navigate(`../../${wikiEntry.id}`);
+        // If we have a new photo to upload
+        if (photo && !isEditMode) {
+            uploadWikiEntryPhoto.mutate(photo, {
+                onSuccess: (photoData) => {
+                    entryData.photoId = photoData.id;
+                    handleCreateOrUpdate();
                 },
                 onError: () => {
-                    toast(`Soemthing went wrong updating entry`, {
-                        type: 'error',
-                    });
+                    toast('Failed to upload photo', { type: 'error' });
                 },
             });
+        } else {
+            handleCreateOrUpdate();
         }
     };
 
     const handleDelete = async () => {
-        deleteWikiEntry.mutate(wikiEntry!.id!, {
+        if (!wikiEntry?.id) {
+            return;
+        }
+
+        deleteWikiEntry.mutate(wikiEntry.id, {
             onSuccess: (wikiEntryId) => {
                 navigate(`/campaigns/dashboard/${id}/wiki`);
                 toast(`Deleted wiki entry with id: ${wikiEntryId}`, {
@@ -153,14 +168,6 @@ export default function WikiEntryForm() {
         setIsPhotoDialogOpen(false);
     };
 
-    const photoUrl = wikiEntry
-        ? wikiEntry.photo?.url
-        : photo
-          ? URL.createObjectURL(photo)
-          : undefined;
-
-    const isUserDm = currentUser?.id === campaign?.dungeonMaster.id;
-
     useEffect(() => {
         return () => {
             if (photoUrl) URL.revokeObjectURL(photoUrl);
@@ -176,7 +183,7 @@ export default function WikiEntryForm() {
             <div className='mt-10 flex w-full items-center justify-center'>
                 <div className='prose max-w-lg rounded-lg bg-white p-6 shadow-sm'>
                     <h1 className='mb-6 text-center'>
-                        {wikiEntry ? 'Update Wiki Entry' : 'Create Wiki Entry'}
+                        {isEditMode ? 'Update Wiki Entry' : 'Create Wiki Entry'}
                     </h1>
                     <Form {...form}>
                         <form
@@ -186,11 +193,11 @@ export default function WikiEntryForm() {
                             <div className='flex gap-4'>
                                 <div
                                     onClick={
-                                        wikiEntry
+                                        isEditMode
                                             ? undefined
                                             : () => setIsPhotoDialogOpen(true)
                                     }
-                                    className={`flex aspect-square w-1/3 flex-1/2 items-center justify-center overflow-hidden rounded-lg bg-gray-100 shadow-md ${wikiEntry ? '' : 'cursor-pointer'}`}
+                                    className={`flex aspect-square w-1/3 flex-1/2 items-center justify-center overflow-hidden rounded-lg bg-gray-100 shadow-md ${isEditMode ? '' : 'cursor-pointer'}`}
                                 >
                                     {photoUrl ? (
                                         <img
@@ -284,7 +291,7 @@ export default function WikiEntryForm() {
                                 )}
                             />
                             <div className='flex justify-between'>
-                                {wikiEntry && isUserDm && (
+                                {isEditMode && isUserDm && (
                                     <Button
                                         onClick={(e) => {
                                             e.preventDefault();
@@ -299,7 +306,7 @@ export default function WikiEntryForm() {
                                 )}
                                 <Button
                                     type='submit'
-                                    className={`${wikiEntry ? '' : 'w-full'}`}
+                                    className={`${isEditMode ? '' : 'w-full'}`}
                                     disabled={
                                         !form.formState.isValid ||
                                         form.formState.isSubmitting ||
@@ -308,7 +315,7 @@ export default function WikiEntryForm() {
                                         deleteWikiEntry.isPending
                                     }
                                 >
-                                    {wikiEntry
+                                    {isEditMode
                                         ? 'Update Entry'
                                         : 'Create Entry'}
                                 </Button>

@@ -73,6 +73,10 @@ export const useWiki = (campaignId?: string, entryId?: string) => {
             await queryClient.invalidateQueries({
                 queryKey: ['wikiEntry', entryId],
             });
+
+            await queryClient.invalidateQueries({
+                queryKey: ['wikiCampaignList', campaignId],
+            });
         },
     });
 
