@@ -3,7 +3,7 @@ import Sidebar from './Sidebar';
 
 export default function DashboardPage() {
     return (
-        <div className='flex min-h-screen bg-gray-100'>
+        <div className='flex min-h-full bg-gray-100'>
             {/* Sidebar */}
             <Sidebar />
 

@@ -46,7 +46,7 @@ export default function RegisterForm() {
     };
 
     return (
-        <div className='flex h-screen w-full items-center justify-center'>
+        <div className='flex h-full w-full items-center justify-center'>
             <div className='prose w-full max-w-md rounded-lg bg-white p-6 shadow-sm'>
                 <h1 className='mb-6 text-center'>Register account</h1>
 
