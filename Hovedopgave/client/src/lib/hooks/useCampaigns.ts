@@ -12,7 +12,7 @@ export const useCampaigns = (id?: string) => {
             const response = await agent.get<Campaign[]>('/campaigns');
             return response.data;
         },
-        enabled: !id && location.pathname === '/campaigns',
+        staleTime: 5 * 60 * 1000, // 5 minutes
     });
 
     const { data: campaign, isLoading: campaignIsLoading } = useQuery({
