@@ -5,6 +5,7 @@ import { useParams } from 'react-router';
 import AddPlayerDialog from './AddPlayerDialog';
 import { toast } from 'react-toastify';
 import { useAccount } from '@/lib/hooks/useAccount';
+import { AddPlayerToCampaignSchema } from '@/lib/schemas/addPlayerToCampaignSchema';
 
 export default function Players() {
     const { id } = useParams();
@@ -14,8 +15,10 @@ export default function Players() {
 
     const [isAddPlayerOpen, setIsAddPlayerOpen] = useState(false);
 
-    const handleAddPlayer = (playerEmail: string) => {
-        addPlayerToCampaign.mutate(playerEmail, {
+    const handleAddPlayer = (data: AddPlayerToCampaignSchema) => {
+        console.log(data.email);
+
+        addPlayerToCampaign.mutate(data.email, {
             onSuccess: () => {
                 toast('Added player to campaign! 😎', {
                     type: 'success',
@@ -59,7 +62,7 @@ export default function Players() {
             <AddPlayerDialog
                 isAddPlayerDialogOpen={isAddPlayerOpen}
                 setIsAddPlayerDialogOpen={setIsAddPlayerOpen}
-                handleAddPlayer={handleAddPlayer}
+                onAddPlayer={handleAddPlayer}
             />
         </>
     );

@@ -5,25 +5,56 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useState } from 'react';
+import {
+    addPlayerToCampaignSchema,
+    AddPlayerToCampaignSchema,
+} from '@/lib/schemas/addPlayerToCampaignSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 
 type Props = {
     isAddPlayerDialogOpen: boolean;
     setIsAddPlayerDialogOpen: (open: boolean) => void;
-    handleAddPlayer: (playerEmail: string) => void;
+    onAddPlayer: (data: AddPlayerToCampaignSchema) => void;
 };
 
 export default function AddPlayerDialog({
-    isAddPlayerDialogOpen: isAddPlayerOpen,
+    isAddPlayerDialogOpen,
     setIsAddPlayerDialogOpen,
-    handleAddPlayer,
+    onAddPlayer,
 }: Props) {
-    const [emailValue, setEmailValue] = useState<string>('');
+    const form = useForm<AddPlayerToCampaignSchema>({
+        resolver: zodResolver(addPlayerToCampaignSchema),
+        mode: 'onTouched',
+        defaultValues: {
+            email: '',
+        },
+    });
+
+    // Reset form when dialog opens/closes
+    useEffect(() => {
+        if (!isAddPlayerDialogOpen) {
+            form.reset();
+        }
+    }, [isAddPlayerDialogOpen, form]);
+
+    const handleSubmit = (data: AddPlayerToCampaignSchema) => {
+        onAddPlayer(data);
+    };
 
     return (
         <Dialog
-            open={isAddPlayerOpen}
+            open={isAddPlayerDialogOpen}
             onOpenChange={setIsAddPlayerDialogOpen}
         >
             <DialogContent>
@@ -33,26 +64,48 @@ export default function AddPlayerDialog({
                     </DialogTitle>
                 </DialogHeader>
 
-                <section>
-                    <Input
-                        className='mx-auto my-5 w-1/2'
-                        placeholder='Player e-mail'
-                        value={emailValue}
-                        onChange={(e) => setEmailValue(e.target.value)}
-                    />
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(handleSubmit)}
+                        className='space-y-6'
+                    >
+                        <FormField
+                            control={form.control}
+                            name='email'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Player email</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder='Type player email'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                    <div className='flex justify-between'>
-                        <Button
-                            variant='outline'
-                            onClick={() => setIsAddPlayerDialogOpen(false)}
-                        >
-                            Cancel
-                        </Button>
-                        <Button onClick={() => handleAddPlayer(emailValue)}>
-                            Add player
-                        </Button>
-                    </div>
-                </section>
+                        <div className='flex justify-between'>
+                            <Button
+                                type='button'
+                                variant='outline'
+                                onClick={() => setIsAddPlayerDialogOpen(false)}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                type='submit'
+                                disabled={
+                                    !form.formState.isValid ||
+                                    form.formState.isSubmitting
+                                }
+                            >
+                                Add Player
+                            </Button>
+                        </div>
+                    </form>
+                </Form>
             </DialogContent>
         </Dialog>
     );
