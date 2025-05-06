@@ -37,9 +37,7 @@ export default function WikiEntryView() {
                 <PencilIcon className='h-5 w-5 text-gray-600' />
             </button>
 
-            {/* Header with image and info */}
             <div className='mb-8 flex gap-6'>
-                {/* Image with fallback */}
                 <div className='flex aspect-square w-1/3 items-center justify-center overflow-hidden rounded-lg bg-gray-100 shadow-md'>
                     {wikiEntry.photo?.url ? (
                         <img
@@ -54,14 +52,12 @@ export default function WikiEntryView() {
                     )}
                 </div>
 
-                {/* Info panel */}
                 <div className='flex flex-1 flex-col space-y-4 rounded-lg bg-gray-50 p-4'>
                     <h1 className='text-2xl font-bold text-gray-900'>
                         {wikiEntry.name}
                     </h1>
                     Type: {wikiEntry.type}
                     <div className='mt-auto border-t border-gray-200 pt-4'>
-                        {/* Additional details could go here */}
                         <p className='text-sm text-gray-500 dark:text-gray-400'>
                             Last updated: {new Date().toLocaleDateString()}
                         </p>
@@ -69,16 +65,10 @@ export default function WikiEntryView() {
                 </div>
             </div>
 
-            {/* Content area */}
             <article
                 className='prose max-w-none rounded-lg bg-gray-50 p-5'
                 dangerouslySetInnerHTML={{ __html: wikiEntry.content }}
             />
         </div>
-
-        // <TipTap
-        //     content={content}
-        //     onChange={onChange}
-        // />
     );
 }

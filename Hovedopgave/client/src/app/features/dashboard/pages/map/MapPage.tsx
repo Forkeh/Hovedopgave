@@ -28,8 +28,6 @@ export default function MapPage() {
     }
 
     const handleDeleteCampaign = () => {
-        console.log(campaign!.id);
-
         deleteCampaign.mutate(undefined, {
             onSuccess: () => {
                 toast('Deleted campaign! 😎', {
@@ -49,12 +47,14 @@ export default function MapPage() {
         <main className='w-fit'>
             <section className='flex justify-between'>
                 <h1 className='text-3xl font-extrabold'>{campaign?.name}</h1>
-                <Button
-                    variant='destructive'
-                    onClick={() => setIsDeleteCampaignDialogOpen(true)}
-                >
-                    Delete campaign
-                </Button>
+                {currentUser?.id === campaign?.dungeonMaster.id && (
+                    <Button
+                        variant='destructive'
+                        onClick={() => setIsDeleteCampaignDialogOpen(true)}
+                    >
+                        Delete campaign
+                    </Button>
+                )}
             </section>
 
             {campaign?.photo?.url ? (

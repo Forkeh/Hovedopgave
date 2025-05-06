@@ -46,7 +46,6 @@ export default function Sidebar() {
     };
 
     const handleChangeCampaign = (value: string) => {
-        console.log(value);
         setSelectedCampaign(value);
         navigate(`/campaigns/dashboard/${value}/map`);
     };
@@ -55,7 +54,7 @@ export default function Sidebar() {
 
     return (
         <aside
-            className={`min-h-full bg-gray-800 text-white transition-all duration-200 ${
+            className={`min-h-full border-r border-yellow-500 bg-gray-800 text-white transition-all duration-200 ${
                 collapsed ? 'w-16' : 'w-64'
             }`}
         >
@@ -67,7 +66,7 @@ export default function Sidebar() {
                             value={selectedCampaign}
                             defaultValue={id}
                         >
-                            <SelectTrigger className='w-[180px] cursor-pointer border-none text-xl'>
+                            <SelectTrigger className='w-[180px] cursor-pointer border-none text-xl transition-all hover:bg-gray-700'>
                                 <SelectValue
                                     placeholder='Select Campaign'
                                     defaultValue={selectedCampaign}

@@ -68,7 +68,7 @@ export default function WikiSideMenu({
         );
 
     return (
-        <nav className='flex w-64 flex-col bg-gray-800 p-3 text-white'>
+        <nav className='flex w-64 flex-col border-l border-yellow-500 bg-gray-800 p-3 text-white'>
             <Button
                 onClick={() => navigate('create')}
                 variant='secondary'
