@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import agent from '../api/agent';
 import { Campaign, Pin } from '../types';
+import { AxiosError } from 'axios';
 
 export const useCampaigns = (id?: string) => {
     const queryClient = useQueryClient();
@@ -79,12 +80,11 @@ export const useCampaigns = (id?: string) => {
         },
     });
 
-    const addPlayerToCampaign = useMutation({
+    const addPlayerToCampaign = useMutation<string, AxiosError, string>({
         mutationFn: async (playerEmail: string) => {
-            const response = await agent.post(
-                `/campaigns/${id}/add-player`,
-                {username: playerEmail},
-            );
+            const response = await agent.post(`/campaigns/${id}/add-player`, {
+                username: playerEmail,
+            });
             return response.data;
         },
         onSuccess: async () => {

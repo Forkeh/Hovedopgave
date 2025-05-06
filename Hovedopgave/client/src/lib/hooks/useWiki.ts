@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import agent from '../api/agent';
 import { Photo, WikiEntry } from '../types';
+import { AxiosError } from 'axios';
 
 export const useWiki = (campaignId?: string, entryId?: string) => {
     const queryClient = useQueryClient();
@@ -25,7 +26,7 @@ export const useWiki = (campaignId?: string, entryId?: string) => {
         enabled: !!entryId,
     });
 
-    const uploadWikiEntryPhoto = useMutation<Photo, Error, Blob>({
+    const uploadWikiEntryPhoto = useMutation<Photo, AxiosError, Blob>({
         mutationFn: async (file: Blob) => {
             const formData = new FormData();
             formData.append('file', file);
@@ -40,7 +41,7 @@ export const useWiki = (campaignId?: string, entryId?: string) => {
         },
     });
 
-    const createWikiEntry = useMutation<string, Error, WikiEntry>({
+    const createWikiEntry = useMutation<string, AxiosError, WikiEntry>({
         mutationFn: async (wikiEntry: WikiEntry) => {
             const response = await agent.post('/wiki', wikiEntry);
             return response.data;
@@ -64,7 +65,7 @@ export const useWiki = (campaignId?: string, entryId?: string) => {
         },
     });
 
-    const updateWikiEntry = useMutation<WikiEntry, Error, WikiEntry>({
+    const updateWikiEntry = useMutation<WikiEntry, AxiosError, WikiEntry>({
         mutationFn: async (wikiEntry: WikiEntry) => {
             const response = await agent.put('/wiki', wikiEntry);
             return response.data;

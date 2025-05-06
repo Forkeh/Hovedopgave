@@ -161,7 +161,7 @@ public class CampaignService(
 
         if (foundPlayer == null)
         {
-            return Result<string>.Failure("Failed to find player with id: " + player, 400);
+            return Result<string>.Failure("Failed to find player with e-mail: " + player.Username, 400);
         }
 
         if (campaign.Users.Any(x => x.Id == foundPlayer.Id))

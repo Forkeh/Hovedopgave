@@ -22,8 +22,10 @@ export default function Players() {
                 });
                 setIsAddPlayerOpen(false);
             },
-            onError: () => {
-                toast('Something went wrong adding player 😬', {
+            onError: (error) => {
+                console.log(error);
+
+                toast(`${error.response?.data}`, {
                     type: 'error',
                 });
             },
