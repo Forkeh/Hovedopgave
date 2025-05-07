@@ -52,6 +52,7 @@ public class CharactersService(
             var photo = await context.Photos
                 .Where(x => x.Id == createCharacterDto.PhotoId)
                 .FirstOrDefaultAsync();
+
             if (photo != null)
             {
                 character.Photo = photo;
@@ -77,5 +78,39 @@ public class CharactersService(
 
         var characterDtos = mapper.Map<List<CharacterDto>>(characters);
         return Result<List<CharacterDto>>.Success(characterDtos);
+    }
+
+    public async Task<Result<string>> UpdateCharacter(CharacterDto characterDto)
+    {
+        var user = await userAccessor.GetUserAsync();
+
+        if (user.Id != characterDto.UserId)
+        {
+            return Result<string>.Failure("You are not the characters owner", 400);
+        }
+
+        var character = await context.Characters.FindAsync(characterDto.Id);
+
+        if (character is null)
+        {
+            return Result<string>.Failure("Character not found", 400);
+        }
+
+        character.Name = characterDto.Name;
+        character.Class = characterDto.Class;
+        character.Race = characterDto.Race;
+
+        var sanitizer = new HtmlSanitizer();
+        character.Backstory = sanitizer.Sanitize(characterDto.Backstory);
+
+        //TODO: Update photo?
+
+        context.Characters.Update(character);
+
+        var result = await context.SaveChangesAsync() > 0;
+
+        return !result
+            ? Result<string>.Failure("Failed to update character", 400)
+            : Result<string>.Success(character.Id);
     }
 }

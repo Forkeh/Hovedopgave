@@ -7,4 +7,5 @@ public interface ICharactersService
 {
     Task<Result<string>> CreateCharacter(CreateCharacterDto createCharacterDto);
     Task<Result<List<CharacterDto>>> GetCharactersForCampaign(string campaignId);
+    Task<Result<string>> UpdateCharacter(CharacterDto characterDto);
 }

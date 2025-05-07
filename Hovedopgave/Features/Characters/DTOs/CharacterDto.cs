@@ -13,5 +13,6 @@ public class CharacterDto
     public required string CampaignId { get; set; }
     public required string UserId { get; set; }
 
+    public string? PhotoId { get; set; }
     public Photo? Photo { get; set; }
 }
