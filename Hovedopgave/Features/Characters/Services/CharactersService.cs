@@ -20,6 +20,15 @@ public class CharactersService(
     {
         var user = await userAccessor.GetUserAsync();
 
+        var existingCharacter = await context.Characters
+            .Where(x => x.UserId == user.Id && x.CampaignId == createCharacterDto.CampaignId)
+            .FirstOrDefaultAsync();
+
+        if (existingCharacter is not null)
+        {
+            return Result<string>.Failure("User already has a character in campaign", 400);
+        }
+
         var campaign = await context.Campaigns
             .Where(x => x.Id == createCharacterDto.CampaignId)
             .FirstOrDefaultAsync();
@@ -56,5 +65,17 @@ public class CharactersService(
         return !result
             ? Result<string>.Failure("Failed to create character", 400)
             : Result<string>.Success(character.Id);
+    }
+
+    public async Task<Result<List<CharacterDto>>> GetCharactersForCampaign(string campaignId)
+    {
+        var characters = await context.Characters
+            .Where(x => x.CampaignId == campaignId)
+            .Include(x => x.Photo)
+            .Include(x => x.User)
+            .ToListAsync();
+
+        var characterDtos = mapper.Map<List<CharacterDto>>(characters);
+        return Result<List<CharacterDto>>.Success(characterDtos);
     }
 }

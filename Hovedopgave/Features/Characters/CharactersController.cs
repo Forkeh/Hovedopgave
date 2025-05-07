@@ -19,4 +19,17 @@ public class CharactersController(ICharactersService charactersService) : BaseAp
 
         return Ok(result.Value);
     }
+
+    [HttpGet("campaign/{campaignId}")]
+    public async Task<ActionResult<List<CharacterDto>>> GetCharactersForCampaign(string campaignId)
+    {
+        var result = await charactersService.GetCharactersForCampaign(campaignId);
+
+        if (!result.IsSuccess)
+        {
+            return BadRequest(result.Error);
+        }
+
+        return Ok(result.Value);
+    }
 }

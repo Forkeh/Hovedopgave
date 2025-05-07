@@ -31,5 +31,6 @@ public class MappingProfiles : Profile
         CreateMap<WikiEntry, WikiEntryDto>();
 
         CreateMap<CreateCharacterDto, Character>();
+        CreateMap<Character, CharacterDto>();
     }
 }
