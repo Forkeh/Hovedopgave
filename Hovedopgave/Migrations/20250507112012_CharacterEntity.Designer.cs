@@ -3,6 +3,7 @@ using System;
 using Hovedopgave.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hovedopgave.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250507112012_CharacterEntity")]
+    partial class CharacterEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,7 +179,10 @@ namespace Hovedopgave.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Class")
+                    b.Property<int>("CharacterClass")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CharacterRace")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
@@ -185,9 +191,6 @@ namespace Hovedopgave.Migrations
 
                     b.Property<string>("PhotoId")
                         .HasColumnType("text");
-
-                    b.Property<int>("Race")
-                        .HasColumnType("integer");
 
                     b.Property<string>("UserId")
                         .IsRequired()

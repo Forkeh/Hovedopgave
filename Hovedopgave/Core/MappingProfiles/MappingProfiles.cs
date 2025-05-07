@@ -2,6 +2,8 @@
 using Hovedopgave.Features.Account.Models;
 using Hovedopgave.Features.Campaigns.DTOs;
 using Hovedopgave.Features.Campaigns.Models;
+using Hovedopgave.Features.Characters.DTOs;
+using Hovedopgave.Features.Characters.Models;
 using Hovedopgave.Features.Wiki.DTOs;
 using Hovedopgave.Features.Wiki.Models;
 
@@ -27,5 +29,7 @@ public class MappingProfiles : Profile
             .ForMember(d => d.Photo, opt => opt.Ignore());
 
         CreateMap<WikiEntry, WikiEntryDto>();
+
+        CreateMap<CreateCharacterDto, Character>();
     }
 }
