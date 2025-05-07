@@ -113,4 +113,38 @@ public class CharactersService(
             ? Result<string>.Failure("Failed to update character", 400)
             : Result<string>.Success(character.Id);
     }
+
+    public async Task<Result<string>> DeleteCharacter(string characterId)
+    {
+        var user = await userAccessor.GetUserAsync();
+
+        var character = await context.Characters
+            .Where(x => x.Id == characterId)
+            .Include(x => x.Photo)
+            .Include(x => x.User)
+            .FirstOrDefaultAsync();
+
+        if (character is null)
+        {
+            return Result<string>.Failure("Character not found", 400);
+        }
+
+        if (character.User.Id != user.Id)
+        {
+            return Result<string>.Failure("You are not the characters owner", 400);
+        }
+
+        if (character.Photo is not null)
+        {
+            await cloudinaryService.DeletePhoto(character.Photo.PublicId);
+        }
+
+        context.Characters.Remove(character);
+
+        var result = await context.SaveChangesAsync() > 0;
+
+        return !result
+            ? Result<string>.Failure("Failed to delete character", 400)
+            : Result<string>.Success(character.Id);
+    }
 }

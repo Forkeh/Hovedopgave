@@ -32,10 +32,24 @@ public class CharactersController(ICharactersService charactersService) : BaseAp
 
         return Ok(result.Value);
     }
-    
+
     [HttpPut]
-    public async Task<ActionResult<string>> UpdateCharacter([FromBody] CharacterDto characterDto) {
+    public async Task<ActionResult<string>> UpdateCharacter([FromBody] CharacterDto characterDto)
+    {
         var result = await charactersService.UpdateCharacter(characterDto);
+
+        if (!result.IsSuccess)
+        {
+            return BadRequest(result.Error);
+        }
+
+        return Ok(result.Value);
+    }
+
+    [HttpDelete("{characterId}")]
+    public async Task<ActionResult<string>> DeleteCharacter(string characterId)
+    {
+        var result = await charactersService.DeleteCharacter(characterId);
 
         if (!result.IsSuccess)
         {
