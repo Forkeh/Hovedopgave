@@ -5,7 +5,7 @@ namespace Hovedopgave.Features.Characters.DTOs;
 
 public class CharacterDto
 {
-    public string Id { get; set; }
+    public required string Id { get; set; }
     public required string Name { get; set; }
     public required CharacterRace Race { get; set; }
     public required CharacterClass Class { get; set; }

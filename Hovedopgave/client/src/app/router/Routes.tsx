@@ -13,6 +13,8 @@ import DashboardPage from '../features/dashboard/layout/DashboardPage';
 import PlayersPage from '../features/dashboard/pages/players/PlayersPage';
 import WikiEntryView from '../features/dashboard/pages/wiki/WikiEntryView';
 import WikiEntryForm from '../features/dashboard/pages/wiki/WikiEntryForm';
+import CharacterForm from '../features/dashboard/pages/players/CharacterForm';
+import PlayersList from '../features/dashboard/pages/players/PlayersList';
 
 export const router = createBrowserRouter([
     {
@@ -76,6 +78,18 @@ export const router = createBrowserRouter([
                                     {
                                         path: 'players',
                                         element: <PlayersPage />,
+                                        children: [
+                                            {
+                                                index: true,
+                                                element: <PlayersList />,
+                                            },
+                                            {
+                                                path: ':playerId/character/create',
+                                                element: (
+                                                    <CharacterForm key='create' />
+                                                ),
+                                            },
+                                        ],
                                     },
                                 ],
                             },
