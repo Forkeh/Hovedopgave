@@ -10,7 +10,7 @@ import CreateCampaignForm from '../features/campaigns/create-campaign/CreateCamp
 import MapPage from '../features/dashboard/pages/map/MapPage';
 import WikiPage from '../features/dashboard/pages/wiki/WikiPage';
 import DashboardPage from '../features/dashboard/layout/DashboardPage';
-import Players from '../features/dashboard/pages/players/Players';
+import PlayersPage from '../features/dashboard/pages/players/PlayersPage';
 import WikiEntryView from '../features/dashboard/pages/wiki/WikiEntryView';
 import WikiEntryForm from '../features/dashboard/pages/wiki/WikiEntryForm';
 
@@ -73,7 +73,10 @@ export const router = createBrowserRouter([
                                             },
                                         ],
                                     },
-                                    { path: 'players', element: <Players /> },
+                                    {
+                                        path: 'players',
+                                        element: <PlayersPage />,
+                                    },
                                 ],
                             },
                         ],

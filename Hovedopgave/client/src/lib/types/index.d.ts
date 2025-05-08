@@ -1,3 +1,5 @@
+import { CharacterClass } from '../enums/CharacterClass';
+import { CharacterRace } from '../enums/CharacterRace';
 import { WikiEntryType } from '../enums/wikiEntryType';
 
 type User = {
@@ -41,4 +43,16 @@ type WikiEntry = {
     xmin?: number;
     photo?: Photo;
     photoId?: string;
+};
+
+type Character = {
+    id: string;
+    name: string;
+    race: CharacterRace;
+    class: CharacterClass;
+    backstory: string;
+    campaignId: string;
+    userId: string;
+    photoId?: string;
+    photo?: Photo;
 };
