@@ -43,7 +43,7 @@ export default function PlayersList() {
     }
 
     return (
-        <>
+        <section className='flex w-fit flex-col items-center'>
             <div className='mb-6'>
                 <h1 className='text-3xl font-extrabold'>
                     Players in Campaign: {campaign?.name}
@@ -59,7 +59,7 @@ export default function PlayersList() {
             </div>
 
             {campaign?.players && campaign.players.length > 0 ? (
-                <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
+                <div className='flex flex-wrap gap-8'>
                     {campaign.players.map((player) => {
                         const playerCharacter = characters?.find(
                             (char) => char.userId === player.id,
@@ -93,6 +93,6 @@ export default function PlayersList() {
                 setIsAddPlayerDialogOpen={setIsAddPlayerOpen}
                 onAddPlayer={handleAddPlayer}
             />
-        </>
+        </section>
     );
 }

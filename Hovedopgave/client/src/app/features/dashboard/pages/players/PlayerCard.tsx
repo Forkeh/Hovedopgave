@@ -41,11 +41,11 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
         currentUser?.id === character?.userId || currentUser?.id === user?.id;
 
     return (
-        <Card className='relative flex flex-col'>
+        <Card className='relative flex h-fit w-80 flex-col'>
             <CardHeader>
                 <CardTitle>{user?.displayName}</CardTitle>
             </CardHeader>
-            <CardContent className='flex-grow'>
+            <CardContent className='flex flex-grow flex-col'>
                 {isOwnerOfCard && character && (
                     <button
                         onClick={handleEditCharacterNavigate}
@@ -58,7 +58,7 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
                     Character Information
                 </h3>
                 {character ? (
-                    <div className='space-y-3'>
+                    <div className='space-y-6'>
                         <div className='flex items-center space-x-4'>
                             <Avatar className='h-16 w-16'>
                                 <AvatarImage
@@ -85,7 +85,7 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
                                 Backstory
                             </h4>
                             <p
-                                className='prose max-w-none text-sm text-foreground' // Added prose for better HTML rendering
+                                className='prose max-w-none text-xs text-foreground'
                                 dangerouslySetInnerHTML={{
                                     __html: character.backstory,
                                 }}
@@ -93,7 +93,7 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
                         </div>
                     </div>
                 ) : (
-                    <div className='flex h-full flex-col items-center justify-center text-center'>
+                    <div className='flex flex-grow flex-col items-center justify-center text-center'>
                         <p className='text-sm text-muted-foreground'>
                             No character created for this player yet.
                         </p>
