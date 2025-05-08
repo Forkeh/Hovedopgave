@@ -46,7 +46,7 @@ type WikiEntry = {
 };
 
 type Character = {
-    id: string;
+    id?: string;
     name: string;
     race: CharacterRace;
     class: CharacterClass;

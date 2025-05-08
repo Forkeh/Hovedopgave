@@ -26,7 +26,7 @@ import {
 } from '@/components/ui/select';
 import { useWiki } from '@/lib/hooks/useWiki';
 import { useEffect, useState } from 'react';
-import WikiPhotoDialog from './WikiPhotoDialog';
+import PhotoDialog from '../../../../../components/photo-dialog/PhotoDialog';
 import { useAccount } from '@/lib/hooks/useAccount';
 import { useCampaigns } from '@/lib/hooks/useCampaigns';
 import { toast } from 'react-toastify';
@@ -325,7 +325,7 @@ export default function WikiEntryForm() {
                 </div>
             </div>
             {isPhotoDialogOpen && (
-                <WikiPhotoDialog
+                <PhotoDialog
                     isPhotoDialogOpen={isPhotoDialogOpen}
                     setIsPhotoDialogOpen={setIsPhotoDialogOpen}
                     onSetPhoto={handleSetPhoto}

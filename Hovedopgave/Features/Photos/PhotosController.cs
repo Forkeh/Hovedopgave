@@ -32,4 +32,17 @@ public class PhotosController(IPhotoService photoService) : BaseApiController
         
         return Ok(result.Value);
     }
+
+    [HttpPost("add-character-photo/{characterId}")]
+    public async Task<ActionResult<Photo>> AddCharacterPhoto(IFormFile file, string characterId)
+    {
+        var result = await photoService.AddCharacterPhoto(file, characterId);
+        
+        if (!result.IsSuccess)
+        {
+            return BadRequest(result.Error);
+        }
+        
+        return Ok(result.Value);
+    }
 }

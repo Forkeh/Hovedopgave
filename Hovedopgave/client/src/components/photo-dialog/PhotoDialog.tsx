@@ -13,7 +13,7 @@ type Props = {
     onSetPhoto: (file: Blob) => void;
 };
 
-export default function WikiPhotoDialog({
+export default function PhotoDialog({
     isPhotoDialogOpen,
     setIsPhotoDialogOpen,
     onSetPhoto,
@@ -23,11 +23,10 @@ export default function WikiPhotoDialog({
             open={isPhotoDialogOpen}
             onOpenChange={setIsPhotoDialogOpen}
         >
-            <DialogContent className='w-auto max-w-5xl p-6 sm:max-w-[80vw]'>
+            <DialogContent className='min-w-3xl p-10'>
                 <DialogHeader>
                     <DialogTitle className='text-center'>Add photo</DialogTitle>
                 </DialogHeader>
-                {/* TODO: Set loading from mutate function */}
                 <ImageUploadWidget
                     uploadPhoto={onSetPhoto}
                     loading={false}

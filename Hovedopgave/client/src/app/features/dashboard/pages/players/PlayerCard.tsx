@@ -17,12 +17,15 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
     const navigate = useNavigate();
 
     const handleEditCharacterNavigate = () => {
-        if (character && campaignId) {
+        if (character && campaignId && user) {
             // Navigate to an edit character page (you'll need to define this route)
             // Example: navigate(`/campaigns/dashboard/${campaignId}/characters/${character.id}/edit`);
             console.log('Edit character:', character.id);
             // For now, let's navigate to a placeholder or a specific route if you have one
             // navigate(`/campaigns/dashboard/${campaignId}/players/${user?.id}/character/${character.id}/edit`);
+            navigate(`${user.id}/character/edit`, {
+                state: { characterToEdit: character },
+            });
         }
     };
 

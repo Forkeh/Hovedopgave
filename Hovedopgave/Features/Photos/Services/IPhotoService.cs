@@ -7,4 +7,5 @@ public interface IPhotoService
 {
     Task<Result<Photo>> AddCampaignPhoto(IFormFile file, string campaignId);
     Task<Result<Photo>> AddWikiEntryPhoto(IFormFile file, string campaignId);
+    Task<Result<Photo>> AddCharacterPhoto(IFormFile file, string characterId);
 }

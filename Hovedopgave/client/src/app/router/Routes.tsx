@@ -89,6 +89,12 @@ export const router = createBrowserRouter([
                                                     <CharacterForm key='create' />
                                                 ),
                                             },
+                                            {
+                                                path: ':playerId/character/edit',
+                                                element: (
+                                                    <CharacterForm key='edit' />
+                                                ),
+                                            },
                                         ],
                                     },
                                 ],

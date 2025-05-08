@@ -30,29 +30,27 @@ public class PhotoService(ICloudinaryService cloudinaryService, IUserAccessor us
         }
 
 
-        var uploadResult = await cloudinaryService.UploadPhoto(file);
-
-        if (uploadResult == null)
+         var photoResult = await UploadAndPreparePhotoEntity(file, user.Id);
+       if (!photoResult.IsSuccess)
         {
-            return Result<Photo>.Failure("Failed to upload photo", 400);
+            return photoResult;
         }
 
+        var newPhoto = photoResult.Value;
 
-        var photo = new Photo
+        if (newPhoto == null)
         {
-            Url = uploadResult.Url,
-            PublicId = uploadResult.PublicId,
-            UserId = user.Id
-        };
+              return Result<Photo>.Failure("Photo processing failed: received null photo data despite reported success", 500);
+        }
 
-        context.Photos.Add(photo);
+        context.Photos.Add(newPhoto);
 
-        campaign.Photo = photo;
+        campaign.Photo = newPhoto;
 
         var result = await context.SaveChangesAsync() > 0;
 
         return result
-            ? Result<Photo>.Success(photo)
+            ? Result<Photo>.Success(newPhoto)
             : Result<Photo>.Failure("Problem saving photo to DB", 400);
     }
 
@@ -75,27 +73,83 @@ public class PhotoService(ICloudinaryService cloudinaryService, IUserAccessor us
         }
 
 
+        var photoResult = await UploadAndPreparePhotoEntity(file, user.Id);
+       if (!photoResult.IsSuccess)
+        {
+            return photoResult;
+        }
+
+        var newPhoto = photoResult.Value;
+
+        if (newPhoto == null)
+        {
+              return Result<Photo>.Failure("Photo processing failed: received null photo data despite reported success", 500);
+        }
+
+        context.Photos.Add(newPhoto);
+
+        var result = await context.SaveChangesAsync() > 0;
+
+        return result
+            ? Result<Photo>.Success(newPhoto)
+            : Result<Photo>.Failure("Problem saving photo to DB", 400);
+    }
+
+    public async Task<Result<Photo>> AddCharacterPhoto(IFormFile file, string characterId)
+    {
+        var user = await userAccessor.GetUserAsync();
+
+        var character = await context.Characters.FindAsync(characterId);
+
+        if (character == null)
+        {
+            return Result<Photo>.Failure("Character not found", 404);
+        }
+
+        if (character.UserId != user.Id)
+        {
+            return Result<Photo>.Failure("You are not the owner of the character", 400);
+        }
+
+       var photoResult = await UploadAndPreparePhotoEntity(file, user.Id);
+       if (!photoResult.IsSuccess)
+        {
+            return photoResult;
+        }
+
+        var newPhoto = photoResult.Value;
+
+        if (newPhoto == null)
+        {
+              return Result<Photo>.Failure("Photo processing failed: received null photo data despite reported success", 500);
+        }
+
+        context.Photos.Add(newPhoto);
+
+        var result = await context.SaveChangesAsync() > 0;
+
+        return result
+            ? Result<Photo>.Success(newPhoto)
+            : Result<Photo>.Failure("Problem saving photo to DB", 400);
+
+    }
+
+    private async Task<Result<Photo>> UploadAndPreparePhotoEntity(IFormFile file, string userId)
+    {
         var uploadResult = await cloudinaryService.UploadPhoto(file);
 
         if (uploadResult == null)
         {
-            return Result<Photo>.Failure("Failed to upload photo", 400);
+            return Result<Photo>.Failure("Failed to upload photo to image service", 400);
         }
-
 
         var photo = new Photo
         {
             Url = uploadResult.Url,
             PublicId = uploadResult.PublicId,
-            UserId = user.Id
+            UserId = userId
         };
 
-        context.Photos.Add(photo);
-
-        var result = await context.SaveChangesAsync() > 0;
-
-        return result
-            ? Result<Photo>.Success(photo)
-            : Result<Photo>.Failure("Problem saving photo to DB", 400);
+        return Result<Photo>.Success(photo);
     }
 }
