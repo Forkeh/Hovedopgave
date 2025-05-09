@@ -22,7 +22,6 @@ import {
 } from '@/components/ui/select';
 import { useEffect, useState } from 'react';
 import { useAccount } from '@/lib/hooks/useAccount';
-import { useCampaigns } from '@/lib/hooks/useCampaigns';
 import { toast } from 'react-toastify';
 import PhotoDialog from '../../../../../components/photo-dialog/PhotoDialog';
 import {
@@ -51,7 +50,7 @@ export default function CharacterForm() {
         updateCharacter,
         deleteCharacter,
         uploadCharacterPhoto,
-    } = useCharacters();
+    } = useCharacters(id);
 
     const photoUrl = characterToEdit
         ? characterToEdit.photo?.url
@@ -60,8 +59,6 @@ export default function CharacterForm() {
           : undefined;
 
     const isEditMode = !!characterToEdit;
-
-    console.log('characterToEdit: ', characterToEdit, 'EditMode: ', isEditMode);
 
     const isUsersCharacter = currentUser?.id === characterToEdit?.userId;
 
@@ -76,7 +73,7 @@ export default function CharacterForm() {
         },
     });
 
-    // Set form values when wiki entry data is loaded
+    // Set form values when character data is loaded
     useEffect(() => {
         if (characterToEdit) {
             form.reset({
@@ -102,6 +99,47 @@ export default function CharacterForm() {
             }),
         };
 
+        const handleUploadCharacterPhoto = async (
+            characterId: string,
+            baseCharacterData: Character,
+        ) => {
+            // If we have a new photo to upload
+            console.log('PHOTO', photo, isEditMode);
+
+            if (photo && !isEditMode) {
+                await uploadCharacterPhoto.mutateAsync(
+                    { file: photo, characterId },
+                    {
+                        onSuccess: (photoData) => {
+                            const characterToUpdate: Character = {
+                                ...baseCharacterData,
+                                id: characterId,
+                                photoId: photoData.id,
+                            };
+
+                            updateCharacter.mutate(characterToUpdate, {
+                                onSuccess: () => {
+                                    toast(
+                                        'Character photo linked successfully!',
+                                        { type: 'success' },
+                                    );
+                                },
+                                onError: () => {
+                                    toast(
+                                        'Failed to link photo to character.',
+                                        { type: 'error' },
+                                    );
+                                },
+                            });
+                        },
+                        onError: () => {
+                            toast('Failed to upload photo', { type: 'error' });
+                        },
+                    },
+                );
+            }
+        };
+
         if (isEditMode) {
             // Update existing character
             updateCharacter.mutate(characterData, {
@@ -109,7 +147,7 @@ export default function CharacterForm() {
                     toast('Character updated successfully', {
                         type: 'success',
                     });
-                    navigate(`..`, { relative: 'path' });
+                    navigate(`/campaigns/dashboard/${id}/players`);
                 },
                 onError: () => {
                     toast('Failed to update character', {
@@ -120,14 +158,17 @@ export default function CharacterForm() {
         } else {
             // Create new character
             createCharacter.mutate(characterData, {
-                onSuccess: (newCharacterId) => {
-                    handleUploadCharacterPhoto(newCharacterId);
+                onSuccess: async (newCharacterId) => {
+                    await handleUploadCharacterPhoto(
+                        newCharacterId,
+                        characterData,
+                    );
 
                     toast('Character created successfully', {
                         type: 'success',
                     });
 
-                    navigate(`../${newCharacterId}`);
+                    navigate(`/campaigns/dashboard/${id}/players`);
                 },
                 onError: () => {
                     toast('Failed to create character', {
@@ -136,23 +177,6 @@ export default function CharacterForm() {
                 },
             });
         }
-
-        const handleUploadCharacterPhoto = (characterId: string) => {
-            // If we have a new photo to upload
-            if (photo && !isEditMode) {
-                uploadCharacterPhoto.mutate(
-                    { file: photo, characterId },
-                    {
-                        onSuccess: (photoData) => {
-                            characterData.photoId = photoData.id;
-                        },
-                        onError: () => {
-                            toast('Failed to upload photo', { type: 'error' });
-                        },
-                    },
-                );
-            }
-        };
     };
 
     const handleDelete = async () => {
@@ -228,7 +252,7 @@ export default function CharacterForm() {
                                                 <FormLabel>Name</FormLabel>
                                                 <FormControl>
                                                     <Input
-                                                        placeholder='Type entry name'
+                                                        placeholder='Type character name'
                                                         {...field}
                                                     />
                                                 </FormControl>

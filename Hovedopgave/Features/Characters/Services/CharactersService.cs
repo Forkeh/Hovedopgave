@@ -89,7 +89,9 @@ public class CharactersService(
             return Result<string>.Failure("You are not the characters owner", 400);
         }
 
-        var character = await context.Characters.FindAsync(characterDto.Id);
+        var character = await context.Characters
+        .Include(x => x.Photo)
+        .FirstOrDefaultAsync(x => x.Id == characterDto.Id);
 
         if (character is null)
         {
@@ -103,7 +105,29 @@ public class CharactersService(
         var sanitizer = new HtmlSanitizer();
         character.Backstory = sanitizer.Sanitize(characterDto.Backstory);
 
-        //TODO: Update photo?
+        if (!string.IsNullOrEmpty(characterDto.PhotoId))
+        {
+            if (character.PhotoId != characterDto.PhotoId)
+            {
+                var photo = await context.Photos.FindAsync(characterDto.PhotoId);
+
+                if (photo != null)
+                {
+                    if (character.PhotoId != null)
+                    {
+                        await cloudinaryService.DeletePhoto(character.PhotoId);
+                    }
+                    character.Photo = photo;
+                    character.PhotoId = photo.Id;
+                }
+            }
+        } else if (characterDto.PhotoId == null && character.PhotoId != null) 
+        {
+            await cloudinaryService.DeletePhoto(character.PhotoId);
+
+            character.Photo = null;
+            character.PhotoId = null;
+        }
 
         context.Characters.Update(character);
 

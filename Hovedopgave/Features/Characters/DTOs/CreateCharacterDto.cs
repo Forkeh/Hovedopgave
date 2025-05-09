@@ -8,6 +8,7 @@ public class CreateCharacterDto
     public required CharacterRace Race { get; set; }
     public required CharacterClass Class { get; set; }
     public required string Backstory { get; set; }
+    public required string UserId { get; set; }
     public required string CampaignId { get; set; }
     public string? PhotoId { get; set; }
 }

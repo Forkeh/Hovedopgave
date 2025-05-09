@@ -39,12 +39,16 @@ export const useCharacters = (campaignId?: string) => {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 },
             );
+            console.log('RESPONSE: ', response.data);
+
             return response.data;
         },
     });
 
     const createCharacter = useMutation<string, AxiosError, Character>({
         mutationFn: async (character: Character) => {
+            console.log('character: ', character);
+
             const response = await agent.post('/characters', character);
             return response.data;
         },
