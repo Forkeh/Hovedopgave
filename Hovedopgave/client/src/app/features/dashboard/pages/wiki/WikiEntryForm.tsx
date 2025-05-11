@@ -181,7 +181,7 @@ export default function WikiEntryForm() {
     return (
         <>
             <div className='mt-10 flex w-full items-center justify-center'>
-                <div className='prose max-w-lg rounded-lg bg-white p-6 shadow-sm'>
+                <div className='prose max-w-2xl rounded-lg bg-white p-6 shadow-sm'>
                     <h1 className='mb-6 text-center'>
                         {isEditMode ? 'Update Wiki Entry' : 'Create Wiki Entry'}
                     </h1>

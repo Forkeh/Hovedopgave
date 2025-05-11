@@ -213,7 +213,7 @@ export default function CharacterForm() {
     return (
         <>
             <div className='mt-10 flex w-full items-center justify-center'>
-                <div className='prose max-w-lg rounded-lg bg-white p-6 shadow-sm'>
+                <div className='prose max-w-4xl rounded-lg bg-white p-6 shadow-sm'>
                     <h1 className='mb-6 text-center'>
                         {isEditMode ? 'Update Character' : 'Create Character'}
                     </h1>
@@ -347,12 +347,16 @@ export default function CharacterForm() {
                                     <FormItem>
                                         <FormLabel>Backstory</FormLabel>
                                         <FormControl>
-                                            <Tiptap
-                                                content={field.value}
-                                                onChange={(newContent) => {
-                                                    field.onChange(newContent);
-                                                }}
-                                            />
+                                            <div className='flex justify-center'>
+                                                <Tiptap
+                                                    content={field.value}
+                                                    onChange={(newContent) => {
+                                                        field.onChange(
+                                                            newContent,
+                                                        );
+                                                    }}
+                                                />
+                                            </div>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>

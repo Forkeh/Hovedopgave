@@ -1,4 +1,3 @@
-// src/Tiptap.tsx
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import TipTapMenuBar from './TipTapMenuBar';
@@ -6,7 +5,6 @@ import TextAlign from '@tiptap/extension-text-align';
 import Highlight from '@tiptap/extension-highlight';
 import { useEffect } from 'react';
 
-// define your extension array
 const extensions = [
     StarterKit.configure({
         bulletList: {
@@ -38,7 +36,7 @@ const Tiptap = ({ content, onChange }: Props) => {
         content: content,
         editorProps: {
             attributes: {
-                class: 'min-h-[156px] border rounded-md bg-slate-50 py-2 px-3 prose m-5 focus:outline-none',
+                class: 'min-h-[156px] border rounded-md bg-slate-50 py-2 px-3 prose m-5 focus:outline-none ',
             },
         },
         onUpdate: ({ editor }) => {
@@ -55,10 +53,10 @@ const Tiptap = ({ content, onChange }: Props) => {
     }, [content, editor]);
 
     return (
-        <>
+        <div className='max-w-xl'>
             {editor?.isEditable && <TipTapMenuBar editor={editor} />}
             <EditorContent editor={editor} />
-        </>
+        </div>
     );
 };
 

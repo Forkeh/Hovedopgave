@@ -18,11 +18,6 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
 
     const handleEditCharacterNavigate = () => {
         if (character && campaignId && user) {
-            // Navigate to an edit character page (you'll need to define this route)
-            // Example: navigate(`/campaigns/dashboard/${campaignId}/characters/${character.id}/edit`);
-            console.log('Edit character:', character.id);
-            // For now, let's navigate to a placeholder or a specific route if you have one
-            // navigate(`/campaigns/dashboard/${campaignId}/players/${user?.id}/character/${character.id}/edit`);
             navigate(`${user.id}/character/edit`, {
                 state: { characterToEdit: character },
             });
@@ -31,11 +26,6 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
 
     const handleCreateCharacterNavigate = () => {
         if (campaignId && user) {
-            // Navigate to a create character page
-            // Example: navigate(`/campaigns/dashboard/${campaignId}/characters/create?userId=${user.id}`);
-            console.log('Create character for user:', user.id);
-            // For now, let's navigate to a placeholder or a specific route if you have one
-            // navigate(`/campaigns/dashboard/${campaignId}/players/${user.id}/character/create`);
             navigate(`${user.id}/character/create`);
         }
     };
@@ -88,7 +78,7 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
                                 Backstory
                             </h4>
                             <p
-                                className='prose max-w-none text-xs text-foreground'
+                                className='prose max-w-none text-xs break-words text-foreground'
                                 dangerouslySetInnerHTML={{
                                     __html: character.backstory,
                                 }}
