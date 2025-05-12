@@ -30,10 +30,6 @@ public class CharactersService(
             return Result<string>.Failure($"Failed to find campaign with id {createCharacterDto.CampaignId}", 400);
         }
 
-        if (user.Id == campaign.DungeonMaster.Id)
-        {
-            return Result<string>.Failure("Dungeon master cannot participate as a player", 400);
-        }
 
         var existingCharacter = await context.Characters
             .Where(x => x.UserId == user.Id && x.CampaignId == createCharacterDto.CampaignId)

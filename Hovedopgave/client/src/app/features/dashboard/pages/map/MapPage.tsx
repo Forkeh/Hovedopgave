@@ -4,9 +4,9 @@ import Map from './Map';
 import ImageUploadWidget from '@/components/ImageUploadWidget';
 import { useAccount } from '@/lib/hooks/useAccount';
 import { toast } from 'react-toastify';
-import DeleteCampaignDialog from './DeleteCampaignDialog';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import ConfirmationDialog from '@/components/confirmation-dialog/ConfirmationDialog';
 
 export default function MapPage() {
     const [isDeleteCampaignDialogOpen, setIsDeleteCampaignDialogOpen] =
@@ -72,10 +72,12 @@ export default function MapPage() {
                     )}
                 </>
             )}
-            <DeleteCampaignDialog
-                handleDeleteCampaign={handleDeleteCampaign}
-                isDeleteDialogOpen={isDeleteCampaignDialogOpen}
-                setIsDeleteDialogOpen={setIsDeleteCampaignDialogOpen}
+            <ConfirmationDialog
+                title='Delete Campaign?'
+                description='This action cannot be undone, all map pins will be lost!'
+                isConfirmationDialogOpen={isDeleteCampaignDialogOpen}
+                setIsConfirmationDialogOpen={setIsDeleteCampaignDialogOpen}
+                handleConfirmation={handleDeleteCampaign}
             />
         </main>
     );

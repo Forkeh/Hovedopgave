@@ -31,9 +31,12 @@ import { useAccount } from '@/lib/hooks/useAccount';
 import { useCampaigns } from '@/lib/hooks/useCampaigns';
 import { toast } from 'react-toastify';
 import { WikiEntryType } from '@/lib/enums/wikiEntryType';
+import ConfirmationDialog from '@/components/confirmation-dialog/ConfirmationDialog';
 
 export default function WikiEntryForm() {
     const [isPhotoDialogOpen, setIsPhotoDialogOpen] = useState(false);
+    const [isDeleteWikiEntryDialogOpen, setIsDeleteWikiEntryDialogOpen] =
+        useState(false);
     const [photo, setPhoto] = useState<Blob | undefined>();
 
     const navigate = useNavigate();
@@ -143,7 +146,7 @@ export default function WikiEntryForm() {
         }
     };
 
-    const handleDelete = async () => {
+    const handleDeleteWikiEntry = async () => {
         if (!wikiEntry?.id) {
             return;
         }
@@ -295,13 +298,14 @@ export default function WikiEntryForm() {
                                     <Button
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            handleDelete();
+                                            setIsDeleteWikiEntryDialogOpen(
+                                                true,
+                                            );
                                         }}
-                                        className=''
                                         disabled={deleteWikiEntry.isPending}
                                         variant={'destructive'}
                                     >
-                                        Delete entry
+                                        Delete Entry
                                     </Button>
                                 )}
                                 <Button
@@ -324,13 +328,20 @@ export default function WikiEntryForm() {
                     </Form>
                 </div>
             </div>
-            {isPhotoDialogOpen && (
-                <PhotoDialog
-                    isPhotoDialogOpen={isPhotoDialogOpen}
-                    setIsPhotoDialogOpen={setIsPhotoDialogOpen}
-                    onSetPhoto={handleSetPhoto}
-                />
-            )}
+
+            <PhotoDialog
+                isPhotoDialogOpen={isPhotoDialogOpen}
+                setIsPhotoDialogOpen={setIsPhotoDialogOpen}
+                onSetPhoto={handleSetPhoto}
+            />
+
+            <ConfirmationDialog
+                title='Delete Wiki Entry?'
+                description='This action cannot be undone!'
+                isConfirmationDialogOpen={isDeleteWikiEntryDialogOpen}
+                setIsConfirmationDialogOpen={setIsDeleteWikiEntryDialogOpen}
+                handleConfirmation={handleDeleteWikiEntry}
+            />
         </>
     );
 }

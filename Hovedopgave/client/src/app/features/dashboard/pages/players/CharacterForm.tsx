@@ -31,9 +31,11 @@ import {
 import { CharacterClass } from '@/lib/enums/CharacterClass';
 import { CharacterRace } from '@/lib/enums/CharacterRace';
 import { useCharacters } from '@/lib/hooks/useCharacters';
+import ConfirmationDialog from '@/components/confirmation-dialog/ConfirmationDialog';
 
 export default function CharacterForm() {
     const [isPhotoDialogOpen, setIsPhotoDialogOpen] = useState(false);
+    const [isRetirementDialogOpen, setSsRetirementDialogOpen] = useState(false);
     const [photo, setPhoto] = useState<Blob | undefined>();
 
     const location = useLocation();
@@ -179,7 +181,8 @@ export default function CharacterForm() {
         }
     };
 
-    const handleDelete = async () => {
+    // TODO: Make into retirement instead!
+    const handleDeleteCharacter = async () => {
         if (!characterToEdit?.id) {
             return;
         }
@@ -222,7 +225,7 @@ export default function CharacterForm() {
                             onSubmit={form.handleSubmit(handleSubmit)}
                             className='space-y-6'
                         >
-                            <div className='flex gap-4'>
+                            <div className='mx-auto flex w-3/4 justify-center gap-4'>
                                 <div
                                     onClick={
                                         isEditMode
@@ -243,7 +246,7 @@ export default function CharacterForm() {
                                         </span>
                                     )}
                                 </div>
-                                <div className='flex w-full flex-col justify-center'>
+                                <div className='flex w-2/3 flex-col justify-center'>
                                     <FormField
                                         control={form.control}
                                         name='name'
@@ -345,7 +348,9 @@ export default function CharacterForm() {
                                 name='backstory'
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Backstory</FormLabel>
+                                        <FormLabel className='block w-full text-center text-xl'>
+                                            Backstory
+                                        </FormLabel>
                                         <FormControl>
                                             <div className='flex justify-center'>
                                                 <Tiptap
@@ -367,13 +372,13 @@ export default function CharacterForm() {
                                     <Button
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            handleDelete();
+                                            setSsRetirementDialogOpen(true);
                                         }}
                                         className=''
                                         disabled={deleteCharacter.isPending}
                                         variant={'destructive'}
                                     >
-                                        Delete character
+                                        Retire character
                                     </Button>
                                 )}
                                 <Button
@@ -396,13 +401,20 @@ export default function CharacterForm() {
                     </Form>
                 </div>
             </div>
-            {isPhotoDialogOpen && (
-                <PhotoDialog
-                    isPhotoDialogOpen={isPhotoDialogOpen}
-                    setIsPhotoDialogOpen={setIsPhotoDialogOpen}
-                    onSetPhoto={handleSetPhoto}
-                />
-            )}
+
+            <PhotoDialog
+                isPhotoDialogOpen={isPhotoDialogOpen}
+                setIsPhotoDialogOpen={setIsPhotoDialogOpen}
+                onSetPhoto={handleSetPhoto}
+            />
+
+            <ConfirmationDialog
+                title='Retire Character?'
+                description='Retiring a character is permanent!'
+                isConfirmationDialogOpen={isRetirementDialogOpen}
+                setIsConfirmationDialogOpen={setSsRetirementDialogOpen}
+                handleConfirmation={handleDeleteCharacter}
+            />
         </>
     );
 }
