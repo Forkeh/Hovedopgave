@@ -96,7 +96,7 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
                             <Button
                                 variant='default'
                                 size='lg'
-                                className='mt-4'
+                                className='mt-4 cursor-pointer'
                                 onClick={handleCreateCharacterNavigate}
                             >
                                 <PlusCircleIcon />

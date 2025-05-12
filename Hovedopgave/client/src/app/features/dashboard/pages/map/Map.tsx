@@ -66,6 +66,7 @@ export default function Map({ isViewOnly, campaign }: Props) {
 
         setIsEditDialogOpen(false);
         setEditingPin(null);
+        handleSavePins();
     };
 
     const handleSavePins = () => {
@@ -87,7 +88,7 @@ export default function Map({ isViewOnly, campaign }: Props) {
         <>
             <div>Selected pin: {selectedPin?.id}</div>
             <section className='overflow-hidden rounded-2xl border shadow-md'>
-                <div className='relative h-150 w-150'>
+                <div className='relative h-120 w-120'>
                     <TransformWrapper
                         onPanningStart={() => setIsPanning(true)}
                         onPanningStop={() => {
@@ -125,18 +126,6 @@ export default function Map({ isViewOnly, campaign }: Props) {
                     )}
                 </div>
             </section>
-            {!isViewOnly && (
-                <div className='mt-2 flex justify-center gap-3'>
-                    <Button
-                        onClick={handleSavePins}
-                        disabled={setCampaignMapPins.isPending}
-                    >
-                        {setCampaignMapPins.isPending
-                            ? 'Saving...'
-                            : 'Save Pins'}
-                    </Button>
-                </div>
-            )}
 
             {editingPin && (
                 <EditPinDialog

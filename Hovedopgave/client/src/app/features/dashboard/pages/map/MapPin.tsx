@@ -7,6 +7,8 @@ import {
 import PinIcon from './icons/PinIcon';
 import { PinIconsMap } from './icons/PinIconsMap';
 import { Pin } from '@/lib/types';
+import { Button } from '@/components/ui/button';
+import { PencilIcon } from 'lucide-react';
 
 type Props = {
     pin: Pin;
@@ -46,7 +48,7 @@ const MapPin = ({
     }
 
     return (
-        <HoverCard>
+        <HoverCard openDelay={200}>
             <HoverCardTrigger asChild>
                 <div onMouseDown={(e) => onMouseDown(e, pin)}>{pinIcon}</div>
             </HoverCardTrigger>
@@ -54,18 +56,17 @@ const MapPin = ({
                 <div className='space-y-2'>
                     <h3 className='font-semibold'>
                         {pin.title || 'Untitled Pin'}
+                        {!isViewOnly && (
+                            <PencilIcon
+                                className='absolute top-4 right-4 cursor-pointer rounded-full bg-gray-200 p-2 transition-colors hover:bg-gray-300'
+                                onClick={handleEdit}
+                                size={30}
+                            />
+                        )}
                     </h3>
                     <p className='text-sm'>
                         {pin.description || 'No description'}
                     </p>
-                    {!isViewOnly && (
-                        <button
-                            onClick={handleEdit}
-                            className='text-xs text-blue-500 hover:text-blue-700'
-                        >
-                            Edit
-                        </button>
-                    )}
                 </div>
             </HoverCardContent>
         </HoverCard>

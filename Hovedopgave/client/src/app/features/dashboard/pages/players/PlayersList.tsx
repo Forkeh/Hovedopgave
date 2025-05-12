@@ -72,7 +72,7 @@ export default function PlayersList() {
                 {currentUser?.id === campaign?.dungeonMaster.id && (
                     <Button
                         size='lg'
-                        className='my-4 font-bold'
+                        className='my-4 cursor-pointer font-bold'
                         onClick={() => setIsAddPlayerOpen(true)}
                     >
                         <UserPlus />

@@ -44,8 +44,8 @@ export default function MapPage() {
     };
 
     return (
-        <main className='w-fit'>
-            <section className='flex justify-between'>
+        <main className='mt-5 flex w-full flex-col items-center'>
+            <section className='mb-5 flex flex-col gap-5'>
                 <h1 className='text-3xl font-extrabold'>{campaign?.name}</h1>
                 {currentUser?.id === campaign?.dungeonMaster.id && (
                     <Button
