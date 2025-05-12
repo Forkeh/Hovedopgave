@@ -7,7 +7,6 @@ import {
 import PinIcon from './icons/PinIcon';
 import { PinIconsMap } from './icons/PinIconsMap';
 import { Pin } from '@/lib/types';
-import { Button } from '@/components/ui/button';
 import { PencilIcon } from 'lucide-react';
 
 type Props = {

@@ -58,18 +58,18 @@ export default function Map({ isViewOnly, campaign }: Props) {
     const handleSaveEditedPin = () => {
         if (!editingPin) return;
 
-        setPins((prevPins) =>
-            prevPins.map((pin) =>
-                pin.id === editingPin.id ? editingPin : pin,
-            ),
+        const updatedPins = pins.map((pin) =>
+            pin.id === editingPin.id ? editingPin : pin,
         );
+
+        setPins(updatedPins);
 
         setIsEditDialogOpen(false);
         setEditingPin(null);
-        handleSavePins();
+        handleSavePins(updatedPins);
     };
 
-    const handleSavePins = () => {
+    const handleSavePins = (pins: Pin[]) => {
         setCampaignMapPins.mutate(pins, {
             onSuccess: () => {
                 toast('Saved map pins! 😎', {
