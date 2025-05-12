@@ -36,7 +36,9 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
     return (
         <Card className='relative flex h-fit w-80 flex-col'>
             <CardHeader>
-                <CardTitle>{user?.displayName}</CardTitle>
+                <CardTitle className='text-center'>
+                    {user?.displayName}
+                </CardTitle>
             </CardHeader>
             <CardContent className='flex flex-grow flex-col'>
                 {isOwnerOfCard && character && (
@@ -47,7 +49,7 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
                         <PencilIcon className='h-5 w-5 text-gray-600' />
                     </button>
                 )}
-                <h3 className='mb-3 border-b pb-2 text-lg font-semibold'>
+                <h3 className='mb-3 border-b pb-2 text-center text-lg font-semibold'>
                     Character Information
                 </h3>
                 {character ? (
@@ -97,7 +99,7 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
                                 className='mt-4'
                                 onClick={handleCreateCharacterNavigate}
                             >
-                                <PlusCircleIcon className='mr-2 h-4 w-4' />
+                                <PlusCircleIcon />
                                 Create Character
                             </Button>
                         )}
