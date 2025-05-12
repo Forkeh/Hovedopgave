@@ -147,12 +147,18 @@ public class CampaignService(
         var campaign = await context.Campaigns
             .Where(x => x.Id == campaignId && x.DungeonMaster.Id == user.Id)
             .Include(campaign => campaign.Users)
+            .Include(x => x.DungeonMaster)
             .FirstOrDefaultAsync();
 
         if (campaign == null)
         {
             return Result<string>.Failure("Failed to find campaign with id or you are not the DM: " + campaignId,
                 400);
+        }
+
+        if (user.Id == campaign.DungeonMaster.Id)
+        {
+            return Result<string>.Failure("Dungeon master cannot participate as a player", 400);
         }
 
         var foundPlayer = await context.Users

@@ -20,6 +20,21 @@ public class CharactersService(
     {
         var user = await userAccessor.GetUserAsync();
 
+        var campaign = await context.Campaigns
+            .Include(x => x.DungeonMaster)
+            .Where(x => x.Id == createCharacterDto.CampaignId)
+            .FirstOrDefaultAsync();
+
+        if (campaign is null)
+        {
+            return Result<string>.Failure($"Failed to find campaign with id {createCharacterDto.CampaignId}", 400);
+        }
+
+        if (user.Id == campaign.DungeonMaster.Id)
+        {
+            return Result<string>.Failure("Dungeon master cannot participate as a player", 400);
+        }
+
         var existingCharacter = await context.Characters
             .Where(x => x.UserId == user.Id && x.CampaignId == createCharacterDto.CampaignId)
             .FirstOrDefaultAsync();
@@ -27,15 +42,6 @@ public class CharactersService(
         if (existingCharacter is not null)
         {
             return Result<string>.Failure("User already has a character in campaign", 400);
-        }
-
-        var campaign = await context.Campaigns
-            .Where(x => x.Id == createCharacterDto.CampaignId)
-            .FirstOrDefaultAsync();
-
-        if (campaign is null)
-        {
-            return Result<string>.Failure($"Failed to find campaign with id {createCharacterDto.CampaignId}", 400);
         }
 
 
@@ -90,8 +96,8 @@ public class CharactersService(
         }
 
         var character = await context.Characters
-        .Include(x => x.Photo)
-        .FirstOrDefaultAsync(x => x.Id == characterDto.Id);
+            .Include(x => x.Photo)
+            .FirstOrDefaultAsync(x => x.Id == characterDto.Id);
 
         if (character is null)
         {
@@ -117,11 +123,13 @@ public class CharactersService(
                     {
                         await cloudinaryService.DeletePhoto(character.PhotoId);
                     }
+
                     character.Photo = photo;
                     character.PhotoId = photo.Id;
                 }
             }
-        } else if (characterDto.PhotoId == null && character.PhotoId != null) 
+        }
+        else if (characterDto.PhotoId == null && character.PhotoId != null)
         {
             await cloudinaryService.DeletePhoto(character.PhotoId);
 
