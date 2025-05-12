@@ -156,10 +156,6 @@ public class CampaignService(
                 400);
         }
 
-        if (user.Id == campaign.DungeonMaster.Id)
-        {
-            return Result<string>.Failure("Dungeon master cannot participate as a player", 400);
-        }
 
         var foundPlayer = await context.Users
             .Where(x => x.UserName == player.Username)
@@ -168,6 +164,11 @@ public class CampaignService(
         if (foundPlayer == null)
         {
             return Result<string>.Failure("Failed to find player with e-mail: " + player.Username, 400);
+        }
+
+        if (foundPlayer.UserName == campaign.DungeonMaster.UserName)
+        {
+            return Result<string>.Failure("Dungeon master cannot participate as a player", 400);
         }
 
         if (campaign.Users.Any(x => x.Id == foundPlayer.Id))
