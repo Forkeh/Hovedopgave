@@ -1,6 +1,7 @@
 import { useWiki } from '@/lib/hooks/useWiki';
 import { PencilIcon } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router';
+import { HtmlContent } from './HtmlContent';
 
 export default function WikiEntryView() {
     const { entryId } = useParams();
@@ -65,9 +66,9 @@ export default function WikiEntryView() {
                 </div>
             </div>
 
-            <article
-                className='prose max-w-none rounded-lg bg-gray-50 p-5'
-                dangerouslySetInnerHTML={{ __html: wikiEntry.content }}
+            <HtmlContent
+                content={wikiEntry.content}
+                className='max-w-none rounded-lg bg-gray-50 p-5'
             />
         </div>
     );

@@ -9,17 +9,56 @@ import {
     Heading3,
     Highlighter,
     Italic,
+    Link,
     List,
     ListOrdered,
     Strikethrough,
+    Unlink,
 } from 'lucide-react';
 import { Toggle } from '../ui/toggle';
+import { useCallback } from 'react';
 
 type Props = {
     editor: Editor | null;
 };
 
 export default function TipTapMenuBar({ editor }: Props) {
+    // Simple method to set internal links
+    const setLink = useCallback(() => {
+        if (!editor) return;
+
+        const previousUrl = editor.getAttributes('link').href;
+        const url = window.prompt(
+            'Enter internal path (e.g., /dashboard):',
+            previousUrl,
+        );
+
+        // Handle cancellation
+        if (url === null) return;
+
+        // Remove link if empty
+        if (url === '') {
+            editor.chain().focus().extendMarkRange('link').unsetLink().run();
+            return;
+        }
+
+        // Ensure path starts with /
+        const path = url.startsWith('/') ? url : `/${url}`;
+
+        // Set the link
+        editor
+            .chain()
+            .focus()
+            .extendMarkRange('link')
+            .setLink({
+                href: path,
+                // No target or rel attributes - we want clean links
+            })
+            .run();
+
+        console.log('Link created with path:', path);
+    }, [editor]);
+
     if (!editor) {
         return null;
     }
@@ -87,6 +126,16 @@ export default function TipTapMenuBar({ editor }: Props) {
             icon: <Highlighter className='size-4' />,
             onClick: () => editor.chain().focus().toggleHighlight().run(),
             pressed: editor.isActive('highlight'),
+        },
+        {
+            icon: <Link className='size-4' />,
+            onClick: setLink,
+            pressed: editor.isActive('link'),
+        },
+        {
+            icon: <Unlink className='size-4' />,
+            onClick: () => editor.chain().focus().unsetLink().run(),
+            pressed: !editor.isActive('link'),
         },
     ];
 
