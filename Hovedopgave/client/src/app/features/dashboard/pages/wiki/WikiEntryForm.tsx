@@ -280,7 +280,9 @@ export default function WikiEntryForm() {
                                 name='content'
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Content</FormLabel>
+                                        <FormLabel className='block w-full text-center text-xl'>
+                                            Content
+                                        </FormLabel>
                                         <FormControl>
                                             <Tiptap
                                                 content={field.value}

@@ -140,9 +140,10 @@ export default function TipTapMenuBar({ editor }: Props) {
     ];
 
     return (
-        <div className='z-50 flex justify-center gap-2 rounded-md border bg-slate-50 p-1'>
+        <div className='z-50 flex justify-center gap-1 rounded-md border bg-slate-50 p-1'>
             {options.map((option, index) => (
                 <Toggle
+                    className='data-[state=on]:bg-slate-200'
                     key={index}
                     pressed={option.pressed}
                     onPressedChange={option.onClick}

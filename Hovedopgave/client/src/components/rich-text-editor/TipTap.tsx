@@ -41,7 +41,7 @@ const Tiptap = ({ content, onChange }: Props) => {
         content,
         editorProps: {
             attributes: {
-                class: 'min-h-[156px] border rounded-md bg-slate-50 py-2 px-3 prose m-5 focus:outline-none',
+                class: 'min-h-[156px] w-xl border rounded-md bg-slate-50 py-2 px-3 prose my-2 focus:outline-none',
             },
         },
         onUpdate: ({ editor: currentEditor }) => {
@@ -65,7 +65,7 @@ const Tiptap = ({ content, onChange }: Props) => {
     }
 
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col items-center'>
             <TipTapMenuBar editor={editor} />
             <EditorContent editor={editor} />
         </div>
