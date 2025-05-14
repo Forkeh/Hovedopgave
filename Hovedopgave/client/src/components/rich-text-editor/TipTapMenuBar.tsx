@@ -16,48 +16,56 @@ import {
     Unlink,
 } from 'lucide-react';
 import { Toggle } from '../ui/toggle';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
+import LinkDialog from './LinkDialog';
 
 type Props = {
     editor: Editor | null;
 };
 
 export default function TipTapMenuBar({ editor }: Props) {
+    const [isLinkDialogOpen, setIsLinkDialogOpen] = useState(false);
+
     // Simple method to set internal links
-    const setLink = useCallback(() => {
-        if (!editor) return;
+    const setLink = useCallback(
+        (wikiId: string) => {
+            if (!editor) return;
 
-        const previousUrl = editor.getAttributes('link').href;
-        const url = window.prompt(
-            'Enter internal path (e.g., /dashboard):',
-            previousUrl,
-        );
+            console.log(wikiId);
 
-        // Handle cancellation
-        if (url === null) return;
+            // const previousUrl = editor.getAttributes('link').href;
+            // const url = window.prompt(
+            //     'Enter internal path (e.g., /dashboard):',
+            //     previousUrl,
+            // );
 
-        // Remove link if empty
-        if (url === '') {
-            editor.chain().focus().extendMarkRange('link').unsetLink().run();
-            return;
-        }
+            // // Handle cancellation
+            // if (url === null) return;
 
-        // Ensure path starts with /
-        const path = url.startsWith('/') ? url : `/${url}`;
+            // // Remove link if empty
+            // if (url === '') {
+            //     editor.chain().focus().extendMarkRange('link').unsetLink().run();
+            //     return;
+            // }
 
-        // Set the link
-        editor
-            .chain()
-            .focus()
-            .extendMarkRange('link')
-            .setLink({
-                href: path,
-                // No target or rel attributes - we want clean links
-            })
-            .run();
+            // // Ensure path starts with /
+            // const path = url.startsWith('/') ? url : `/${url}`;
 
-        console.log('Link created with path:', path);
-    }, [editor]);
+            // // Set the link
+            // editor
+            //     .chain()
+            //     .focus()
+            //     .extendMarkRange('link')
+            //     .setLink({
+            //         href: path,
+            //         // No target or rel attributes - we want clean links
+            //     })
+            //     .run();
+
+            // console.log('Link created with path:', path);
+        },
+        [editor],
+    );
 
     if (!editor) {
         return null;
@@ -129,7 +137,7 @@ export default function TipTapMenuBar({ editor }: Props) {
         },
         {
             icon: <Link className='size-4' />,
-            onClick: setLink,
+            onClick: () => setIsLinkDialogOpen(true),
             pressed: editor.isActive('link'),
         },
         {
@@ -140,17 +148,24 @@ export default function TipTapMenuBar({ editor }: Props) {
     ];
 
     return (
-        <div className='z-50 flex justify-center gap-1 rounded-md border bg-slate-50 p-1'>
-            {options.map((option, index) => (
-                <Toggle
-                    className='data-[state=on]:bg-slate-200'
-                    key={index}
-                    pressed={option.pressed}
-                    onPressedChange={option.onClick}
-                >
-                    {option.icon}
-                </Toggle>
-            ))}
-        </div>
+        <>
+            <div className='z-50 flex justify-center gap-1 rounded-md border bg-slate-50 p-1'>
+                {options.map((option, index) => (
+                    <Toggle
+                        className='data-[state=on]:bg-slate-200'
+                        key={index}
+                        pressed={option.pressed}
+                        onPressedChange={option.onClick}
+                    >
+                        {option.icon}
+                    </Toggle>
+                ))}
+            </div>
+            <LinkDialog
+                isLinkDialogOpen={isLinkDialogOpen}
+                setIsLinkDialogOpen={setIsLinkDialogOpen}
+                handleLink={setLink}
+            />
+        </>
     );
 }
