@@ -25,7 +25,7 @@ export default function LinkDialog({
     const [isWikiEntrySelectOpen, setIsWikiEntrySelectOpen] = useState(false);
     const [wikiEntryValue, setWikiEntryValue] = useState('');
     const { id } = useParams();
-    const { wikiEntries, wikiEntriesIsLoading } = useWiki(id);
+    const { wikiEntries } = useWiki(id);
 
     return (
         <Dialog

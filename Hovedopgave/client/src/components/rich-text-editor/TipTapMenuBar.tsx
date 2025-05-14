@@ -18,6 +18,7 @@ import {
 import { Toggle } from '../ui/toggle';
 import { useCallback, useState } from 'react';
 import LinkDialog from './LinkDialog';
+import { useParams } from 'react-router';
 
 type Props = {
     editor: Editor | null;
@@ -25,46 +26,47 @@ type Props = {
 
 export default function TipTapMenuBar({ editor }: Props) {
     const [isLinkDialogOpen, setIsLinkDialogOpen] = useState(false);
+    const { id } = useParams();
 
-    // Simple method to set internal links
     const setLink = useCallback(
         (wikiId: string) => {
             if (!editor) return;
 
-            console.log(wikiId);
+            setIsLinkDialogOpen(false);
 
-            // const previousUrl = editor.getAttributes('link').href;
-            // const url = window.prompt(
-            //     'Enter internal path (e.g., /dashboard):',
-            //     previousUrl,
-            // );
+            const url = `/campaigns/dashboard/${id}/wiki/${wikiId}`;
 
-            // // Handle cancellation
-            // if (url === null) return;
+            // Handle cancellation
+            if (url === null) return;
 
-            // // Remove link if empty
-            // if (url === '') {
-            //     editor.chain().focus().extendMarkRange('link').unsetLink().run();
-            //     return;
-            // }
+            // Remove link if empty
+            if (url === '') {
+                editor
+                    .chain()
+                    .focus()
+                    .extendMarkRange('link')
+                    .unsetLink()
+                    .run();
+                return;
+            }
 
-            // // Ensure path starts with /
-            // const path = url.startsWith('/') ? url : `/${url}`;
+            // Ensure path starts with /
+            const path = url.startsWith('/') ? url : `/${url}`;
 
-            // // Set the link
-            // editor
-            //     .chain()
-            //     .focus()
-            //     .extendMarkRange('link')
-            //     .setLink({
-            //         href: path,
-            //         // No target or rel attributes - we want clean links
-            //     })
-            //     .run();
+            // Set the link
+            editor
+                .chain()
+                .focus()
+                .extendMarkRange('link')
+                .setLink({
+                    href: path,
+                    // No target or rel attributes - we want clean links
+                })
+                .run();
 
-            // console.log('Link created with path:', path);
+            console.log('Link created with path:', path);
         },
-        [editor],
+        [editor, id],
     );
 
     if (!editor) {

@@ -29,7 +29,6 @@ export function HtmlContent({ content, className = '' }: Props) {
 
             if (isExternal) {
                 // Let the browser handle external links normally
-                // You can optionally add target="_blank" handling here if needed
                 return;
             } else {
                 // For internal links, use React Router
@@ -49,7 +48,7 @@ export function HtmlContent({ content, className = '' }: Props) {
     }, [navigate]);
 
     return (
-        <div
+        <article
             ref={contentRef}
             className={`prose ${className}`}
             dangerouslySetInnerHTML={{ __html: content }}
