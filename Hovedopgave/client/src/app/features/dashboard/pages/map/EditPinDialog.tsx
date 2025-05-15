@@ -14,9 +14,9 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import PinIcon from './icons/PinIcon';
 import { Pin } from '@/lib/types';
+import Tiptap from '@/components/rich-text-editor/TipTap';
 
 type Props = {
     isEditDialogOpen: boolean;
@@ -40,11 +40,11 @@ export default function EditPinDialog({
             open={isEditDialogOpen}
             onOpenChange={setIsEditDialogOpen}
         >
-            <DialogContent>
+            <DialogContent className='min-w-fit'>
                 <DialogHeader>
-                    <DialogTitle>Edit Pin</DialogTitle>
-                    <DialogDescription>
-                        Update the information for this pin.
+                    <DialogTitle className='text-center'>Edit Pin</DialogTitle>
+                    <DialogDescription className='text-center'>
+                        Update the information for this pin
                     </DialogDescription>
                 </DialogHeader>
                 <div className='space-y-4 py-4'>
@@ -107,18 +107,15 @@ export default function EditPinDialog({
                     </div>
                     <div className='space-y-2'>
                         <label htmlFor='description'>Description</label>
-                        <Textarea
-                            id='description'
-                            value={editingPin.description}
-                            onChange={(e) => {
+                        <Tiptap
+                            content={editingPin.description}
+                            onChange={(newContent) => {
                                 const updatedPin = {
                                     ...editingPin,
-                                    description: e.target.value,
+                                    description: newContent,
                                 };
                                 setEditingPin(updatedPin);
                             }}
-                            placeholder='Enter a description'
-                            rows={4}
                         />
                     </div>
                 </div>

@@ -67,7 +67,10 @@ const Tiptap = ({ content, onChange }: Props) => {
     return (
         <div className='flex flex-col items-center'>
             <TipTapMenuBar editor={editor} />
-            <EditorContent editor={editor} />
+            <EditorContent
+                editor={editor}
+                className='max-h-70 overflow-x-hidden overflow-y-auto'
+            />
         </div>
     );
 };

@@ -8,6 +8,7 @@ import PinIcon from './icons/PinIcon';
 import { PinIconsMap } from './icons/PinIconsMap';
 import { Pin } from '@/lib/types';
 import { PencilIcon } from 'lucide-react';
+import { HtmlContent } from '../wiki/HtmlContent';
 
 type Props = {
     pin: Pin;
@@ -51,9 +52,9 @@ const MapPin = ({
             <HoverCardTrigger asChild>
                 <div onMouseDown={(e) => onMouseDown(e, pin)}>{pinIcon}</div>
             </HoverCardTrigger>
-            <HoverCardContent className='w-80 p-4'>
+            <HoverCardContent className='w-80 p-0'>
                 <div className='space-y-2'>
-                    <h3 className='font-semibold'>
+                    <h3 className='border-b p-4 text-xl font-semibold'>
                         {pin.title || 'Untitled Pin'}
                         {!isViewOnly && (
                             <PencilIcon
@@ -63,9 +64,12 @@ const MapPin = ({
                             />
                         )}
                     </h3>
-                    <p className='text-sm'>
-                        {pin.description || 'No description'}
-                    </p>
+                    <div className='max-h-[300px] overflow-y-auto px-4 pb-4'>
+                        <HtmlContent
+                            content={pin.description}
+                            className='max-w-none text-sm'
+                        />
+                    </div>
                 </div>
             </HoverCardContent>
         </HoverCard>
