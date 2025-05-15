@@ -10,6 +10,7 @@ public class CharacterDto
     public required CharacterRace Race { get; set; }
     public required CharacterClass Class { get; set; }
     public required string Backstory { get; set; }
+    public required bool IsRetired { get; set; }
     public required string CampaignId { get; set; }
     public required string UserId { get; set; }
 

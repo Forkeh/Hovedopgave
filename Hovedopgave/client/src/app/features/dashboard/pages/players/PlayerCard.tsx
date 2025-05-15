@@ -34,14 +34,18 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
         currentUser?.id === character?.userId || currentUser?.id === user?.id;
 
     return (
-        <Card className='relative flex h-fit w-80 flex-col'>
+        <Card
+            className={`relative flex h-fit w-80 flex-col bg-gray-50 ${
+                character?.isRetired ? 'opacity-75 saturate-50' : ''
+            }`}
+        >
             <CardHeader>
                 <CardTitle className='text-center'>
                     {user?.displayName}
                 </CardTitle>
             </CardHeader>
             <CardContent className='flex flex-grow flex-col'>
-                {isOwnerOfCard && character && (
+                {isOwnerOfCard && character && !character.isRetired && (
                     <button
                         onClick={handleEditCharacterNavigate}
                         className='absolute top-4 right-4 cursor-pointer rounded-full bg-gray-200 p-2 transition-colors hover:bg-gray-300'
@@ -80,7 +84,7 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
                                 Backstory
                             </h4>
                             <p
-                                className='prose max-w-none text-xs break-words text-foreground'
+                                className='prose max-h-[200px] max-w-none overflow-y-auto rounded-md bg-gray-100 p-2 text-xs break-words text-foreground'
                                 dangerouslySetInnerHTML={{
                                     __html: character.backstory,
                                 }}

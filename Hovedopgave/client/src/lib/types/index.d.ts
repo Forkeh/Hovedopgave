@@ -51,6 +51,7 @@ type Character = {
     race: CharacterRace;
     class: CharacterClass;
     backstory: string;
+    isRetired?: boolean;
     campaignId: string;
     userId: string;
     photoId?: string;

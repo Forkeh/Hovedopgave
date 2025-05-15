@@ -83,6 +83,18 @@ export const useCharacters = (campaignId?: string) => {
         },
     });
 
+    const retireCharacter = useMutation<string, AxiosError, string>({
+        mutationFn: async (characterId: string) => {
+            const response = await agent.patch(`/characters/${characterId}`);
+            return response.data;
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ['characters', campaignId],
+            });
+        },
+    });
+
     return {
         characters,
         charactersIsLoading,
@@ -90,5 +102,6 @@ export const useCharacters = (campaignId?: string) => {
         uploadCharacterPhoto,
         updateCharacter,
         deleteCharacter,
+        retireCharacter,
     };
 };

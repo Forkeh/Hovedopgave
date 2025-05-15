@@ -32,12 +32,14 @@ public class CharactersService(
 
 
         var existingCharacter = await context.Characters
-            .Where(x => x.UserId == user.Id && x.CampaignId == createCharacterDto.CampaignId)
+            .Where(x => x.UserId == user.Id
+                        && x.CampaignId == createCharacterDto.CampaignId
+                        && !x.IsRetired)
             .FirstOrDefaultAsync();
 
         if (existingCharacter is not null)
         {
-            return Result<string>.Failure("User already has a character in campaign", 400);
+            return Result<string>.Failure("User already has an active character in campaign", 400);
         }
 
 

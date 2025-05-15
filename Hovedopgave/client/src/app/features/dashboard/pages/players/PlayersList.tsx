@@ -9,6 +9,12 @@ import { AddPlayerToCampaignSchema } from '@/lib/schemas/addPlayerToCampaignSche
 import { useCharacters } from '@/lib/hooks/useCharacters';
 import PlayerCard from './PlayerCard';
 import { Crown, UserPlus } from 'lucide-react'; // Import Crown icon for DM
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from '@/components/ui/accordion';
 
 export default function PlayersList() {
     const { id } = useParams();
@@ -51,12 +57,18 @@ export default function PlayersList() {
           )
         : [];
 
+    const activeCharacters =
+        characters?.filter((char) => !char.isRetired) || [];
+
+    const retiredCharacters =
+        characters?.filter((char) => char.isRetired) || [];
+
     return (
-        <section className='mt-5 flex w-fit flex-col items-center'>
+        <section className='my-5 flex w-fit flex-col items-center'>
             <div className='mb-6 flex w-full flex-col items-center gap-3'>
                 <h1 className='text-3xl font-extrabold'>{campaign?.name}</h1>
 
-                <div className='mt-2 flex items-center gap-2 text-muted-foreground'>
+                <div className='mb-10 flex items-center gap-2 text-muted-foreground'>
                     <Crown
                         size={30}
                         className='text-yellow-500'
@@ -69,6 +81,8 @@ export default function PlayersList() {
                     </span>
                 </div>
 
+                <h2 className='text-xl font-bold'>Active characters</h2>
+
                 {currentUser?.id === campaign?.dungeonMaster.id && (
                     <Button
                         size='lg'
@@ -80,11 +94,10 @@ export default function PlayersList() {
                     </Button>
                 )}
             </div>
-
             {campaign?.players && campaign.players.length > 0 ? (
                 <div className='flex flex-wrap gap-8'>
                     {sortedPlayersByName?.map((player) => {
-                        const playerCharacter = characters?.find(
+                        const playerCharacter = activeCharacters?.find(
                             (char) => char.userId === player.id,
                         );
 
@@ -109,6 +122,43 @@ export default function PlayersList() {
                         </p>
                     )}
                 </div>
+            )}
+
+            {retiredCharacters.length > 0 && (
+                <>
+                    <Accordion
+                        type='single'
+                        collapsible
+                    >
+                        <AccordionItem value='item-1'>
+                            <AccordionTrigger className='mt-8 mb-4 text-xl font-bold'>
+                                <div className='w-full text-center'>
+                                    Retired Characters
+                                </div>
+                            </AccordionTrigger>
+                            <AccordionContent>
+                                <div className='flex flex-wrap gap-8'>
+                                    {sortedPlayersByName?.map((player) => {
+                                        const playerCharacters =
+                                            retiredCharacters?.filter(
+                                                (char) =>
+                                                    char.userId === player.id,
+                                            );
+
+                                        return playerCharacters.map((char) => (
+                                            <PlayerCard
+                                                key={`${player?.id}-${char?.id}`}
+                                                user={player}
+                                                character={char}
+                                                campaignId={id}
+                                            />
+                                        ));
+                                    })}
+                                </div>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </>
             )}
 
             <AddPlayerDialog

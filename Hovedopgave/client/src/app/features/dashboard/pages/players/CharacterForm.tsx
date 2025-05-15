@@ -50,7 +50,7 @@ export default function CharacterForm() {
     const {
         createCharacter,
         updateCharacter,
-        deleteCharacter,
+        retireCharacter,
         uploadCharacterPhoto,
     } = useCharacters(id);
 
@@ -93,6 +93,7 @@ export default function CharacterForm() {
             class: data.class,
             race: data.race,
             backstory: data.backstory,
+            isRetired: false,
             userId: currentUser!.id,
             campaignId: id!,
             ...(isEditMode && {
@@ -181,21 +182,20 @@ export default function CharacterForm() {
         }
     };
 
-    // TODO: Make into retirement instead!
-    const handleDeleteCharacter = async () => {
+    const handleRetireCharacter = async () => {
         if (!characterToEdit?.id) {
             return;
         }
 
-        deleteCharacter.mutate(characterToEdit.id, {
-            onSuccess: (characterId) => {
+        retireCharacter.mutate(characterToEdit.id, {
+            onSuccess: () => {
                 navigate(`/campaigns/dashboard/${id}/players`);
-                toast(`Deleted character with id: ${characterId}`, {
+                toast(`Retired character: ${characterToEdit.name}`, {
                     type: 'success',
                 });
             },
             onError: () => {
-                toast(`Something went wrong deleting character`, {
+                toast(`Something went wrong retiring character`, {
                     type: 'error',
                 });
             },
@@ -375,7 +375,7 @@ export default function CharacterForm() {
                                             setIsRetirementDialogOpen(true);
                                         }}
                                         className=''
-                                        disabled={deleteCharacter.isPending}
+                                        disabled={retireCharacter.isPending}
                                         variant={'destructive'}
                                     >
                                         Retire character
@@ -389,7 +389,7 @@ export default function CharacterForm() {
                                         form.formState.isSubmitting ||
                                         createCharacter.isPending ||
                                         uploadCharacterPhoto.isPending ||
-                                        deleteCharacter.isPending
+                                        retireCharacter.isPending
                                     }
                                 >
                                     {isEditMode
@@ -413,7 +413,7 @@ export default function CharacterForm() {
                 description='Retiring a character is permanent!'
                 isConfirmationDialogOpen={isRetirementDialogOpen}
                 setIsConfirmationDialogOpen={setIsRetirementDialogOpen}
-                handleConfirmation={handleDeleteCharacter}
+                handleConfirmation={handleRetireCharacter}
             />
         </>
     );

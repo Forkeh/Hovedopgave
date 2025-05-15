@@ -11,7 +11,7 @@ public class Character
     public required CharacterRace Race { get; set; }
     public required CharacterClass Class { get; set; }
     public string Backstory { get; set; } = "";
-    public bool IsRetired { get; set; }
+    public required bool IsRetired { get; set; }
 
     public required string UserId { get; set; }
     public required User User { get; set; }

@@ -3,6 +3,7 @@ import Cropper, { ReactCropperElement } from 'react-cropper';
 import { useDropzone } from 'react-dropzone';
 import 'cropperjs/dist/cropper.css';
 import { CloudUpload } from 'lucide-react';
+import { Button } from './ui/button';
 
 type Props = {
     uploadPhoto: (file: Blob) => void;
@@ -42,18 +43,18 @@ export default function ImageUploadWidget({ uploadPhoto, loading }: Props) {
     return (
         <div className='grid grid-cols-3 gap-8'>
             <div>
-                <p className='mb-2 text-xs font-medium tracking-wider text-purple-600 uppercase'>
+                <p className='mb-2 text-xs font-medium uppercase'>
                     Step 1 - Add image
                 </p>
                 <div
                     {...getRootProps()}
-                    className={`flex h-[200px] cursor-pointer flex-col items-center justify-center rounded-md border-3 border-dashed p-4 text-center sm:h-[280px] sm:p-8 ${
+                    className={`flex h-[200px] cursor-pointer flex-col items-center justify-center rounded-md border-3 border-dashed p-4 text-center ${
                         isDragActive ? 'border-green-500' : 'border-gray-200'
                     }`}
                 >
                     <input {...getInputProps()} />
                     <CloudUpload
-                        size={40}
+                        size={30}
                         className='sm:size-60'
                     />
                     <p className='mt-2 text-base sm:text-xl'>Drop image here</p>
@@ -63,7 +64,7 @@ export default function ImageUploadWidget({ uploadPhoto, loading }: Props) {
             <div>
                 {files[0]?.preview && (
                     <>
-                        <p className='mb-2 text-xs font-medium tracking-wider text-purple-600 uppercase'>
+                        <p className='mb-2 text-xs font-medium uppercase'>
                             Step 2 - Resize image
                         </p>
                         <Cropper
@@ -84,7 +85,7 @@ export default function ImageUploadWidget({ uploadPhoto, loading }: Props) {
             <div>
                 {files[0]?.preview && (
                     <>
-                        <p className='mb-2 text-xs font-medium tracking-wider text-purple-600 uppercase'>
+                        <p className='mb-2 text-xs font-medium uppercase'>
                             Step 3 - Preview & upload
                         </p>
                         <div
@@ -96,13 +97,14 @@ export default function ImageUploadWidget({ uploadPhoto, loading }: Props) {
                                 overflow: 'hidden',
                             }}
                         />
-                        <button
+
+                        <Button
                             onClick={onCrop}
                             disabled={loading}
-                            className='w-full max-w-[200px] rounded-md bg-purple-600 px-4 py-2 text-white transition hover:bg-purple-700 disabled:cursor-not-allowed disabled:bg-purple-300'
+                            className='absolute bottom-10 left-10 w-full max-w-[200px] cursor-pointer px-4 py-2 disabled:cursor-not-allowed'
                         >
-                            Upload
-                        </button>
+                            Add photo
+                        </Button>
                     </>
                 )}
             </div>
