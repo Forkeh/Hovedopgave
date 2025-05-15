@@ -250,23 +250,18 @@ export default function WikiEntryForm() {
                                                         </SelectTrigger>
                                                     </FormControl>
                                                     <SelectContent>
-                                                        <SelectItem value='Npc'>
-                                                            <span>NPC</span>
-                                                        </SelectItem>
-                                                        <SelectItem value='Location'>
-                                                            <span>
-                                                                Location
-                                                            </span>
-                                                        </SelectItem>
-                                                        <SelectItem value='Lore'>
-                                                            <span>Lore</span>
-                                                        </SelectItem>
-                                                        <SelectItem value='Quest'>
-                                                            <span>Quest</span>
-                                                        </SelectItem>
-                                                        <SelectItem value='Item'>
-                                                            <span>Item</span>
-                                                        </SelectItem>
+                                                        {Object.values(
+                                                            WikiEntryType,
+                                                        ).map((type) => (
+                                                            <SelectItem
+                                                                key={type}
+                                                                value={type}
+                                                            >
+                                                                <span>
+                                                                    {type}
+                                                                </span>
+                                                            </SelectItem>
+                                                        ))}
                                                     </SelectContent>
                                                 </Select>
                                                 <FormMessage />

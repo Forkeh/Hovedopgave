@@ -12,11 +12,13 @@ import { useNavigate } from 'react-router';
 type Props = {
     wikiEntries: WikiEntry[] | undefined;
     onSelectWikiEntry: (wikiEntry: WikiEntry) => void;
+    isDM: boolean;
 };
 
 export default function WikiSideMenu({
     wikiEntries,
     onSelectWikiEntry,
+    isDM,
 }: Props) {
     const navigate = useNavigate();
 
@@ -38,6 +40,10 @@ export default function WikiSideMenu({
         [WikiEntryType.Item]:
             wikiEntries?.filter((entry) => entry.type === WikiEntryType.Item) ||
             [],
+        [WikiEntryType.Other]:
+            wikiEntries?.filter(
+                (entry) => entry.type === WikiEntryType.Other,
+            ) || [],
     };
 
     const categories = [
@@ -50,6 +56,7 @@ export default function WikiSideMenu({
         { type: WikiEntryType.Lore, label: 'Lore', value: 'lore' },
         { type: WikiEntryType.Quest, label: 'Quests', value: 'quests' },
         { type: WikiEntryType.Item, label: 'Items', value: 'items' },
+        { type: WikiEntryType.Other, label: 'Other', value: 'other' },
     ];
 
     const EntryList = ({ entries }: { entries: WikiEntry[] }) =>
@@ -69,17 +76,18 @@ export default function WikiSideMenu({
 
     return (
         <nav className='flex w-64 flex-col border-l border-yellow-500 bg-gray-800 p-3 text-white'>
-            <Button
-                onClick={() => navigate('create')}
-                variant='secondary'
-                className='mb-4 cursor-pointer text-xl font-bold'
-            >
-                Create entry
-            </Button>
+            {isDM && (
+                <Button
+                    onClick={() => navigate('create')}
+                    variant='secondary'
+                    className='mb-4 cursor-pointer text-xl font-bold'
+                >
+                    Create entry
+                </Button>
+            )}
 
             <Accordion
-                type='single'
-                collapsible
+                type='multiple'
                 className='space-y-2'
             >
                 {categories.map((category) => (

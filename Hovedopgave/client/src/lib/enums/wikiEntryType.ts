@@ -4,4 +4,5 @@ export enum WikiEntryType {
     Lore = 'Lore',
     Quest = 'Quest',
     Item = 'Item',
+    Other = 'Other',
 }

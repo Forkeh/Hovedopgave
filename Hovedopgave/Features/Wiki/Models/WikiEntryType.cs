@@ -6,5 +6,6 @@ public enum WikiEntryType
     Location,
     Lore,
     Quest,
-    Item
+    Item,
+    Other
 }
