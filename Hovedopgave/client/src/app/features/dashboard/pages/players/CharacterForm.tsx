@@ -35,7 +35,7 @@ import ConfirmationDialog from '@/components/confirmation-dialog/ConfirmationDia
 
 export default function CharacterForm() {
     const [isPhotoDialogOpen, setIsPhotoDialogOpen] = useState(false);
-    const [isRetirementDialogOpen, setSsRetirementDialogOpen] = useState(false);
+    const [isRetirementDialogOpen, setIsRetirementDialogOpen] = useState(false);
     const [photo, setPhoto] = useState<Blob | undefined>();
 
     const location = useLocation();
@@ -372,7 +372,7 @@ export default function CharacterForm() {
                                     <Button
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            setSsRetirementDialogOpen(true);
+                                            setIsRetirementDialogOpen(true);
                                         }}
                                         className=''
                                         disabled={deleteCharacter.isPending}
@@ -412,7 +412,7 @@ export default function CharacterForm() {
                 title='Retire Character?'
                 description='Retiring a character is permanent!'
                 isConfirmationDialogOpen={isRetirementDialogOpen}
-                setIsConfirmationDialogOpen={setSsRetirementDialogOpen}
+                setIsConfirmationDialogOpen={setIsRetirementDialogOpen}
                 handleConfirmation={handleDeleteCharacter}
             />
         </>

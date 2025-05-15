@@ -58,4 +58,17 @@ public class CharactersController(ICharactersService charactersService) : BaseAp
 
         return Ok(result.Value);
     }
+
+    [HttpPatch("{characterId}")]
+    public async Task<ActionResult<string>> RetireCharacter(string characterId)
+    {
+        var result = await charactersService.RetireCharacter(characterId);
+
+        if (!result.IsSuccess)
+        {
+            return BadRequest(result.Error);
+        }
+
+        return Ok(result.Value);
+    }
 }

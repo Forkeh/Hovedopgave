@@ -175,4 +175,34 @@ public class CharactersService(
             ? Result<string>.Failure("Failed to delete character", 400)
             : Result<string>.Success(character.Id);
     }
+
+    public async Task<Result<string>> RetireCharacter(string characterId)
+    {
+        var user = await userAccessor.GetUserAsync();
+
+        var character = await context.Characters
+            .Where(x => x.Id == characterId)
+            .Include(x => x.User)
+            .FirstOrDefaultAsync();
+
+        if (character is null)
+        {
+            return Result<string>.Failure("Character not found", 400);
+        }
+
+        if (character.User.Id != user.Id)
+        {
+            return Result<string>.Failure("You are not the characters owner", 400);
+        }
+
+        character.IsRetired = true;
+
+        context.Characters.Update(character);
+
+        var result = await context.SaveChangesAsync() > 0;
+
+        return !result
+            ? Result<string>.Failure("Failed to retire character", 400)
+            : Result<string>.Success(character.Id);
+    }
 }

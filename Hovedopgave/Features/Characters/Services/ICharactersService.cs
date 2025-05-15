@@ -9,4 +9,5 @@ public interface ICharactersService
     Task<Result<List<CharacterDto>>> GetCharactersForCampaign(string campaignId);
     Task<Result<string>> UpdateCharacter(CharacterDto characterDto);
     Task<Result<string>> DeleteCharacter(string characterId);
+    Task<Result<string>> RetireCharacter(string characterId);
 }
