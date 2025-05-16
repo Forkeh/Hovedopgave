@@ -24,7 +24,10 @@ export default function WikiPage() {
 
     return (
         <section className='flex min-h-full bg-gray-100'>
-            <main className='flex-1'>
+            <main
+                key={location.pathname}
+                className='flex-1 animate-in fade-in'
+            >
                 <Outlet />
             </main>
             <WikiSideMenu
