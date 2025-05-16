@@ -39,6 +39,7 @@ type WikiEntry = {
     campaignId: string;
     name: string;
     content: string;
+    isVisible: boolean;
     type: WikiEntryType;
     xmin?: number;
     photo?: Photo;

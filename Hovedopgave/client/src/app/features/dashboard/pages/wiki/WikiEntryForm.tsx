@@ -32,6 +32,7 @@ import { useCampaigns } from '@/lib/hooks/useCampaigns';
 import { toast } from 'react-toastify';
 import { WikiEntryType } from '@/lib/enums/wikiEntryType';
 import ConfirmationDialog from '@/components/confirmation-dialog/ConfirmationDialog';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export default function WikiEntryForm() {
     const [isPhotoDialogOpen, setIsPhotoDialogOpen] = useState(false);
@@ -69,6 +70,7 @@ export default function WikiEntryForm() {
             name: '',
             content: '',
             type: WikiEntryType.Npc,
+            isVisible: false,
         },
     });
 
@@ -79,6 +81,7 @@ export default function WikiEntryForm() {
                 name: wikiEntry.name,
                 content: wikiEntry.content,
                 type: wikiEntry.type,
+                isVisible: wikiEntry.isVisible,
             });
         }
     }, [wikiEntry, form]);
@@ -88,6 +91,7 @@ export default function WikiEntryForm() {
             name: data.name,
             type: data.type,
             content: data.content,
+            isVisible: data.isVisible,
             campaignId: id!,
             ...(isEditMode && {
                 id: wikiEntry.id,
@@ -214,13 +218,15 @@ export default function WikiEntryForm() {
                                         </span>
                                     )}
                                 </div>
-                                <div className='flex w-full flex-col justify-center'>
+                                <div className='flex w-3/4 flex-col justify-center gap-6'>
                                     <FormField
                                         control={form.control}
                                         name='name'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Name</FormLabel>
+                                                <FormLabel className='font-bold'>
+                                                    Name
+                                                </FormLabel>
                                                 <FormControl>
                                                     <Input
                                                         placeholder='Type entry name'
@@ -236,7 +242,9 @@ export default function WikiEntryForm() {
                                         name='type'
                                         render={({ field }) => (
                                             <FormItem key={field.value}>
-                                                <FormLabel>Type</FormLabel>
+                                                <FormLabel className='font-bold'>
+                                                    Type
+                                                </FormLabel>
                                                 <Select
                                                     onValueChange={
                                                         field.onChange
@@ -268,6 +276,31 @@ export default function WikiEntryForm() {
                                             </FormItem>
                                         )}
                                     />
+                                    {isUserDm && (
+                                        <FormField
+                                            control={form.control}
+                                            name='isVisible'
+                                            render={({ field }) => (
+                                                <FormItem className='flex flex-row items-center justify-center'>
+                                                    <FormControl>
+                                                        <Checkbox
+                                                            checked={
+                                                                field.value
+                                                            }
+                                                            onCheckedChange={
+                                                                field.onChange
+                                                            }
+                                                            className='h-4 w-4'
+                                                        />
+                                                    </FormControl>
+                                                    <FormLabel>
+                                                        Is Visible to Players
+                                                    </FormLabel>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    )}
                                 </div>
                             </div>
                             <FormField

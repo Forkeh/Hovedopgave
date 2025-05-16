@@ -59,20 +59,30 @@ export default function WikiSideMenu({
         { type: WikiEntryType.Other, label: 'Other', value: 'other' },
     ];
 
-    const EntryList = ({ entries }: { entries: WikiEntry[] }) =>
-        entries.length > 0 ? (
-            entries.map((entry) => (
+    const EntryList = ({ entries }: { entries: WikiEntry[] }) => {
+        const visibleEntries = isDM
+            ? entries
+            : entries.filter((entry) => entry.isVisible);
+
+        return visibleEntries.length > 0 ? (
+            visibleEntries.map((entry) => (
                 <div
                     key={entry.id}
                     onClick={() => onSelectWikiEntry(entry)}
                     className='cursor-pointer rounded px-2 py-1 text-sm transition-colors hover:bg-gray-700'
                 >
                     {entry.name}
+                    {!entry.isVisible && isDM && (
+                        <span className='ml-2 text-xs text-gray-400'>
+                            (hidden)
+                        </span>
+                    )}
                 </div>
             ))
         ) : (
             <div className='px-2 text-sm text-gray-400 italic'>No entries</div>
         );
+    };
 
     return (
         <nav className='flex w-64 flex-col border-l border-yellow-500 bg-gray-800 p-3 text-white'>

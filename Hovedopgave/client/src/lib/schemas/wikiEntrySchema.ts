@@ -7,6 +7,7 @@ export const wikiEntrySchema = z.object({
     type: z.nativeEnum(WikiEntryType, {
         errorMap: () => ({ message: 'Please select a valid entry type' }),
     }),
+    isVisible: z.boolean()
 });
 
 export type WikiEntrySchema = z.infer<typeof wikiEntrySchema>;

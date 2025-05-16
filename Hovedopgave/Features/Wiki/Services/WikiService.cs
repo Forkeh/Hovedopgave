@@ -130,6 +130,7 @@ public class WikiService(
         wikiEntry.Name = wikiEntryDto.Name;
         wikiEntry.Content = sanitizer.Sanitize(wikiEntryDto.Content);
         wikiEntry.Type = wikiEntryDto.Type;
+        wikiEntry.IsVisible = wikiEntryDto.IsVisible;
 
         // TODO: Maybe add photo upload for existing wiki entries
         // if (!string.IsNullOrEmpty(wikiEntryDto.Photo?.Id))

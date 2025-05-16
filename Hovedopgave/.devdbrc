@@ -1,0 +1,11 @@
+[
+	{
+		"name": "My PostgreSQL Connection",
+		"type": "postgres",
+		"host": "localhost",
+		"port": 5432,
+		"username": "postgres",
+		"password": "hovedopgave",
+		"database": "hovedopgave_db"
+	}
+]

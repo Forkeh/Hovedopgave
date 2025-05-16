@@ -11,6 +11,7 @@ public class WikiEntry
     public required WikiEntryType Type { get; set; }
     public required string Name { get; set; }
     public string Content { get; set; } = "";
+    public bool IsVisible { get; set; }
 
     [ConcurrencyCheck]
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]

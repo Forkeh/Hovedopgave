@@ -53,15 +53,13 @@ export default function WikiEntryView() {
                     )}
                 </div>
 
-                <div className='flex flex-1 flex-col space-y-4 rounded-lg bg-gray-50 p-4'>
-                    <h1 className='text-2xl font-bold text-gray-900'>
+                <div className='flex flex-1 flex-col gap-8 rounded-lg bg-gray-50 p-4'>
+                    <h1 className='text-3xl font-bold text-gray-900'>
                         {wikiEntry.name}
                     </h1>
-                    Type: {wikiEntry.type}
-                    <div className='mt-auto border-t border-gray-200 pt-4'>
-                        <p className='text-sm text-gray-500 dark:text-gray-400'>
-                            Last updated: {new Date().toLocaleDateString()}
-                        </p>
+                    <div>
+                        <span className='font-bold'>Type: </span>{' '}
+                        {wikiEntry.type}
                     </div>
                 </div>
             </div>

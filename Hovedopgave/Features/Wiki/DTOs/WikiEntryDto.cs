@@ -9,6 +9,7 @@ public class WikiEntryDto
     public required WikiEntryType Type { get; set; }
     public required string Name { get; set; }
     public required string Content { get; set; }
+    public required bool IsVisible { get; set; }
 
     public uint Xmin { get; set; }
 
