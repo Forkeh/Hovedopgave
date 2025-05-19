@@ -4,6 +4,8 @@ using Hovedopgave.Features.Campaigns.DTOs;
 using Hovedopgave.Features.Campaigns.Models;
 using Hovedopgave.Features.Characters.DTOs;
 using Hovedopgave.Features.Characters.Models;
+using Hovedopgave.Features.Notes.DTOs;
+using Hovedopgave.Features.Notes.Models;
 using Hovedopgave.Features.Wiki.DTOs;
 using Hovedopgave.Features.Wiki.Models;
 
@@ -32,5 +34,7 @@ public class MappingProfiles : Profile
 
         CreateMap<CreateCharacterDto, Character>();
         CreateMap<Character, CharacterDto>();
+
+        CreateMap<Note, NoteDto>();
     }
 }

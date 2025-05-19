@@ -6,6 +6,7 @@ using Hovedopgave.Core.Results;
 using Hovedopgave.Core.Services;
 using Hovedopgave.Features.Campaigns.DTOs;
 using Hovedopgave.Features.Campaigns.Models;
+using Hovedopgave.Features.Notes.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hovedopgave.Features.Campaigns.Services;
@@ -14,7 +15,8 @@ public class CampaignService(
     AppDbContext context,
     IUserAccessor userAccessor,
     IMapper mapper,
-    ICloudinaryService cloudinaryService) : ICampaignService
+    ICloudinaryService cloudinaryService,
+    INotesService notesService) : ICampaignService
 {
     public async Task<List<CampaignDto>> GetAllUserCampaigns()
     {
@@ -174,6 +176,13 @@ public class CampaignService(
         if (campaign.Users.Any(x => x.Id == foundPlayer.Id))
         {
             return Result<string>.Failure("Player is already in the campaign", 400);
+        }
+
+        var notes = await notesService.CreateCampaignNotesForUser(foundPlayer, campaign);
+
+        if (!notes.IsSuccess)
+        {
+            Result<string>.Failure("Failed to create notes for player to the campaign", 400);
         }
 
         campaign.Users.Add(foundPlayer);

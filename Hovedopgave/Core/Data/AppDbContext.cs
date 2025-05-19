@@ -1,6 +1,7 @@
 ﻿using Hovedopgave.Features.Account.Models;
 using Hovedopgave.Features.Campaigns.Models;
 using Hovedopgave.Features.Characters.Models;
+using Hovedopgave.Features.Notes.Models;
 using Hovedopgave.Features.Photos.Models;
 using Hovedopgave.Features.Wiki.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -15,6 +16,7 @@ public class AppDbContext(DbContextOptions options) : IdentityDbContext<User>(op
     public required DbSet<MapPin> MapPins { get; set; }
     public required DbSet<WikiEntry> WikiEntries { get; set; }
     public required DbSet<Character> Characters { get; set; }
+    public required DbSet<Note> Notes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

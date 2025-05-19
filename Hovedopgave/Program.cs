@@ -9,6 +9,7 @@ using Hovedopgave.Core.Services;
 using Hovedopgave.Features.Account.Models;
 using Hovedopgave.Features.Campaigns.Services;
 using Hovedopgave.Features.Characters.Services;
+using Hovedopgave.Features.Notes.Services;
 using Hovedopgave.Features.Photos.Services;
 using Hovedopgave.Features.Wiki.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -44,6 +45,7 @@ builder.Services.AddScoped<ICampaignService, CampaignService>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.AddScoped<IWikiService, WikiService>();
 builder.Services.AddScoped<ICharactersService, CharactersService>();
+builder.Services.AddScoped<INotesService, NotesService>();
 
 
 // Postgres for dev og prod
