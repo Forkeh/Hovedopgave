@@ -1,5 +1,6 @@
 ﻿using Hovedopgave.Features.Account.Models;
 using Hovedopgave.Features.Campaigns.Models;
+using Hovedopgave.Features.Notes.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace Hovedopgave.Core.Data;
@@ -23,32 +24,67 @@ public class DbInitializer
             }
         }
 
+        var campaigns = new List<Campaign>
+        {
+            new()
+            {
+                DungeonMaster = users[0],
+                Name = "Campaign 1",
+                Users = [users[1], users[2]]
+            },
+            new()
+            {
+                DungeonMaster = users[1],
+                Name = "Campaign 2",
+                Users = [users[0]]
+            },
+            new()
+            {
+                DungeonMaster = users[2],
+                Name = "Campaign 3"
+            }
+        };
+
         if (!context.Campaigns.Any())
         {
-            var campaigns = new List<Campaign>
-            {
-                new()
-                {
-                    DungeonMaster = users[0],
-                    Name = "Campaign 1",
-                    Users = [users[1], users[2]]
-                },
-                new()
-                {
-                    DungeonMaster = users[1],
-                    Name = "Campaign 2",
-                    Users = [users[0]]
-                },
-                new()
-                {
-                    DungeonMaster = users[2],
-                    Name = "Campaign 3"
-                }
-            };
-
             await context.Campaigns.AddRangeAsync(campaigns);
         }
 
+        if (!context.Notes.Any())
+        {
+            var notes = new List<Note>
+            {
+                new()
+                {
+                    Content = "<p>Notes for Campaign 1 - User 1</p>",
+                    Campaign = campaigns[0],
+                    CampaignId = campaigns[0].Id,
+                    User = users[1],
+                    UserId = users[1].Id
+                },
+                new()
+                {
+                    Content = "<p>Notes for Campaign 1 - User 2</p>",
+                    Campaign = campaigns[0],
+                    CampaignId = campaigns[0].Id,
+                    User = users[2],
+                    UserId = users[2].Id
+                },
+                new()
+                {
+                    Content = "<p>Notes for Campaign 2 - User 0</p>",
+                    Campaign = campaigns[1],
+                    CampaignId = campaigns[1].Id,
+                    User = users[0],
+                    UserId = users[0].Id
+                }
+            };
+
+            if (!context.Notes.Any())
+            {
+                await context.Notes.AddRangeAsync(notes);
+            }
+        }
 
         await context.SaveChangesAsync();
     }
