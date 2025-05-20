@@ -56,7 +56,15 @@ public class DbInitializer
             {
                 new()
                 {
-                    Content = "<p>Notes for Campaign 1 - User 1</p>",
+                    Content = "<p>Notes for Campaign 1 - Bob</p>",
+                    Campaign = campaigns[0],
+                    CampaignId = campaigns[0].Id,
+                    User = users[0],
+                    UserId = users[0].Id
+                },
+                new()
+                {
+                    Content = "<p>Notes for Campaign 1 - Tom</p>",
                     Campaign = campaigns[0],
                     CampaignId = campaigns[0].Id,
                     User = users[1],
@@ -64,7 +72,7 @@ public class DbInitializer
                 },
                 new()
                 {
-                    Content = "<p>Notes for Campaign 1 - User 2</p>",
+                    Content = "<p>Notes for Campaign 1 - Jane</p>",
                     Campaign = campaigns[0],
                     CampaignId = campaigns[0].Id,
                     User = users[2],
@@ -72,12 +80,28 @@ public class DbInitializer
                 },
                 new()
                 {
-                    Content = "<p>Notes for Campaign 2 - User 0</p>",
+                    Content = "<p>Notes for Campaign 2 - Tom</p>",
+                    Campaign = campaigns[1],
+                    CampaignId = campaigns[1].Id,
+                    User = users[1],
+                    UserId = users[1].Id
+                },
+                new()
+                {
+                    Content = "<p>Notes for Campaign 2 - Bob</p>",
                     Campaign = campaigns[1],
                     CampaignId = campaigns[1].Id,
                     User = users[0],
                     UserId = users[0].Id
-                }
+                },
+                new()
+                {
+                    Content = "<p>Notes for Campaign 3 - Jane</p>",
+                    Campaign = campaigns[2],
+                    CampaignId = campaigns[2].Id,
+                    User = users[2],
+                    UserId = users[2].Id
+                },
             };
 
             if (!context.Notes.Any())

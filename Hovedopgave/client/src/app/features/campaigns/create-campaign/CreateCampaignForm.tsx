@@ -38,7 +38,7 @@ export default function CreateCampaignForm() {
     };
 
     return (
-        <div className='flex h-screen w-full items-center justify-center'>
+        <div className='flex h-full w-full items-center justify-center'>
             <div className='prose w-full max-w-md rounded-lg bg-white p-6 shadow-sm'>
                 <h1 className='mb-6 text-center'>Create new campaign</h1>
 
@@ -66,7 +66,7 @@ export default function CreateCampaignForm() {
 
                         <Button
                             type='submit'
-                            className='w-full'
+                            className='w-full cursor-pointer'
                             disabled={
                                 !form.formState.isValid ||
                                 form.formState.isSubmitting ||

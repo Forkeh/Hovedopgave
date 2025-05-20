@@ -37,6 +37,7 @@ export default function ConfirmationDialog({
                 <section className='flex justify-between'>
                     <div>
                         <Button
+                            className='cursor-pointer'
                             variant='destructive'
                             onClick={() => handleConfirmation()}
                         >
@@ -45,6 +46,7 @@ export default function ConfirmationDialog({
                     </div>
                     <div className='flex gap-2'>
                         <Button
+                            className='cursor-pointer'
                             variant='outline'
                             onClick={() => setIsConfirmationDialogOpen(false)}
                         >

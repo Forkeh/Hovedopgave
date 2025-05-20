@@ -43,7 +43,7 @@ export const useCampaigns = (id?: string) => {
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: ['campaigns', id],
+                queryKey: ['campaigns'],
             });
         },
     });

@@ -69,7 +69,7 @@ public class NotesService(
     {
         var note = new Note
         {
-            Content = "",
+            Content = "<p style=\"text-align: center\">Type your own notes here!</p>",
             UserId = user.Id,
             CampaignId = campaign.Id,
             User = user,

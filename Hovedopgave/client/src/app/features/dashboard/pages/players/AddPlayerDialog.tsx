@@ -88,6 +88,7 @@ export default function AddPlayerDialog({
 
                         <div className='flex justify-between'>
                             <Button
+                                className='cursor-pointer'
                                 type='button'
                                 variant='outline'
                                 onClick={() => setIsAddPlayerDialogOpen(false)}
@@ -95,6 +96,7 @@ export default function AddPlayerDialog({
                                 Cancel
                             </Button>
                             <Button
+                                className='cursor-pointer'
                                 type='submit'
                                 disabled={
                                     !form.formState.isValid ||
