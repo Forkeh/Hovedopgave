@@ -83,6 +83,14 @@ public class CampaignService(
 
         var result = await context.SaveChangesAsync() > 0;
 
+        var notes = await notesService.CreateCampaignNotesForUser(user, newCampaign);
+
+        if (!notes.IsSuccess)
+        {
+            return Result<string>.Failure("Failed to create notes for player to the campaign", 400);
+        }
+
+
         return !result
             ? Result<string>.Failure("Failed to create the campaign", 400)
             : Result<string>.Success($"New campaign Id: {newCampaign.Id}, DM: {newCampaign.DungeonMaster.DisplayName}");
@@ -182,7 +190,7 @@ public class CampaignService(
 
         if (!notes.IsSuccess)
         {
-            Result<string>.Failure("Failed to create notes for player to the campaign", 400);
+            return Result<string>.Failure("Failed to create notes for player to the campaign", 400);
         }
 
         campaign.Users.Add(foundPlayer);

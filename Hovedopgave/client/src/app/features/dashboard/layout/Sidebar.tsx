@@ -1,4 +1,4 @@
-import { BookOpenText, Menu, Map, Users } from 'lucide-react';
+import { BookOpenText, Menu, Map, Users, NotebookPen } from 'lucide-react';
 import SidebarItem from './SidebarItem';
 import { useState } from 'react';
 import { useCampaigns } from '@/lib/hooks/useCampaigns';
@@ -27,6 +27,11 @@ const sideBarItems = [
         name: 'Wiki',
         icon: BookOpenText,
         linkTo: 'wiki',
+    },
+    {
+        name: 'Notes',
+        icon: NotebookPen,
+        linkTo: 'notes',
     },
 ];
 

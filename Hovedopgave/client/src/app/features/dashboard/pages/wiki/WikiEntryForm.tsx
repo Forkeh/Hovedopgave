@@ -317,6 +317,7 @@ export default function WikiEntryForm() {
                                                 onChange={(newContent) => {
                                                     field.onChange(newContent);
                                                 }}
+                                                maxHeight='max-h-70'
                                             />
                                         </FormControl>
                                         <FormMessage />

@@ -116,6 +116,7 @@ export default function EditPinDialog({
                                 };
                                 setEditingPin(updatedPin);
                             }}
+                            maxHeight='max-h-70'
                         />
                     </div>
                 </div>

@@ -15,6 +15,7 @@ import WikiEntryView from '../features/dashboard/pages/wiki/WikiEntryView';
 import WikiEntryForm from '../features/dashboard/pages/wiki/WikiEntryForm';
 import CharacterForm from '../features/dashboard/pages/players/CharacterForm';
 import PlayersList from '../features/dashboard/pages/players/PlayersList';
+import NotesPage from '../features/dashboard/pages/notes/NotesPage';
 
 export const router = createBrowserRouter([
     {
@@ -96,6 +97,10 @@ export const router = createBrowserRouter([
                                                 ),
                                             },
                                         ],
+                                    },
+                                    {
+                                        path: 'notes',
+                                        element: <NotesPage />,
                                     },
                                 ],
                             },

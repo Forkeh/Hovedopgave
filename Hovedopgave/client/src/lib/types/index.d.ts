@@ -58,3 +58,10 @@ type Character = {
     photoId?: string;
     photo?: Photo;
 };
+
+type Note = {
+    id: string;
+    content: string;
+    userId: string;
+    campaignId: string;
+};

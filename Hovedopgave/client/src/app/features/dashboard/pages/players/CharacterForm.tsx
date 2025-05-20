@@ -360,6 +360,7 @@ export default function CharacterForm() {
                                                             newContent,
                                                         );
                                                     }}
+                                                    maxHeight='max-h-70'
                                                 />
                                             </div>
                                         </FormControl>

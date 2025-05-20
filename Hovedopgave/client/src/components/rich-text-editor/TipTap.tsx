@@ -9,9 +9,10 @@ import TipTapMenuBar from './TipTapMenuBar';
 type Props = {
     content: string;
     onChange: (content: string) => void;
+    maxHeight?: string;
 };
 
-const Tiptap = ({ content, onChange }: Props) => {
+const Tiptap = ({ content, onChange, maxHeight }: Props) => {
     const extensions = [
         StarterKit.configure({
             bulletList: {
@@ -69,7 +70,7 @@ const Tiptap = ({ content, onChange }: Props) => {
             <TipTapMenuBar editor={editor} />
             <EditorContent
                 editor={editor}
-                className='max-h-70 overflow-x-hidden overflow-y-auto'
+                className={`${maxHeight} overflow-x-hidden overflow-y-auto`}
             />
         </div>
     );
