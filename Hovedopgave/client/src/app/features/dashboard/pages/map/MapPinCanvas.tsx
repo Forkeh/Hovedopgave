@@ -19,8 +19,8 @@ const MapPinCanvas = ({
     image,
     imageAlt,
     draggable,
-    pins = [], // Provide default empty array
-    viewOnly = false, // Default to editing mode
+    pins = [],
+    viewOnly = false,
     onNewPin,
     onExistingPin,
     onDraggedPin,
@@ -35,31 +35,64 @@ const MapPinCanvas = ({
 
     // Update local pins when props pins change
     useEffect(() => {
-        setLocalPins(pins || []);
+        setLocalPins(pins);
     }, [pins]);
 
-    // Function to create a new pin
+    // Add global mouse up listener
+    useEffect(() => {
+        const handleGlobalMouseUp = () => {
+            if (isDragging) {
+                setIsDragging(false);
+            }
+        };
+
+        document.addEventListener('mouseup', handleGlobalMouseUp);
+        return () => {
+            document.removeEventListener('mouseup', handleGlobalMouseUp);
+        };
+    }, [isDragging]);
+
+    const isTargetContainer = (target: EventTarget) => {
+        return (
+            target === containerRef.current ||
+            target === containerRef.current?.querySelector('img')
+        );
+    };
+
+    const getRelativePosition = (clientX: number, clientY: number) => {
+        if (!containerRef.current) return { positionX: 0, positionY: 0 };
+
+        const rect = containerRef.current.getBoundingClientRect();
+
+        // Calculate and clamp coordinates between 0 and 1
+        const positionX = Math.max(
+            0,
+            Math.min(1, (clientX - rect.left) / rect.width),
+        );
+        const positionY = Math.max(
+            0,
+            Math.min(1, (clientY - rect.top) / rect.height),
+        );
+
+        return { positionX, positionY };
+    };
+
+    // Event handlers
     const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        // Exit if view-only mode is enabled or other conditions are met
         if (
             viewOnly ||
             isDragging ||
             isPanning ||
-            !containerRef.current ||
             !isClickPending ||
-            (e.target !== containerRef.current &&
-                e.target !== containerRef.current.querySelector('img'))
+            !isTargetContainer(e.target)
         ) {
             return;
         }
 
-        const rect = containerRef.current.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;
-        const y = (e.clientY - rect.top) / rect.height;
-
-        // Limit the values between 0 and 1
-        const positionX = Math.max(0, Math.min(1, x));
-        const positionY = Math.max(0, Math.min(1, y));
+        const { positionX, positionY } = getRelativePosition(
+            e.clientX,
+            e.clientY,
+        );
 
         const newPin: Pin = {
             title: '',
@@ -70,60 +103,36 @@ const MapPinCanvas = ({
             icon: 'default',
         };
 
-        if (onNewPin) {
-            onNewPin(newPin);
-        }
-
+        onNewPin?.(newPin);
         setLocalPins((prevPins) => [...prevPins, newPin]);
         setIsClickPending(false);
     };
 
-    // Handle mousedown on container
     const handleContainerMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-        // Skip in view-only mode
-        if (viewOnly) return;
-
-        // Check if the click is directly on the container or image (not on a pin)
-        if (
-            e.target === containerRef.current ||
-            e.target === containerRef.current?.querySelector('img')
-        ) {
+        if (!viewOnly && isTargetContainer(e.target)) {
             setIsClickPending(true);
         }
     };
 
-    // Functions for dragging pins
     const handlePinMouseDown = (e: React.MouseEvent, pin: Pin) => {
-        console.log('click');
-
-        // Skip in view-only mode or if dragging is disabled
         if (viewOnly || !draggable) return;
 
         e.stopPropagation();
         setIsClickPending(false);
         setActivePin(pin);
         setIsDragging(true);
-
-        if (onExistingPin) {
-            onExistingPin(pin);
-        }
+        onExistingPin?.(pin);
     };
 
     const handleMouseMove = (e: React.MouseEvent) => {
-        // Skip in view-only mode
         if (viewOnly || !isDragging || !activePin || !containerRef.current)
             return;
 
-        // Cancel any pending clicks when we start dragging
         setIsClickPending(false);
-
-        const rect = containerRef.current.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;
-        const y = (e.clientY - rect.top) / rect.height;
-
-        // Limit the values between 0 and 1
-        const positionX = Math.max(0, Math.min(1, x));
-        const positionY = Math.max(0, Math.min(1, y));
+        const { positionX, positionY } = getRelativePosition(
+            e.clientX,
+            e.clientY,
+        );
 
         const updatedPins = localPins.map((pin) =>
             pin.id === activePin.id ? { ...pin, positionX, positionY } : pin,
@@ -132,33 +141,8 @@ const MapPinCanvas = ({
         setLocalPins(updatedPins);
 
         const updatedPin = updatedPins.find((pin) => pin.id === activePin.id);
-        if (updatedPin && onDraggedPin) {
-            onDraggedPin(updatedPin);
-        }
-    };
-
-    const handleMouseUp = () => {
-        if (isDragging) {
-            setIsDragging(false);
-        }
-    };
-
-    // Prevent default behavior for dragstart
-    const handleDragStart = (e: React.DragEvent) => {
-        e.preventDefault();
-    };
-
-    // Add and remove event listeners
-    useEffect(() => {
-        document.addEventListener('mouseup', handleMouseUp);
-        return () => {
-            document.removeEventListener('mouseup', handleMouseUp);
-        };
-    }, [isDragging]);
-
-    const handlePinEdit = (pin: Pin) => {
-        if (onEditPin) {
-            onEditPin(pin);
+        if (updatedPin) {
+            onDraggedPin?.(updatedPin);
         }
     };
 
@@ -169,7 +153,7 @@ const MapPinCanvas = ({
             onClick={handleContainerClick}
             onMouseDown={handleContainerMouseDown}
             onMouseMove={handleMouseMove}
-            onDragStart={handleDragStart}
+            onDragStart={(e) => e.preventDefault()}
         >
             <img
                 src={image}
@@ -179,26 +163,27 @@ const MapPinCanvas = ({
                 onDragStart={(e) => e.preventDefault()}
             />
 
-            {localPins &&
-                localPins.map((pin) => (
-                    <div
-                        key={pin.id}
-                        className={`absolute -mt-6 -ml-3 h-6 w-6 cursor-pointer ${isDragging && pin.id === activePin?.id ? 'z-20' : 'z-10'}`}
-                        style={{
-                            left: `${pin.positionX * 100}%`,
-                            top: `${pin.positionY * 100}%`,
-                        }}
-                    >
-                        <MapPin
-                            pin={pin}
-                            isActive={pin.id === activePin?.id}
-                            onMouseDown={handlePinMouseDown}
-                            onEdit={handlePinEdit}
-                            disableHoverCard={isDragging}
-                            isViewOnly={viewOnly}
-                        />
-                    </div>
-                ))}
+            {localPins.map((pin) => (
+                <div
+                    key={pin.id}
+                    className={`absolute -mt-6 -ml-3 h-6 w-6 cursor-pointer ${
+                        isDragging && pin.id === activePin?.id ? 'z-20' : 'z-10'
+                    }`}
+                    style={{
+                        left: `${pin.positionX * 100}%`,
+                        top: `${pin.positionY * 100}%`,
+                    }}
+                >
+                    <MapPin
+                        pin={pin}
+                        isActive={pin.id === activePin?.id}
+                        onMouseDown={handlePinMouseDown}
+                        onEdit={onEditPin}
+                        disableHoverCard={isDragging}
+                        isViewOnly={viewOnly}
+                    />
+                </div>
+            ))}
         </div>
     );
 };

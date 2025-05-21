@@ -16,7 +16,7 @@ export default function UserMenu() {
         <DropdownMenu>
             <DropdownMenuTrigger>
                 <Avatar className='size-12 cursor-pointer'>
-                    <AvatarImage src='https://github.com/shadcn.png' />
+                    <AvatarImage />
                     <AvatarFallback className='bg-slate-500'>
                         {currentUser?.displayName}
                     </AvatarFallback>
