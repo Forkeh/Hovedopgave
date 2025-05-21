@@ -1,16 +1,17 @@
 import { useCampaigns } from '@/lib/hooks/useCampaigns';
 import { useNavigate, useParams } from 'react-router';
 import Map from './Map';
-import ImageUploadWidget from '@/components/ImageUploadWidget';
 import { useAccount } from '@/lib/hooks/useAccount';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import ConfirmationDialog from '@/components/confirmation-dialog/ConfirmationDialog';
+import PhotoDialog from '@/components/photo-dialog/PhotoDialog';
 
 export default function MapPage() {
     const [isDeleteCampaignDialogOpen, setIsDeleteCampaignDialogOpen] =
         useState(false);
+    const [isPhotoDialogOpen, setIsPhotoDialogOpen] = useState(false);
     const { id } = useParams();
     const { campaign, campaignIsLoading, uploadCampaignMap, deleteCampaign } =
         useCampaigns(id);
@@ -63,14 +64,18 @@ export default function MapPage() {
                     campaign={campaign}
                 />
             ) : (
-                <>
+                <div className='flex aspect-square w-1/3 flex-col items-center justify-center gap-10 overflow-hidden rounded-lg bg-gray-200 shadow-md'>
+                    <div className='text-gray-400'>No map image available</div>
                     {!isViewOnly && (
-                        <ImageUploadWidget
-                            uploadPhoto={handlePhotoUpload}
-                            loading={uploadCampaignMap.isPending}
-                        />
+                        <Button
+                            size='lg'
+                            className='cursor-pointer'
+                            onClick={() => setIsPhotoDialogOpen(true)}
+                        >
+                            Add map image
+                        </Button>
                     )}
-                </>
+                </div>
             )}
             <ConfirmationDialog
                 title='Delete Campaign?'
@@ -78,6 +83,12 @@ export default function MapPage() {
                 isConfirmationDialogOpen={isDeleteCampaignDialogOpen}
                 setIsConfirmationDialogOpen={setIsDeleteCampaignDialogOpen}
                 handleConfirmation={handleDeleteCampaign}
+            />
+
+            <PhotoDialog
+                isPhotoDialogOpen={isPhotoDialogOpen}
+                setIsPhotoDialogOpen={setIsPhotoDialogOpen}
+                onSetPhoto={handlePhotoUpload}
             />
         </main>
     );

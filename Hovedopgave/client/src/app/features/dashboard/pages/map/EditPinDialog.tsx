@@ -123,6 +123,7 @@ export default function EditPinDialog({
                 <section className='flex justify-between'>
                     <div>
                         <Button
+                            className='cursor-pointer'
                             variant='destructive'
                             onClick={() => handleDeletePin(editingPin)}
                         >
@@ -131,12 +132,16 @@ export default function EditPinDialog({
                     </div>
                     <div className='flex gap-2'>
                         <Button
+                            className='cursor-pointer'
                             variant='outline'
                             onClick={() => setIsEditDialogOpen(false)}
                         >
                             Cancel
                         </Button>
-                        <Button onClick={handleSaveEditedPin}>
+                        <Button
+                            className='cursor-pointer'
+                            onClick={handleSaveEditedPin}
+                        >
                             Save Changes
                         </Button>
                     </div>

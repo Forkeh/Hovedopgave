@@ -84,7 +84,7 @@ export default function Map({ isViewOnly, campaign }: Props) {
 
     return (
         <>
-            <div>Selected pin: {selectedPin?.id}</div>
+            {/* <div>Selected pin: {selectedPin?.id}</div> */}
             <section className='overflow-hidden rounded-2xl border shadow-md'>
                 <div className='relative h-120 w-120'>
                     <TransformWrapper
