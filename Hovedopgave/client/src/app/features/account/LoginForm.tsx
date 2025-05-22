@@ -42,7 +42,7 @@ export default function LoginForm() {
     };
 
     return (
-        <div className='flex h-full w-full items-center justify-center'>
+        <div className='flex h-full w-full animate-in items-center justify-center fade-in'>
             <div className='prose w-full max-w-md rounded-lg bg-white p-6 shadow-sm'>
                 <h1 className='mb-6 text-center'>Sign in</h1>
                 <Form {...form}>

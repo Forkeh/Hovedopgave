@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { WikiEntryType } from '@/lib/enums/wikiEntryType';
 import { WikiEntry } from '@/lib/types';
-import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 type Props = {

@@ -40,9 +40,9 @@ export const useAccount = () => {
                 queryKey: ['user'],
             });
             queryClient.removeQueries({
-                queryKey: ['activities'],
+                queryKey: ['campaigns'],
             });
-            navigate('/');
+            navigate('/login');
         },
     });
 
