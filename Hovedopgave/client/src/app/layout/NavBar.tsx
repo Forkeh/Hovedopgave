@@ -8,10 +8,24 @@ export default function NavBar() {
     return (
         <div className='flex min-h-30 items-center justify-between border-b-4 border-double border-yellow-500/30 bg-gray-900 px-5'>
             <Link
-                className='font-cinzel text-3xl font-extrabold'
+                className='flex font-cinzel'
                 to={'/campaigns'}
             >
-                Dungeon and Dragons Campaign Codex
+                <div className='flex items-center'>
+                    <img
+                        src='/wizard_guy.png'
+                        className='size-25'
+                    />
+                    <section>
+                        <div className='text-center text-yellow-300'>
+                            Dungeon and Dragons
+                        </div>
+                        <div className='text-3xl font-extrabold'>
+                            {' '}
+                            Campaign Codex
+                        </div>
+                    </section>
+                </div>
             </Link>
 
             {currentUser ? (

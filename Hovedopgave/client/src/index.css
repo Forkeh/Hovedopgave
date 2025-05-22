@@ -126,3 +126,37 @@
         @apply bg-background text-foreground;
     }
 }
+
+@layer components {
+    .dnd-gradient-bg {
+        @apply border-8 border-double border-black/80 bg-gradient-to-br from-orange-100 to-orange-200;
+    }
+
+    .dnd-button {
+        @apply font-cinzel cursor-pointer rounded-md border-2 border-amber-700/30 bg-gradient-to-b from-orange-100 to-orange-200 text-center font-bold text-amber-950 transition-all hover:from-orange-200 hover:to-orange-300 hover:shadow-lg active:translate-y-0.5;
+        /* @apply border-2 border-amber-700/30;
+        background-image: linear-gradient(
+            to bottom,
+            theme('colors.amber.100'),
+            theme('colors.amber.200')
+        ); */
+    }
+
+    .dnd-button:hover {
+        background-image: linear-gradient(
+            to bottom,
+            theme('colors.amber.200'),
+            theme('colors.amber.300')
+        );
+        @apply shadow-lg;
+    }
+
+    .parchment-card {
+        @apply border-4 border-double border-black/30 p-4;
+        background-image: linear-gradient(
+            to bottom right,
+            theme('colors.orange.100'),
+            theme('colors.orange.200')
+        );
+    }
+}

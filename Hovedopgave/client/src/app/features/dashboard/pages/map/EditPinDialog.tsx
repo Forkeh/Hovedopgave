@@ -40,7 +40,7 @@ export default function EditPinDialog({
             open={isEditDialogOpen}
             onOpenChange={setIsEditDialogOpen}
         >
-            <DialogContent className='min-w-fit'>
+            <DialogContent className='dnd-gradient-bg min-w-fit'>
                 <DialogHeader>
                     <DialogTitle className='text-center'>Edit Pin</DialogTitle>
                     <DialogDescription className='text-center'>
@@ -49,7 +49,12 @@ export default function EditPinDialog({
                 </DialogHeader>
                 <div className='space-y-4 py-4'>
                     <div className='space-y-2'>
-                        <label htmlFor='title'>Title</label>
+                        <label
+                            htmlFor='title'
+                            className='font-bold'
+                        >
+                            Title
+                        </label>
                         <div className='flex gap-2'>
                             <Input
                                 id='title'
@@ -61,6 +66,7 @@ export default function EditPinDialog({
                                     };
                                     setEditingPin(updatedPin);
                                 }}
+                                className='border-4 border-double border-amber-700/40 bg-orange-50'
                                 placeholder='Enter a title for this pin'
                             />
                             <Select
@@ -73,7 +79,7 @@ export default function EditPinDialog({
                                 }}
                                 defaultValue='default'
                             >
-                                <SelectTrigger className='w-[180px]'>
+                                <SelectTrigger className='w-[180px] border-4 border-double border-amber-700/40 bg-orange-50'>
                                     <SelectValue placeholder='Icon' />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -106,7 +112,12 @@ export default function EditPinDialog({
                         </div>
                     </div>
                     <div className='space-y-2'>
-                        <label htmlFor='description'>Description</label>
+                        <label
+                            className='font-bold'
+                            htmlFor='description'
+                        >
+                            Description
+                        </label>
                         <Tiptap
                             content={editingPin.description}
                             onChange={(newContent) => {

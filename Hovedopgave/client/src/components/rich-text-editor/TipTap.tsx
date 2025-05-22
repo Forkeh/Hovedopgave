@@ -43,7 +43,7 @@ const Tiptap = ({ content, onChange, maxHeight }: Props) => {
         content,
         editorProps: {
             attributes: {
-                class: 'min-h-[156px] w-xl border rounded-md bg-slate-50 py-2 px-3 prose my-2 focus:outline-none',
+                class: 'min-h-[156px] w-xl border-4 border-double border-amber-700/40 rounded-md bg-orange-50 py-2 px-3 prose my-2 focus:outline-none',
             },
         },
         onUpdate: ({ editor: currentEditor }) => {
