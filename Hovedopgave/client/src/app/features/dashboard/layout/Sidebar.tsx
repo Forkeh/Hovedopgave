@@ -100,12 +100,15 @@ export default function Sidebar() {
             </div>
 
             <nav>
-                <div className='m-2 mx-auto w-fit rounded-sm bg-gray-800 p-4 text-center'>
-                    <span className='text-xs text-yellow-300/80'>ROLE</span>
-                    <div className='font-bold'>
-                        {isPlayerDM ? 'Dungeon Master' : 'Player'}
+                {!collapsed && (
+                    <div className='m-2 mx-auto w-fit rounded-sm bg-gray-800 p-4 text-center'>
+                        <span className='text-xs text-yellow-300/80'>ROLE</span>
+                        <div className='font-bold'>
+                            {isPlayerDM ? 'Dungeon Master' : 'Player'}
+                        </div>
                     </div>
-                </div>
+                )}
+
                 {sideBarItems.map((item) => (
                     <SidebarItem
                         key={item.name}
