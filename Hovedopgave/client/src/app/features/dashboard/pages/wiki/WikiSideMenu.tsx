@@ -5,20 +5,24 @@ import {
     AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { WikiEntryType } from '@/lib/enums/wikiEntryType';
 import { WikiEntry } from '@/lib/types';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 type Props = {
     wikiEntries: WikiEntry[] | undefined;
     onSelectWikiEntry: (wikiEntry: WikiEntry) => void;
     isDM: boolean;
+    onWikiEntriesSearch: (value: string) => void;
 };
 
 export default function WikiSideMenu({
     wikiEntries,
     onSelectWikiEntry,
     isDM,
+    onWikiEntriesSearch,
 }: Props) {
     const navigate = useNavigate();
 
@@ -85,7 +89,7 @@ export default function WikiSideMenu({
     };
 
     return (
-        <nav className='flex w-64 flex-col border-l border-yellow-500 bg-gray-800 p-3 text-white'>
+        <nav className='flex w-64 flex-col gap-4 border-l border-yellow-500 bg-gray-800 p-3 text-white'>
             {isDM && (
                 <Button
                     onClick={() => navigate('create')}
@@ -96,24 +100,37 @@ export default function WikiSideMenu({
                 </Button>
             )}
 
+            <Input
+                placeholder='Search...'
+                onChange={(e) => onWikiEntriesSearch(e.target.value)}
+            />
+
             <Accordion
                 type='multiple'
                 className='space-y-2'
             >
-                {categories.map((category) => (
-                    <AccordionItem
-                        key={category.value}
-                        value={category.value}
-                        className='border-b border-gray-700'
-                    >
-                        <AccordionTrigger className='rounded px-2 font-bold hover:bg-gray-700'>
-                            {category.label}
-                        </AccordionTrigger>
-                        <AccordionContent>
-                            <EntryList entries={entriesByType[category.type]} />
-                        </AccordionContent>
-                    </AccordionItem>
-                ))}
+                {categories.map((category) => {
+                    if (entriesByType[category.type].length === 0) {
+                        return null;
+                    }
+
+                    return (
+                        <AccordionItem
+                            key={category.value}
+                            value={category.value}
+                            className='border-b border-gray-700'
+                        >
+                            <AccordionTrigger className='rounded px-2 font-bold hover:bg-gray-700'>
+                                {category.label}
+                            </AccordionTrigger>
+                            <AccordionContent>
+                                <EntryList
+                                    entries={entriesByType[category.type]}
+                                />
+                            </AccordionContent>
+                        </AccordionItem>
+                    );
+                })}
             </Accordion>
         </nav>
     );

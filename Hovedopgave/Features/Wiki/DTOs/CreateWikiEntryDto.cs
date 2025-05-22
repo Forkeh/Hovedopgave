@@ -10,6 +10,7 @@ public class CreateWikiEntryDto
 
     public required string Name { get; set; }
     public string Content { get; set; } = "";
+    public bool IsVisible { get; set; }
 
     public required string CampaignId { get; set; }
     public string? PhotoId { get; set; }

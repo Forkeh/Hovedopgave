@@ -4,16 +4,34 @@ import { Outlet, useNavigate, useParams } from 'react-router';
 import { WikiEntry } from '@/lib/types';
 import { useCampaigns } from '@/lib/hooks/useCampaigns';
 import { useAccount } from '@/lib/hooks/useAccount';
+import { useState } from 'react';
 
 export default function WikiPage() {
     const { id } = useParams();
     const { campaign, campaignIsLoading } = useCampaigns(id);
     const { wikiEntries, wikiEntriesIsLoading } = useWiki(id);
     const { currentUser } = useAccount();
+
+    const [filteredWikiEntries, setfilteredWikiEntries] = useState(wikiEntries);
+
     const navigate = useNavigate();
 
     const handleSelectWikiEntry = (wikiEntry: WikiEntry) => {
         navigate(`${wikiEntry.id}`);
+    };
+
+    const handleWikiEntriesSearch = (value: string) => {
+        console.log(value);
+
+        if (!value) {
+            setfilteredWikiEntries(wikiEntries);
+        } else {
+            const filterEntries = wikiEntries?.filter((entry) =>
+                entry.name.toLowerCase().includes(value.toLowerCase()),
+            );
+            setfilteredWikiEntries(filterEntries);
+        }
+        console.log(filteredWikiEntries);
     };
 
     if (wikiEntriesIsLoading || campaignIsLoading) {
@@ -31,9 +49,10 @@ export default function WikiPage() {
                 <Outlet />
             </main>
             <WikiSideMenu
-                wikiEntries={wikiEntries}
+                wikiEntries={filteredWikiEntries}
                 onSelectWikiEntry={handleSelectWikiEntry}
                 isDM={isDM}
+                onWikiEntriesSearch={handleWikiEntriesSearch}
             />
         </section>
     );

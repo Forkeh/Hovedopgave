@@ -335,13 +335,14 @@ export default function WikiEntryForm() {
                                         }}
                                         disabled={deleteWikiEntry.isPending}
                                         variant={'destructive'}
+                                        className='cursor-pointer'
                                     >
                                         Delete Entry
                                     </Button>
                                 )}
                                 <Button
                                     type='submit'
-                                    className={`${isEditMode ? '' : 'w-full'}`}
+                                    className={`cursor-pointer ${isEditMode ? '' : 'w-full'}`}
                                     disabled={
                                         !form.formState.isValid ||
                                         form.formState.isSubmitting ||
