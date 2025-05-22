@@ -39,7 +39,7 @@ export default function WikiPage() {
     const isDM = currentUser?.id === campaign?.dungeonMaster.id;
 
     return (
-        <section className='flex min-h-full bg-gray-100'>
+        <section className='flex min-h-full'>
             <main
                 key={location.pathname}
                 className='flex-1 animate-in fade-in'

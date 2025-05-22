@@ -85,7 +85,7 @@ export default function Map({ isViewOnly, campaign }: Props) {
     return (
         <>
             {/* <div>Selected pin: {selectedPin?.id}</div> */}
-            <section className='overflow-hidden rounded-2xl border shadow-md'>
+            <section className='overflow-hidden rounded-2xl border-4 border-double border-yellow-500/70 shadow-md'>
                 <div className='relative h-120 w-120'>
                     <TransformWrapper
                         onPanningStart={() => setIsPanning(true)}
@@ -111,7 +111,7 @@ export default function Map({ isViewOnly, campaign }: Props) {
                         </TransformComponent>
                     </TransformWrapper>
                     {!isViewOnly && (
-                        <div className='bg-opacity-75 absolute right-2 bottom-2 rounded bg-white p-2 text-xs text-gray-700 shadow-sm'>
+                        <div className='bg-opacity-75 absolute right-2 bottom-2 rounded border-4 border-double border-black/80 bg-gradient-to-br from-orange-100 to-orange-200 p-2 text-xs text-gray-700 shadow-sm'>
                             <p>
                                 <span className='font-bold'>Double Click:</span>{' '}
                                 Add pin

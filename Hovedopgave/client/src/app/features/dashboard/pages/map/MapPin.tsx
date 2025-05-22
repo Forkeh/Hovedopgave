@@ -32,7 +32,7 @@ const MapPin = ({
     const pinIcon = (
         <PinIcon
             name={iconName}
-            className={`h-6 w-6 ${isActive ? 'text-blue-500' : 'text-red-500'}`}
+            className={`h-6 w-6 drop-shadow-xs drop-shadow-black ${isActive ? 'text-orange-400' : 'text-orange-00'}`}
         />
     );
 
@@ -52,15 +52,15 @@ const MapPin = ({
             <HoverCardTrigger asChild>
                 <div onMouseDown={(e) => onMouseDown(e, pin)}>{pinIcon}</div>
             </HoverCardTrigger>
-            <HoverCardContent className='w-80 p-0'>
+            <HoverCardContent className='w-80 rounded-2xl border-4 border-double border-black/80 bg-gradient-to-br from-orange-100 to-orange-200 p-0'>
                 <div className='space-y-2'>
-                    <h3 className='border-b p-4 text-xl font-semibold'>
+                    <h3 className='border-b-4 border-double border-black/30 p-4 text-3xl font-bold'>
                         {pin.title || 'Untitled Pin'}
                         {!isViewOnly && (
                             <PencilIcon
-                                className='absolute top-4 right-4 cursor-pointer rounded-full bg-gray-200 p-2 transition-colors hover:bg-gray-300'
+                                className='absolute top-4 right-4 cursor-pointer rounded-full border border-black/10 bg-yellow-700 p-2 text-yellow-500 transition-colors hover:bg-yellow-800'
                                 onClick={handleEdit}
-                                size={30}
+                                size={35}
                             />
                         )}
                     </h3>

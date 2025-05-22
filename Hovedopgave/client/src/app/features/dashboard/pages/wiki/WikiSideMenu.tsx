@@ -72,7 +72,7 @@ export default function WikiSideMenu({
                 <div
                     key={entry.id}
                     onClick={() => onSelectWikiEntry(entry)}
-                    className='cursor-pointer rounded px-2 py-1 text-sm transition-colors hover:bg-gray-700'
+                    className='cursor-pointer rounded px-2 py-2 text-sm transition-colors hover:bg-gray-800'
                 >
                     {entry.name}
                     {!entry.isVisible && isDM && (
@@ -88,20 +88,20 @@ export default function WikiSideMenu({
     };
 
     return (
-        <nav className='flex w-64 flex-col gap-4 border-l border-yellow-500 bg-gray-800 p-3 text-white'>
+        <nav className='flex w-64 flex-col gap-4 border-l-4 border-double border-yellow-500/30 bg-gray-900 p-3'>
             {isDM && (
                 <Button
                     onClick={() => navigate('create')}
-                    variant='secondary'
-                    className='mb-4 cursor-pointer text-xl font-bold'
+                    className='text-md mb-4 flex w-full cursor-pointer rounded-md border-2 border-amber-700/30 bg-gradient-to-b from-orange-100 to-orange-200 text-center font-cinzel font-bold text-amber-950 transition-all hover:from-orange-200 hover:to-orange-300 hover:shadow-lg active:translate-y-0.5'
                 >
-                    Create entry
+                    Create New Entry
                 </Button>
             )}
 
             <Input
                 placeholder='Search...'
                 onChange={(e) => onWikiEntriesSearch(e.target.value)}
+                className='border-1 border-yellow-500/50 bg-gray-800'
             />
 
             <Accordion
@@ -117,9 +117,9 @@ export default function WikiSideMenu({
                         <AccordionItem
                             key={category.value}
                             value={category.value}
-                            className='border-b border-gray-700'
+                            className='cursor-pointer border-b-4 border-double border-yellow-500/30'
                         >
-                            <AccordionTrigger className='rounded px-2 font-bold hover:bg-gray-700'>
+                            <AccordionTrigger className='rounded px-2 font-bold hover:bg-gray-800'>
                                 {category.label}
                             </AccordionTrigger>
                             <AccordionContent>

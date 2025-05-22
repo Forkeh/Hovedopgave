@@ -65,7 +65,7 @@ export default function PlayersList() {
             <div className='mb-6 flex w-full flex-col items-center gap-3'>
                 <h1 className='text-3xl font-extrabold'>{campaign?.name}</h1>
 
-                <div className='mb-10 flex items-center gap-2 text-muted-foreground'>
+                <div className='mb-5 flex items-center gap-2 text-muted-foreground'>
                     <Crown
                         size={30}
                         className='text-yellow-500'
@@ -78,8 +78,6 @@ export default function PlayersList() {
                     </span>
                 </div>
 
-                <h2 className='text-xl font-bold'>Active characters</h2>
-
                 {currentUser?.id === campaign?.dungeonMaster.id && (
                     <Button
                         size='lg'
@@ -91,6 +89,9 @@ export default function PlayersList() {
                     </Button>
                 )}
             </div>
+
+            <h2 className='mb-2 text-xl font-bold'>Active characters</h2>
+
             {campaign?.players && campaign.players.length > 0 ? (
                 <div className='flex flex-wrap gap-8'>
                     {sortedPlayersByName?.map((player) => {

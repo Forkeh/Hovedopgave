@@ -59,7 +59,7 @@ export default function Sidebar() {
 
     return (
         <aside
-            className={`min-h-full border-r border-yellow-500 bg-gray-800 text-white transition-all duration-200 ${
+            className={`min-h-full border-r-4 border-double border-yellow-500/30 bg-gray-900 text-yellow-100 transition-all duration-200 ${
                 collapsed ? 'w-16' : 'w-64'
             }`}
         >
@@ -71,16 +71,16 @@ export default function Sidebar() {
                             value={selectedCampaign}
                             defaultValue={id}
                         >
-                            <SelectTrigger className='w-[180px] cursor-pointer border-none text-xl transition-all hover:bg-gray-700'>
+                            <SelectTrigger className='w-[180px] cursor-pointer border border-gray-700 text-xl transition-all hover:bg-gray-800'>
                                 <SelectValue
                                     placeholder='Select Campaign'
                                     defaultValue={selectedCampaign}
                                 />
                             </SelectTrigger>
-                            <SelectContent className='border-gray-700 bg-gray-800'>
+                            <SelectContent className='border-gray-700 bg-gray-900'>
                                 {campaigns?.map((campaign) => (
                                     <SelectItem
-                                        className='text-white hover:bg-gray-700 hover:text-white focus:bg-gray-700 data-[highlighted]:text-white data-[state=checked]:bg-gray-600'
+                                        className='text-white hover:bg-gray-800 hover:text-white focus:bg-gray-700 data-[highlighted]:text-white data-[state=checked]:bg-gray-600'
                                         key={campaign.id}
                                         value={campaign.id}
                                     >
@@ -89,13 +89,6 @@ export default function Sidebar() {
                                 ))}
                             </SelectContent>
                         </Select>
-
-                        <div className='text-xs opacity-80'>
-                            Role:{' '}
-                            <span className='font-bold'>
-                                {isPlayerDM ? 'Dungeon Master' : 'Player'}
-                            </span>
-                        </div>
                     </div>
                 )}
                 <button
@@ -106,7 +99,13 @@ export default function Sidebar() {
                 </button>
             </div>
 
-            <nav className='mt-6'>
+            <nav>
+                <div className='m-2 mx-auto w-fit rounded-sm bg-gray-800 p-4 text-center'>
+                    <span className='text-xs text-yellow-300/80'>ROLE</span>
+                    <div className='font-bold'>
+                        {isPlayerDM ? 'Dungeon Master' : 'Player'}
+                    </div>
+                </div>
                 {sideBarItems.map((item) => (
                     <SidebarItem
                         key={item.name}

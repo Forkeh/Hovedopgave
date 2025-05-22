@@ -5,7 +5,7 @@ export default function HomePage() {
     return (
         <div className='flex h-screen flex-col items-center justify-center gap-5'>
             <h1 className='flex-wrap text-center text-4xl font-extrabold'>
-                Dungeons and Dragons Admin thingie!
+                Dungeon and Dragons Campaign Codex
             </h1>
             <div>
                 <Button>

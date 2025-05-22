@@ -6,16 +6,16 @@ export default function NavBar() {
     const { currentUser } = useAccount();
 
     return (
-        <div className='flex min-h-30 items-center justify-between border-b border-yellow-500 bg-slate-800 px-5 text-white'>
+        <div className='flex min-h-30 items-center justify-between border-b-4 border-double border-yellow-500/30 bg-gray-900 px-5'>
             <Link
-                className='text-3xl font-extrabold'
+                className='font-cinzel text-3xl font-extrabold'
                 to={'/campaigns'}
             >
-                Dungeon and Dragons thingie-ma-bob
+                Dungeon and Dragons Campaign Codex
             </Link>
 
             {currentUser ? (
-                <div className='flex items-center gap-5'>
+                <div className='flex items-center gap-5 text-yellow-100'>
                     <div>Hello {currentUser.displayName}</div>
                     <UserMenu />
                 </div>
