@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import ConfirmationDialog from '@/components/confirmation-dialog/ConfirmationDialog';
 import PhotoDialog from '@/components/photo-dialog/PhotoDialog';
+import Loader from '@/components/Loader';
 
 export default function MapPage() {
     const [isDeleteCampaignDialogOpen, setIsDeleteCampaignDialogOpen] =
@@ -25,7 +26,7 @@ export default function MapPage() {
     };
 
     if (campaignIsLoading) {
-        return <div>Campaign is loading...</div>;
+        return <Loader />;
     }
 
     const handleDeleteCampaign = () => {

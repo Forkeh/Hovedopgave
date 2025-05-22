@@ -1,7 +1,8 @@
 import { useWiki } from '@/lib/hooks/useWiki';
 import { PencilIcon } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router';
-import { HtmlContent } from './HtmlContent';
+import { HtmlContent } from '../../../../../components/HtmlContent';
+import Loader from '@/components/Loader';
 
 export default function WikiEntryView() {
     const { entryId } = useParams();
@@ -13,11 +14,7 @@ export default function WikiEntryView() {
     };
 
     if (wikiEntryIsLoading) {
-        return (
-            <div className='flex h-full items-center justify-center text-4xl font-semibold'>
-                Loading entry...
-            </div>
-        );
+        return <Loader />;
     }
 
     if (!wikiEntry) {

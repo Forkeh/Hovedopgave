@@ -1,4 +1,3 @@
-import ImageUploadWidget from '@/components/ImageUploadWidget';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -6,6 +5,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+import ImageUploadWidget from './ImageUploadWidget';
 
 type Props = {
     isPhotoDialogOpen: boolean;

@@ -1,8 +1,8 @@
 import { useAccount } from '@/lib/hooks/useAccount';
 import { useNotes } from '@/lib/hooks/useNotes';
 import { useParams } from 'react-router';
-import { HtmlContent } from '../wiki/HtmlContent';
-import { PencilIcon } from 'lucide-react';
+import { HtmlContent } from '../../../../../components/HtmlContent';
+import { Loader, PencilIcon } from 'lucide-react';
 import { useState } from 'react';
 import Tiptap from '@/components/rich-text-editor/TipTap';
 import { Button } from '@/components/ui/button';
@@ -46,11 +46,15 @@ export default function NotesPage() {
     };
 
     if (noteIsLoading) {
-        return <div>Note is loading...</div>;
+        return <Loader />;
     }
 
     if (!note) {
-        return <div>Note not found...</div>;
+        return (
+            <div className='flex h-fit text-center text-2xl font-bold'>
+                Note not found...
+            </div>
+        );
     }
 
     return (

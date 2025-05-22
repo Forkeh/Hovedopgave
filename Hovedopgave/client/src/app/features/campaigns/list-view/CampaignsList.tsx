@@ -3,17 +3,14 @@ import { useAccount } from '@/lib/hooks/useAccount';
 import CampaignListSection from './CampaignListSection';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router';
+import Loader from '@/components/Loader';
 
 export default function CampaignsList() {
     const { currentUser } = useAccount();
     const { campaigns, campaignsIsLoading } = useCampaigns();
 
     if (campaignsIsLoading) {
-        return (
-            <div className='flex justify-center p-8'>
-                <p>Loading campaigns...</p>
-            </div>
-        );
+        return <Loader />;
     }
 
     const dmCampaigns =

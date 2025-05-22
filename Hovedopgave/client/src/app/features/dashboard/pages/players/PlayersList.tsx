@@ -15,6 +15,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from '@/components/ui/accordion';
+import Loader from '@/components/Loader';
 
 export default function PlayersList() {
     const { id } = useParams();
@@ -42,11 +43,7 @@ export default function PlayersList() {
     };
 
     if (campaignIsLoading || charactersIsLoading) {
-        return (
-            <div className='flex h-screen items-center justify-center'>
-                Loading...
-            </div>
-        );
+        return <Loader />;
     }
 
     const sortedPlayersByName = campaign?.players

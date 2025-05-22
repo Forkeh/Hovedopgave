@@ -3,7 +3,7 @@ import Cropper, { ReactCropperElement } from 'react-cropper';
 import { useDropzone } from 'react-dropzone';
 import 'cropperjs/dist/cropper.css';
 import { CloudUpload } from 'lucide-react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 
 type Props = {
     uploadPhoto: (file: Blob) => void;

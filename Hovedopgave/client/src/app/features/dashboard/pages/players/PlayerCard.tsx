@@ -3,13 +3,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAccount } from '@/lib/hooks/useAccount';
 import { Character, User } from '@/lib/types';
-import { PencilIcon, PlusCircleIcon } from 'lucide-react'; // Import PencilIcon
+import { PencilIcon, PlusCircleIcon } from 'lucide-react';
 import { useNavigate } from 'react-router';
 
 type Props = {
     user: User | undefined;
     character: Character | undefined;
-    campaignId: string | undefined; // Add campaignId to props
+    campaignId: string | undefined;
 };
 
 export default function PlayerCard({ user, character, campaignId }: Props) {

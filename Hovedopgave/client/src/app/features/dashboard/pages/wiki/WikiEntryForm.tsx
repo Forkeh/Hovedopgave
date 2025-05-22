@@ -33,6 +33,7 @@ import { toast } from 'react-toastify';
 import { WikiEntryType } from '@/lib/enums/wikiEntryType';
 import ConfirmationDialog from '@/components/confirmation-dialog/ConfirmationDialog';
 import { Checkbox } from '@/components/ui/checkbox';
+import Loader from '@/components/Loader';
 
 export default function WikiEntryForm() {
     const [isPhotoDialogOpen, setIsPhotoDialogOpen] = useState(false);
@@ -182,7 +183,7 @@ export default function WikiEntryForm() {
     }, [photoUrl]);
 
     if (wikiEntryIsLoading) {
-        return <div>Loading entry</div>;
+        return <Loader />;
     }
 
     return (

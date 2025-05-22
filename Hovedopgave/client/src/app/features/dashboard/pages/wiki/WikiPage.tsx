@@ -5,6 +5,7 @@ import { WikiEntry } from '@/lib/types';
 import { useCampaigns } from '@/lib/hooks/useCampaigns';
 import { useAccount } from '@/lib/hooks/useAccount';
 import { useState } from 'react';
+import Loader from '@/components/Loader';
 
 export default function WikiPage() {
     const { id } = useParams();
@@ -21,8 +22,6 @@ export default function WikiPage() {
     };
 
     const handleWikiEntriesSearch = (value: string) => {
-        console.log(value);
-
         if (!value) {
             setfilteredWikiEntries(wikiEntries);
         } else {
@@ -31,11 +30,10 @@ export default function WikiPage() {
             );
             setfilteredWikiEntries(filterEntries);
         }
-        console.log(filteredWikiEntries);
     };
 
     if (wikiEntriesIsLoading || campaignIsLoading) {
-        return <div>Wiki is loading...</div>;
+        return <Loader />;
     }
 
     const isDM = currentUser?.id === campaign?.dungeonMaster.id;
