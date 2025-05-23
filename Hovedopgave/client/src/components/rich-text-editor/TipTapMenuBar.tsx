@@ -151,7 +151,7 @@ export default function TipTapMenuBar({ editor }: Props) {
 
     return (
         <>
-            <div className='z-50 flex justify-center gap-1 rounded-md border border-amber-700/40 bg-orange-100 p-1'>
+            <div className='z-50 flex justify-center gap-1 rounded-md border border-amber-700/40 bg-orange-100 p-1 text-black'>
                 {options.map((option, index) => (
                     <Toggle
                         className='hover:bg-orange-200 data-[state=on]:bg-orange-300'

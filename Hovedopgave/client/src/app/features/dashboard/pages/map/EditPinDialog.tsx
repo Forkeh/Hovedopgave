@@ -42,16 +42,18 @@ export default function EditPinDialog({
         >
             <DialogContent className='dnd-gradient-bg min-w-fit'>
                 <DialogHeader>
-                    <DialogTitle className='text-center'>Edit Pin</DialogTitle>
-                    <DialogDescription className='text-center'>
+                    <DialogTitle className='text-center text-yellow-100'>
+                        Edit Pin
+                    </DialogTitle>
+                    <DialogDescription className='text-center text-yellow-500/80'>
                         Update the information for this pin
                     </DialogDescription>
                 </DialogHeader>
-                <div className='space-y-4 py-4'>
+                <div className='space-y-4 py-4 text-yellow-100'>
                     <div className='space-y-2'>
                         <label
                             htmlFor='title'
-                            className='font-bold'
+                            className='font-bold text-yellow-100'
                         >
                             Title
                         </label>
@@ -66,7 +68,7 @@ export default function EditPinDialog({
                                     };
                                     setEditingPin(updatedPin);
                                 }}
-                                className='border-4 border-double border-amber-700/40 bg-orange-50'
+                                className='border-4 border-double border-yellow-500/70 bg-orange-100 text-black'
                                 placeholder='Enter a title for this pin'
                             />
                             <Select
@@ -79,32 +81,47 @@ export default function EditPinDialog({
                                 }}
                                 defaultValue='default'
                             >
-                                <SelectTrigger className='w-[180px] border-4 border-double border-amber-700/40 bg-orange-50'>
+                                <SelectTrigger className='w-[180px] border-4 border-double border-yellow-500/70 bg-orange-100 text-black'>
                                     <SelectValue placeholder='Icon' />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className='bg-orange-100'>
                                     <SelectItem value='default'>
-                                        <PinIcon />
+                                        <PinIcon className='text-stone-800' />
                                         <span>Default</span>
                                     </SelectItem>
                                     <SelectItem value='dungeon'>
-                                        <PinIcon name='dungeon' />
+                                        <PinIcon
+                                            className='text-stone-800'
+                                            name='dungeon'
+                                        />
                                         <span>Dungeon</span>
                                     </SelectItem>
                                     <SelectItem value='forest'>
-                                        <PinIcon name='forest' />
+                                        <PinIcon
+                                            className='text-stone-800'
+                                            name='forest'
+                                        />
                                         <span>Forest</span>
                                     </SelectItem>
                                     <SelectItem value='camp'>
-                                        <PinIcon name='camp' />
+                                        <PinIcon
+                                            className='text-stone-800'
+                                            name='camp'
+                                        />
                                         <span>Camp</span>
                                     </SelectItem>
                                     <SelectItem value='castle'>
-                                        <PinIcon name='castle' />
+                                        <PinIcon
+                                            className='text-stone-800'
+                                            name='castle'
+                                        />
                                         <span>Castle</span>
                                     </SelectItem>
                                     <SelectItem value='hut'>
-                                        <PinIcon name='hut' />
+                                        <PinIcon
+                                            className='text-stone-800'
+                                            name='hut'
+                                        />
                                         <span>Hut</span>
                                     </SelectItem>
                                 </SelectContent>
@@ -113,7 +130,7 @@ export default function EditPinDialog({
                     </div>
                     <div className='space-y-2'>
                         <label
-                            className='font-bold'
+                            className='font-bold text-yellow-100'
                             htmlFor='description'
                         >
                             Description

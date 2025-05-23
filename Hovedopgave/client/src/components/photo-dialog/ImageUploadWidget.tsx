@@ -41,15 +41,15 @@ export default function ImageUploadWidget({ uploadPhoto, loading }: Props) {
     });
 
     return (
-        <div className='grid grid-cols-3 gap-8'>
+        <div className='grid grid-cols-3 gap-8 text-yellow-500'>
             <div>
                 <p className='mb-2 text-xs font-medium uppercase'>
                     Step 1 - Add image
                 </p>
                 <div
                     {...getRootProps()}
-                    className={`flex h-[200px] cursor-pointer flex-col items-center justify-center rounded-md border-3 border-dashed p-4 text-center ${
-                        isDragActive ? 'border-green-500' : 'border-gray-200'
+                    className={`flex h-[200px] cursor-pointer flex-col items-center justify-center rounded-md border-3 border-dashed border-black bg-gradient-to-br from-orange-100 to-orange-200 p-4 text-center text-black ${
+                        isDragActive ? 'border-green-500' : 'border-black/80'
                     }`}
                 >
                     <input {...getInputProps()} />

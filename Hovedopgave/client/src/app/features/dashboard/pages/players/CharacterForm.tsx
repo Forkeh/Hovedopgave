@@ -107,8 +107,6 @@ export default function CharacterForm() {
             baseCharacterData: Character,
         ) => {
             // If we have a new photo to upload
-            console.log('PHOTO', photo, isEditMode);
-
             if (photo && !isEditMode) {
                 await uploadCharacterPhoto.mutateAsync(
                     { file: photo, characterId },
@@ -216,8 +214,8 @@ export default function CharacterForm() {
     return (
         <>
             <div className='mt-10 flex w-full items-center justify-center'>
-                <div className='prose max-w-4xl rounded-lg bg-white p-6 shadow-sm'>
-                    <h1 className='mb-6 text-center'>
+                <div className='dnd-gradient-bg prose max-w-4xl rounded-lg p-6 text-yellow-100 shadow-sm'>
+                    <h1 className='mb-6 text-center text-yellow-100'>
                         {isEditMode ? 'Update Character' : 'Create Character'}
                     </h1>
                     <Form {...form}>
@@ -232,7 +230,7 @@ export default function CharacterForm() {
                                             ? undefined
                                             : () => setIsPhotoDialogOpen(true)
                                     }
-                                    className={`flex aspect-square w-1/3 flex-1/2 items-center justify-center overflow-hidden rounded-lg bg-gray-100 shadow-md ${isEditMode ? '' : 'cursor-pointer'}`}
+                                    className={`flex aspect-square w-1/3 flex-1/2 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-orange-100 to-orange-200 shadow-md ${isEditMode ? '' : 'cursor-pointer'}`}
                                 >
                                     {photoUrl ? (
                                         <img
@@ -241,19 +239,21 @@ export default function CharacterForm() {
                                             className='h-full w-full object-cover'
                                         />
                                     ) : (
-                                        <span className='text-gray-400'>
-                                            Add image
+                                        <span className='text-black'>
+                                            No image
                                         </span>
                                     )}
                                 </div>
-                                <div className='flex w-2/3 flex-col justify-center'>
+                                <div className='flex w-2/3 flex-col justify-center gap-3'>
                                     <FormField
                                         control={form.control}
                                         name='name'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Name</FormLabel>
-                                                <FormControl>
+                                                <FormLabel className='font-bold text-yellow-500'>
+                                                    Name
+                                                </FormLabel>
+                                                <FormControl className='bg-orange-100 text-black'>
                                                     <Input
                                                         placeholder='Type character name'
                                                         {...field}
@@ -268,7 +268,9 @@ export default function CharacterForm() {
                                         name='race'
                                         render={({ field }) => (
                                             <FormItem key={field.value}>
-                                                <FormLabel>Race</FormLabel>
+                                                <FormLabel className='font-bold text-yellow-500'>
+                                                    Race
+                                                </FormLabel>
                                                 <Select
                                                     onValueChange={
                                                         field.onChange
@@ -276,12 +278,12 @@ export default function CharacterForm() {
                                                     value={field.value}
                                                     defaultValue={field.value}
                                                 >
-                                                    <FormControl>
+                                                    <FormControl className='bg-orange-100 text-black'>
                                                         <SelectTrigger className='w-full'>
                                                             <SelectValue placeholder='Select race' />
                                                         </SelectTrigger>
                                                     </FormControl>
-                                                    <SelectContent>
+                                                    <SelectContent className='bg-orange-100 text-black'>
                                                         {Object.values(
                                                             CharacterRace,
                                                         ).map((raceValue) => (
@@ -307,7 +309,9 @@ export default function CharacterForm() {
                                         name='class'
                                         render={({ field }) => (
                                             <FormItem key={field.value}>
-                                                <FormLabel>Class</FormLabel>
+                                                <FormLabel className='font-bold text-yellow-500'>
+                                                    Class
+                                                </FormLabel>
                                                 <Select
                                                     onValueChange={
                                                         field.onChange
@@ -315,12 +319,12 @@ export default function CharacterForm() {
                                                     value={field.value}
                                                     defaultValue={field.value}
                                                 >
-                                                    <FormControl>
+                                                    <FormControl className='bg-orange-100 text-black'>
                                                         <SelectTrigger className='w-full'>
                                                             <SelectValue placeholder='Select class' />
                                                         </SelectTrigger>
                                                     </FormControl>
-                                                    <SelectContent>
+                                                    <SelectContent className='bg-orange-100 text-black'>
                                                         {Object.values(
                                                             CharacterClass,
                                                         ).map((classValue) => (
@@ -348,7 +352,7 @@ export default function CharacterForm() {
                                 name='backstory'
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className='block w-full text-center text-xl'>
+                                        <FormLabel className='block w-full text-center text-xl text-yellow-500'>
                                             Backstory
                                         </FormLabel>
                                         <FormControl>

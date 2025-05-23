@@ -65,14 +65,14 @@ export default function PlayersList() {
             <div className='mb-6 flex w-full flex-col items-center gap-3'>
                 <h1 className='text-3xl font-extrabold'>{campaign?.name}</h1>
 
-                <div className='mb-5 flex items-center gap-2 text-muted-foreground'>
+                <div className='mb-5 flex items-center gap-2'>
                     <Crown
                         size={30}
                         className='text-yellow-500'
                     />
                     <span>
                         Dungeon Master:{' '}
-                        <span className='font-semibold text-foreground'>
+                        <span className='font-semibold text-yellow-500'>
                             {campaign?.dungeonMaster.displayName}
                         </span>
                     </span>

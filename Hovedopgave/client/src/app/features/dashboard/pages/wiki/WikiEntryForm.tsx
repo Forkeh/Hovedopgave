@@ -189,8 +189,8 @@ export default function WikiEntryForm() {
     return (
         <>
             <div className='mt-10 flex w-full items-center justify-center'>
-                <div className='prose max-w-2xl rounded-lg bg-white p-6 shadow-sm'>
-                    <h1 className='mb-6 text-center'>
+                <div className='dnd-gradient-bg prose max-w-2xl rounded-lg p-6 text-yellow-500 shadow-sm'>
+                    <h1 className='mb-6 text-center text-yellow-100'>
                         {isEditMode ? 'Update Wiki Entry' : 'Create Wiki Entry'}
                     </h1>
                     <Form {...form}>
@@ -205,7 +205,7 @@ export default function WikiEntryForm() {
                                             ? undefined
                                             : () => setIsPhotoDialogOpen(true)
                                     }
-                                    className={`flex aspect-square w-1/3 flex-1/2 items-center justify-center overflow-hidden rounded-lg bg-gray-100 shadow-md ${isEditMode ? '' : 'cursor-pointer'}`}
+                                    className={`flex aspect-square w-1/3 flex-1/2 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-orange-100 to-orange-200 shadow-md ${isEditMode ? '' : 'cursor-pointer'}`}
                                 >
                                     {photoUrl ? (
                                         <img
@@ -214,7 +214,7 @@ export default function WikiEntryForm() {
                                             className='h-full w-full object-cover'
                                         />
                                     ) : (
-                                        <span className='text-gray-400'>
+                                        <span className='text-black'>
                                             Add image
                                         </span>
                                     )}
@@ -228,7 +228,7 @@ export default function WikiEntryForm() {
                                                 <FormLabel className='font-bold'>
                                                     Name
                                                 </FormLabel>
-                                                <FormControl>
+                                                <FormControl className='bg-orange-100 text-black'>
                                                     <Input
                                                         placeholder='Type entry name'
                                                         {...field}
@@ -253,12 +253,12 @@ export default function WikiEntryForm() {
                                                     value={field.value}
                                                     defaultValue={field.value}
                                                 >
-                                                    <FormControl>
+                                                    <FormControl className='bg-orange-100 text-black'>
                                                         <SelectTrigger className='w-full'>
                                                             <SelectValue placeholder='Select entry type' />
                                                         </SelectTrigger>
                                                     </FormControl>
-                                                    <SelectContent>
+                                                    <SelectContent className='bg-orange-100 text-black'>
                                                         {Object.values(
                                                             WikiEntryType,
                                                         ).map((type) => (
@@ -283,7 +283,7 @@ export default function WikiEntryForm() {
                                             name='isVisible'
                                             render={({ field }) => (
                                                 <FormItem className='flex flex-row items-center justify-center'>
-                                                    <FormControl>
+                                                    <FormControl className='bg-orange-100 data-[state=checked]:bg-yellow-300 data-[state=checked]:text-black'>
                                                         <Checkbox
                                                             checked={
                                                                 field.value

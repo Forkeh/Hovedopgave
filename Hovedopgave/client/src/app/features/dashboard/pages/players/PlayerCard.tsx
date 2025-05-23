@@ -35,7 +35,7 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
 
     return (
         <Card
-            className={`relative flex h-fit w-80 flex-col bg-gray-50 ${
+            className={`relative flex h-fit w-80 flex-col border-4 border-double border-black bg-gradient-to-br from-orange-100 to-orange-200 p-4 ${
                 character?.isRetired ? 'opacity-75 saturate-50' : ''
             }`}
         >
@@ -46,25 +46,24 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
             </CardHeader>
             <CardContent className='flex flex-grow flex-col'>
                 {isOwnerOfCard && character && !character.isRetired && (
-                    <button
+                    <PencilIcon
                         onClick={handleEditCharacterNavigate}
-                        className='absolute top-4 right-4 cursor-pointer rounded-full bg-gray-200 p-2 transition-colors hover:bg-gray-300'
-                    >
-                        <PencilIcon className='h-5 w-5 text-gray-600' />
-                    </button>
+                        className='absolute top-3 right-3 cursor-pointer rounded-full bg-stone-700 p-2 text-stone-300 transition-colors hover:bg-stone-600'
+                        size={30}
+                    />
                 )}
-                <h3 className='mb-3 border-b pb-2 text-center text-lg font-semibold'>
+                <h3 className='mb-3 border-b border-stone-800 pb-2 text-center text-lg font-semibold'>
                     Character Information
                 </h3>
                 {character ? (
                     <div className='space-y-6'>
                         <div className='flex items-center space-x-4'>
-                            <Avatar className='h-16 w-16'>
+                            <Avatar className='size-16'>
                                 <AvatarImage
                                     src={character.photo?.url}
                                     alt={character.name}
                                 />
-                                <AvatarFallback>
+                                <AvatarFallback className='bg-stone-700 text-yellow-100'>
                                     {character.name
                                         .substring(0, 2)
                                         .toUpperCase()}
@@ -80,11 +79,9 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
                             </div>
                         </div>
                         <div>
-                            <h4 className='text-sm font-medium text-muted-foreground'>
-                                Backstory
-                            </h4>
+                            <h4 className='text-sm font-medium'>Backstory</h4>
                             <p
-                                className='prose max-h-[200px] max-w-none overflow-y-auto rounded-md bg-gray-100 p-2 text-xs break-words text-foreground'
+                                className='prose max-h-[200px] max-w-none overflow-y-auto rounded-md border-2 border-stone-500 bg-orange-100 p-2 text-xs break-words text-black'
                                 dangerouslySetInnerHTML={{
                                     __html: character.backstory,
                                 }}

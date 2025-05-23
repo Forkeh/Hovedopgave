@@ -111,7 +111,7 @@ export default function Map({ isViewOnly, campaign }: Props) {
                         </TransformComponent>
                     </TransformWrapper>
                     {!isViewOnly && (
-                        <div className='bg-opacity-75 absolute right-2 bottom-2 rounded border-4 border-double border-black/80 bg-gradient-to-br from-orange-100 to-orange-200 p-2 text-xs text-gray-700 shadow-sm'>
+                        <div className='bg-opacity-75 absolute right-2 bottom-2 rounded border-4 border-double border-black/80 bg-gradient-to-br from-orange-100 to-orange-200 p-2 text-xs text-black shadow-sm'>
                             <p>
                                 <span className='font-bold'>Double Click:</span>{' '}
                                 Add pin

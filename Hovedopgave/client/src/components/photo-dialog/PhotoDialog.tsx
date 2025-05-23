@@ -23,9 +23,11 @@ export default function PhotoDialog({
             open={isPhotoDialogOpen}
             onOpenChange={setIsPhotoDialogOpen}
         >
-            <DialogContent className='min-w-3xl p-10'>
+            <DialogContent className='dnd-gradient-bg min-w-3xl p-10'>
                 <DialogHeader>
-                    <DialogTitle className='text-center'>Add photo</DialogTitle>
+                    <DialogTitle className='text-center text-2xl text-yellow-100'>
+                        Add photo
+                    </DialogTitle>
                 </DialogHeader>
                 <ImageUploadWidget
                     uploadPhoto={onSetPhoto}

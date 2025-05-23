@@ -32,7 +32,7 @@ const MapPin = ({
     const pinIcon = (
         <PinIcon
             name={iconName}
-            className={`h-6 w-6 drop-shadow-xs drop-shadow-black ${isActive ? 'text-orange-400' : 'text-orange-00'}`}
+            className={`h-6 w-6 drop-shadow-xs drop-shadow-black ${isActive ? 'text-orange-400' : 'text-orange-300'}`}
         />
     );
 
@@ -58,7 +58,7 @@ const MapPin = ({
                         {pin.title || 'Untitled Pin'}
                         {!isViewOnly && (
                             <PencilIcon
-                                className='absolute top-4 right-4 cursor-pointer rounded-full border border-black/10 bg-yellow-700 p-2 text-yellow-500 transition-colors hover:bg-yellow-800'
+                                className='absolute top-4 right-4 cursor-pointer rounded-full bg-stone-700 p-2 text-stone-300 transition-colors hover:bg-stone-600'
                                 onClick={handleEdit}
                                 size={35}
                             />
@@ -67,7 +67,7 @@ const MapPin = ({
                     <div className='max-h-[300px] overflow-y-auto px-4 pb-4'>
                         <HtmlContent
                             content={pin.description}
-                            className='max-w-none text-sm'
+                            className='max-w-none text-sm text-black'
                         />
                     </div>
                 </div>

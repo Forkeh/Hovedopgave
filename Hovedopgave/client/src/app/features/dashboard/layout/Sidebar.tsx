@@ -101,7 +101,7 @@ export default function Sidebar() {
 
             <nav>
                 {!collapsed && (
-                    <div className='m-2 mx-auto w-fit rounded-sm bg-gray-800 p-4 text-center'>
+                    <div className='m-2 mx-auto w-45 rounded-sm bg-gray-800 p-4 text-center'>
                         <span className='text-xs text-yellow-300/80'>ROLE</span>
                         <div className='font-bold'>
                             {isPlayerDM ? 'Dungeon Master' : 'Player'}
