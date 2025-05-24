@@ -23,23 +23,30 @@ export default function CampaignsPage() {
             ? campaigns.filter((c) => c.dungeonMaster.id !== currentUser.id)
             : [];
     return (
-        <section className='px-4 py-8'>
-            <h1 className='mb-2 text-center text-3xl font-bold'>Campaigns</h1>
-            <Button className='my-5'>
-                <Link to={'create'}>Create new campaign</Link>
-            </Button>
+        <section className='min-h-screen animate-in px-6 py-8 fade-in'>
+            <div className='mx-auto max-w-6xl'>
+                <h1 className='mb-6 text-center text-4xl font-bold text-yellow-100'>
+                    Your Campaigns
+                </h1>
 
-            <CampaignListSection
-                title='Dungeon Master Campaigns'
-                campaigns={dmCampaigns}
-                emptyMessage="You're currently not DM'ing any campaigns"
-            />
+                <div className='mb-8 flex justify-center'>
+                    <Button>
+                        <Link to={'create'}>Create New Campaign</Link>
+                    </Button>
+                </div>
 
-            <CampaignListSection
-                title='Player Campaigns'
-                campaigns={playerCampaigns}
-                emptyMessage="You're currently not a player in any campaigns"
-            />
+                <CampaignListSection
+                    title='Dungeon Master Campaigns'
+                    campaigns={dmCampaigns}
+                    emptyMessage="You're currently not DM'ing any campaigns"
+                />
+
+                <CampaignListSection
+                    title='Player Campaigns'
+                    campaigns={playerCampaigns}
+                    emptyMessage="You're currently not a player in any campaigns"
+                />
+            </div>
         </section>
     );
 }

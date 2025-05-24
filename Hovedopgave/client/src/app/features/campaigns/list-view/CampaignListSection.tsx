@@ -13,10 +13,12 @@ export default function CampaignListSection({
     emptyMessage,
 }: Props) {
     return (
-        <div className='mb-8'>
-            <h2 className='mb-4 text-xl text-gray-600'>{title}</h2>
+        <div className='mb-12'>
+            <h2 className='mb-6 border-b-2 border-yellow-500/70 pb-2 text-2xl font-bold text-yellow-100'>
+                {title}
+            </h2>
             {campaigns?.length ? (
-                <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+                <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
                     {campaigns.map((campaign) => (
                         <CampaignListCard
                             key={campaign.id}
@@ -25,7 +27,9 @@ export default function CampaignListSection({
                     ))}
                 </div>
             ) : (
-                <div className='p-2 text-gray-500'>{emptyMessage}</div>
+                <div className='rounded-md border-2 border-yellow-500/20 bg-gray-800/50 p-6 text-center text-yellow-100/70'>
+                    {emptyMessage}
+                </div>
             )}
         </div>
     );

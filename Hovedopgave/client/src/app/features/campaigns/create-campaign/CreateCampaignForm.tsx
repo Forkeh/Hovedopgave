@@ -39,8 +39,10 @@ export default function CreateCampaignForm() {
 
     return (
         <div className='flex h-full w-full items-center justify-center'>
-            <div className='prose w-full max-w-md rounded-lg bg-white p-6 shadow-sm'>
-                <h1 className='mb-6 text-center'>Create new campaign</h1>
+            <div className='dnd-gradient-bg prose w-full max-w-md rounded-lg p-6 text-yellow-500 shadow-sm'>
+                <h1 className='mb-6 text-center text-yellow-100'>
+                    Create new campaign
+                </h1>
 
                 <Form {...form}>
                     <form
@@ -52,10 +54,13 @@ export default function CreateCampaignForm() {
                             name='Name'
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Campaign name</FormLabel>
+                                    <FormLabel className='font-bold'>
+                                        Campaign name
+                                    </FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder='Type campaign name'
+                                            className='bg-orange-100 text-black'
                                             {...field}
                                         />
                                     </FormControl>

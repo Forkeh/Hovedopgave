@@ -36,7 +36,7 @@ export default function WikiEntryView() {
             />
 
             <div className='mb-8 flex gap-6'>
-                <div className='flex aspect-square w-1/3 items-center justify-center overflow-hidden rounded-lg border-4 border-double border-yellow-800/80 bg-gray-100 shadow-md'>
+                <div className='flex aspect-square w-1/3 items-center justify-center overflow-hidden rounded-lg border-4 border-double border-yellow-800/80 bg-gradient-to-br from-orange-200 to-orange-300 shadow-md'>
                     {wikiEntry.photo?.url ? (
                         <img
                             className='h-full w-full object-cover'
@@ -44,7 +44,7 @@ export default function WikiEntryView() {
                             alt={`${wikiEntry.name}`}
                         />
                     ) : (
-                        <span className='text-gray-400'>
+                        <span className='text-black/30'>
                             No image available
                         </span>
                     )}
