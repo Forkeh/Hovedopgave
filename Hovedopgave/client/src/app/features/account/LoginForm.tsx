@@ -62,7 +62,7 @@ export default function LoginForm() {
                                         <Input
                                             type='email'
                                             placeholder='Email'
-                                            className='bg-orange-50'
+                                            className='bg-orange-50 text-black'
                                             {...field}
                                         />
                                     </FormControl>
@@ -82,7 +82,7 @@ export default function LoginForm() {
                                         <Input
                                             type='password'
                                             placeholder='Password'
-                                            className='bg-orange-50'
+                                            className='bg-orange-50 text-black'
                                             {...field}
                                         />
                                     </FormControl>

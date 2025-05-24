@@ -69,7 +69,7 @@ export default function RegisterForm() {
                                         <Input
                                             type='email'
                                             placeholder='Email'
-                                            className='bg-orange-100'
+                                            className='bg-orange-50 text-black'
                                             {...field}
                                         />
                                     </FormControl>
@@ -88,7 +88,7 @@ export default function RegisterForm() {
                                     <FormControl>
                                         <Input
                                             placeholder='Display name'
-                                            className='bg-orange-100'
+                                            className='bg-orange-50 text-black'
                                             {...field}
                                         />
                                     </FormControl>
@@ -108,7 +108,7 @@ export default function RegisterForm() {
                                         <Input
                                             type='password'
                                             placeholder='Password'
-                                            className='bg-orange-100'
+                                            className='bg-orange-50 text-black'
                                             {...field}
                                         />
                                     </FormControl>
@@ -128,7 +128,7 @@ export default function RegisterForm() {
                                         <Input
                                             type='password'
                                             placeholder='Confirm Password'
-                                            className='bg-orange-100'
+                                            className='bg-orange-50 text-black'
                                             {...field}
                                         />
                                     </FormControl>

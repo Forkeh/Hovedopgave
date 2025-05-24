@@ -59,19 +59,19 @@ export default function Sidebar() {
 
     return (
         <aside
-            className={`min-h-full border-r-4 border-double border-yellow-500/30 bg-gray-900 text-yellow-100 transition-all duration-200 ${
+            className={`min-h-full border-r-4 border-double border-yellow-500/30 bg-gradient-to-r from-gray-800 to-gray-900 text-yellow-100 transition-all duration-200 ${
                 collapsed ? 'w-16' : 'w-64'
             }`}
         >
-            <div className='flex items-center justify-between p-4'>
+            <div className='flex items-center p-4'>
                 {!collapsed && (
-                    <div className='flex flex-col gap-2'>
+                    <div className='flex animate-in flex-col gap-2 slide-in-from-left-50 fade-in'>
                         <Select
                             onValueChange={handleChangeCampaign}
                             value={selectedCampaign}
                             defaultValue={id}
                         >
-                            <SelectTrigger className='w-[180px] cursor-pointer border border-gray-700 text-xl transition-all hover:bg-gray-800'>
+                            <SelectTrigger className='text-md cursor-pointer border border-gray-700 bg-gray-800 transition-all hover:bg-gray-700'>
                                 <SelectValue
                                     placeholder='Select Campaign'
                                     defaultValue={selectedCampaign}
@@ -93,15 +93,15 @@ export default function Sidebar() {
                 )}
                 <button
                     onClick={toggleSidebar}
-                    className='rounded p-2 transition-colors hover:bg-gray-700'
+                    className='ml-auto rounded p-2 transition-all duration-200 hover:bg-gray-700'
                 >
                     <Menu size={20} />
                 </button>
             </div>
 
-            <nav>
+            <nav className='animate-in slide-in-from-left-20 fade-in'>
                 {!collapsed && (
-                    <div className='m-2 mx-auto w-45 rounded-sm bg-gray-800 p-4 text-center'>
+                    <div className='m-2 mx-auto w-45 rounded-sm border border-yellow-500/30 bg-gray-800 p-4 text-center'>
                         <span className='text-xs text-yellow-300/80'>ROLE</span>
                         <div className='font-bold'>
                             {isPlayerDM ? 'Dungeon Master' : 'Player'}

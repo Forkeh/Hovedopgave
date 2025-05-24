@@ -35,7 +35,7 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
 
     return (
         <Card
-            className={`parchment-card relative flex h-fit w-80 flex-col border-4 p-4 ${
+            className={`parchment-card relative flex h-fit w-80 flex-col border-4 p-4 text-black ${
                 character?.isRetired ? 'opacity-75 saturate-50' : ''
             }`}
         >

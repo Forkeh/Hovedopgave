@@ -117,7 +117,7 @@ export default function PlayersList() {
                         Currently no players in this campaign.
                     </p>
                     {currentUser?.id === campaign?.dungeonMaster.id && (
-                        <p className='mt-2 text-sm'>
+                        <p className='mt-2 text-sm text-yellow-500/50'>
                             Click "Add player" to invite someone!
                         </p>
                     )}

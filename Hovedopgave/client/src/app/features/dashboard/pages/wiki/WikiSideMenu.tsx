@@ -88,7 +88,7 @@ export default function WikiSideMenu({
     };
 
     return (
-        <nav className='flex w-64 flex-col gap-4 border-l-4 border-double border-yellow-500/30 bg-gray-900 p-3'>
+        <nav className='flex w-64 flex-col gap-4 border-l-4 border-double border-yellow-500/30 bg-gradient-to-l from-gray-800 to-gray-900 p-3'>
             {isDM && (
                 <Button
                     onClick={() => navigate('create')}

@@ -6,7 +6,7 @@ export default function NavBar() {
     const { currentUser } = useAccount();
 
     return (
-        <div className='flex min-h-30 items-center justify-between border-b-4 border-double border-yellow-500/30 bg-gray-900 px-5'>
+        <div className='flex min-h-30 items-center justify-between border-b-4 border-double border-yellow-500/30 bg-gradient-to-b from-gray-800 to-gray-900 px-5'>
             <Link
                 className='flex font-cinzel'
                 to={'/campaigns'}
