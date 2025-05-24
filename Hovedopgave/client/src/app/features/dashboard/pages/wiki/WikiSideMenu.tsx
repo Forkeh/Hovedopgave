@@ -92,7 +92,7 @@ export default function WikiSideMenu({
             {isDM && (
                 <Button
                     onClick={() => navigate('create')}
-                    className='text-md mb-4 flex w-full cursor-pointer rounded-md border-2 border-amber-700/30 bg-gradient-to-b from-orange-100 to-orange-200 text-center font-cinzel font-bold text-amber-950 transition-all hover:from-orange-200 hover:to-orange-300 hover:shadow-lg active:translate-y-0.5'
+                    className='text-md mb-4 flex cursor-pointer font-bold'
                 >
                     Create New Entry
                 </Button>

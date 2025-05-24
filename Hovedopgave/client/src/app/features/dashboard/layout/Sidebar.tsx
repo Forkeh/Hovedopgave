@@ -101,7 +101,7 @@ export default function Sidebar() {
 
             <nav className='animate-in slide-in-from-left-20 fade-in'>
                 {!collapsed && (
-                    <div className='m-2 mx-auto w-45 rounded-sm border border-yellow-500/30 bg-gray-800 p-4 text-center'>
+                    <div className='m-2 mx-auto w-45 rounded-sm border border-yellow-500/30 bg-gradient-to-br from-stone-800 to-stone-900 p-4 text-center'>
                         <span className='text-xs text-yellow-300/80'>ROLE</span>
                         <div className='font-bold'>
                             {isPlayerDM ? 'Dungeon Master' : 'Player'}

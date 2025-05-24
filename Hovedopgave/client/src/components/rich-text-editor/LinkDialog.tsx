@@ -54,12 +54,14 @@ export default function LinkDialog({
                         <Button
                             variant='default'
                             onClick={() => handleLink(wikiEntryValue)}
+                            className='cursor-pointer'
                         >
                             Confirm
                         </Button>
                         <Button
                             variant='outline'
                             onClick={() => setIsLinkDialogOpen(false)}
+                            className='cursor-pointer'
                         >
                             Cancel
                         </Button>

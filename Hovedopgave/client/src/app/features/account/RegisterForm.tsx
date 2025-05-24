@@ -138,7 +138,7 @@ export default function RegisterForm() {
                         />
                         <Button
                             type='submit'
-                            className='w-full'
+                            className='w-full cursor-pointer'
                             disabled={
                                 !form.formState.isValid ||
                                 form.formState.isSubmitting
@@ -152,7 +152,7 @@ export default function RegisterForm() {
                     Already have an account?{' '}
                     <Link
                         to='/login'
-                        className='text-yellow-100 hover:underline'
+                        className='cursor-pointer text-yellow-100 hover:underline'
                     >
                         Sign in here
                     </Link>

@@ -23,14 +23,14 @@ export default function CampaignsPage() {
             ? campaigns.filter((c) => c.dungeonMaster.id !== currentUser.id)
             : [];
     return (
-        <section className='min-h-screen animate-in px-6 py-8 fade-in'>
-            <div className='mx-auto max-w-6xl'>
+        <section className='min-h-full animate-in px-6 py-8 fade-in'>
+            <div className='mx-auto max-w-4xl'>
                 <h1 className='mb-6 text-center text-4xl font-bold text-yellow-100'>
                     Your Campaigns
                 </h1>
 
                 <div className='mb-8 flex justify-center'>
-                    <Button>
+                    <Button className='cursor-pointer'>
                         <Link to={'create'}>Create New Campaign</Link>
                     </Button>
                 </div>
