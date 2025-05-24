@@ -48,14 +48,14 @@ export default function ImageUploadWidget({ uploadPhoto, loading }: Props) {
                 </p>
                 <div
                     {...getRootProps()}
-                    className={`flex h-[200px] cursor-pointer flex-col items-center justify-center rounded-md border-3 border-dashed border-black bg-gradient-to-br from-orange-100 to-orange-200 p-4 text-center text-black ${
+                    className={`flex h-[200px] cursor-pointer flex-col items-center justify-center rounded-md border-3 border-dashed border-yellow-500/70 p-4 text-center ${
                         isDragActive ? 'border-green-500' : 'border-black/80'
                     }`}
                 >
                     <input {...getInputProps()} />
                     <CloudUpload
                         size={30}
-                        className='sm:size-60'
+                        className='opacity-20 sm:size-60'
                     />
                     <p className='mt-2 text-base sm:text-xl'>Drop image here</p>
                 </div>

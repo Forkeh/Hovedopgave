@@ -181,6 +181,23 @@
     }
 }
 
+/* Cropper */
+.cropper-view-box {
+    outline: 2px solid #f59e0b !important; /* Amber color to match your theme */
+}
+
+.cropper-dashed {
+    border-color: #f59e0b !important; /* Amber dashed lines */
+}
+
+.cropper-point {
+    background-color: #f59e0b !important; /* Amber corner points */
+}
+
+.cropper-line {
+    background-color: #f59e0b !important; /* Amber crop lines */
+}
+
 /* Animations */
 @keyframes float {
     0%,
