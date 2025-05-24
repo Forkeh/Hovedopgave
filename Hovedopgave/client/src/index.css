@@ -129,7 +129,7 @@
 
 @layer components {
     .dnd-gradient-bg {
-        @apply border-4 border-double border-yellow-500/80 bg-gradient-to-br from-stone-800 to-stone-950;
+        @apply border-4 border-double border-yellow-500/80 bg-gradient-to-br from-stone-700 to-stone-900 text-yellow-100;
     }
 
     .dnd-button {
@@ -152,6 +152,6 @@
     }
 
     .parchment-card {
-        @apply border-8 border-double border-yellow-500 bg-gradient-to-br from-orange-100 to-orange-200 p-4;
+        @apply border-4 border-double border-black/80 bg-gradient-to-br from-orange-100 to-orange-200;
     }
 }

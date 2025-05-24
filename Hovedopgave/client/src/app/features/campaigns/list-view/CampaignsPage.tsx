@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router';
 import Loader from '@/components/Loader';
 
-export default function CampaignsList() {
+export default function CampaignsPage() {
     const { currentUser } = useAccount();
     const { campaigns, campaignsIsLoading } = useCampaigns();
 

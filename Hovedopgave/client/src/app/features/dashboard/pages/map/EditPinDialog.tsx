@@ -53,7 +53,7 @@ export default function EditPinDialog({
                     <div className='space-y-2'>
                         <label
                             htmlFor='title'
-                            className='font-bold text-yellow-100'
+                            className='font-bold text-yellow-500'
                         >
                             Title
                         </label>
@@ -130,7 +130,7 @@ export default function EditPinDialog({
                     </div>
                     <div className='space-y-2'>
                         <label
-                            className='font-bold text-yellow-100'
+                            className='font-bold text-yellow-500'
                             htmlFor='description'
                         >
                             Description

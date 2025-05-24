@@ -57,7 +57,7 @@ export default function AddPlayerDialog({
             open={isAddPlayerDialogOpen}
             onOpenChange={setIsAddPlayerDialogOpen}
         >
-            <DialogContent>
+            <DialogContent className='dnd-gradient-bg'>
                 <DialogHeader>
                     <DialogTitle className='text-center'>
                         Add player to campaign
@@ -74,8 +74,10 @@ export default function AddPlayerDialog({
                             name='email'
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Player email</FormLabel>
-                                    <FormControl>
+                                    <FormLabel className='font-bold text-yellow-500'>
+                                        Player email
+                                    </FormLabel>
+                                    <FormControl className='bg-orange-100 text-black'>
                                         <Input
                                             placeholder='Type player email'
                                             {...field}

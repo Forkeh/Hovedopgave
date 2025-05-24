@@ -1,3 +1,4 @@
+import { Campaign } from '@/lib/types';
 import CampaignListCard from './CampaignListCard';
 
 type Props = {

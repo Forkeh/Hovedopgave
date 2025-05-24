@@ -43,8 +43,8 @@ export default function LoginForm() {
 
     return (
         <div className='flex h-full w-full animate-in items-center justify-center fade-in'>
-            <div className='prose w-full max-w-md rounded-lg bg-white p-6 shadow-sm'>
-                <h1 className='mb-6 text-center'>Sign in</h1>
+            <div className='dnd-gradient-bg prose w-full max-w-md rounded-lg p-6 text-yellow-500 shadow-sm'>
+                <h1 className='mb-6 text-center text-yellow-100'>Sign in</h1>
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
@@ -55,11 +55,14 @@ export default function LoginForm() {
                             name='email'
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Email</FormLabel>
+                                    <FormLabel className='font-bold'>
+                                        Email
+                                    </FormLabel>
                                     <FormControl>
                                         <Input
                                             type='email'
                                             placeholder='Email'
+                                            className='bg-orange-50'
                                             {...field}
                                         />
                                     </FormControl>
@@ -71,12 +74,15 @@ export default function LoginForm() {
                             control={form.control}
                             name='password'
                             render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Password</FormLabel>
+                                <FormItem className=''>
+                                    <FormLabel className='font-bold'>
+                                        Password
+                                    </FormLabel>
                                     <FormControl>
                                         <Input
                                             type='password'
                                             placeholder='Password'
+                                            className='bg-orange-50'
                                             {...field}
                                         />
                                     </FormControl>
@@ -86,7 +92,7 @@ export default function LoginForm() {
                         />
                         <Button
                             type='submit'
-                            className='w-full'
+                            className='w-full cursor-pointer'
                             disabled={
                                 !form.formState.isValid ||
                                 form.formState.isSubmitting
@@ -100,7 +106,7 @@ export default function LoginForm() {
                     Don't have an account?{' '}
                     <Link
                         to='/register'
-                        className='text-blue-600 hover:underline'
+                        className='cursor-pointer text-yellow-100 hover:underline'
                     >
                         Sign up here!
                     </Link>

@@ -65,7 +65,7 @@ export default function LinkDialogWikiEntrySelect({
                     variant='outline'
                     role='combobox'
                     aria-expanded={open}
-                    className='w-[200px] justify-between truncate'
+                    className='w-[200px] justify-between truncate bg-orange-100 text-black'
                 >
                     {value
                         ? wikiEntries!.find((entry) => entry.id === value)?.name
@@ -74,11 +74,13 @@ export default function LinkDialogWikiEntrySelect({
                 </Button>
             </PopoverTrigger>
             <PopoverContent className='w-[200px] p-0'>
-                <Command>
+                <Command className='bg-orange-50'>
                     <CommandInput placeholder='Search for entries...' />
                     <CommandList>
-                        <CommandEmpty>No entry found.</CommandEmpty>
-                        <CommandGroup>
+                        <CommandEmpty className='bg-orange-100 text-center'>
+                            No entry found
+                        </CommandEmpty>
+                        <CommandGroup className='bg-orange-100 text-black'>
                             {wikiEntries!.map((entry) => (
                                 <CommandItem
                                     key={entry.id}

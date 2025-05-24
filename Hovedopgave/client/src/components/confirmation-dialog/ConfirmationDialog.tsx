@@ -27,10 +27,10 @@ export default function ConfirmationDialog({
             open={isConfirmationDialogOpen}
             onOpenChange={setIsConfirmationDialogOpen}
         >
-            <DialogContent className='w-fit min-w-sm'>
+            <DialogContent className='dnd-gradient-bg w-fit min-w-sm border-4'>
                 <DialogHeader>
                     <DialogTitle className='text-center'>{title}</DialogTitle>
-                    <DialogDescription className='text-center'>
+                    <DialogDescription className='text-center text-yellow-500'>
                         {description}
                     </DialogDescription>
                 </DialogHeader>

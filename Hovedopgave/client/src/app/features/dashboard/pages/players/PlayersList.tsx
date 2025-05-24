@@ -90,32 +90,34 @@ export default function PlayersList() {
                 )}
             </div>
 
-            <h2 className='mb-2 text-xl font-bold'>Active characters</h2>
-
             {campaign?.players && campaign.players.length > 0 ? (
-                <div className='flex flex-wrap gap-8'>
-                    {sortedPlayersByName?.map((player) => {
-                        const playerCharacter = activeCharacters?.find(
-                            (char) => char.userId === player.id,
-                        );
-
-                        return (
-                            <PlayerCard
-                                key={player?.id}
-                                user={player}
-                                character={playerCharacter}
-                                campaignId={id}
-                            />
-                        );
-                    })}
-                </div>
+                <>
+                    <h2 className='mb-2 text-xl font-bold'>
+                        Active characters
+                    </h2>
+                    <div className='flex flex-wrap gap-8'>
+                        {sortedPlayersByName?.map((player) => {
+                            const playerCharacter = activeCharacters?.find(
+                                (char) => char.userId === player.id,
+                            );
+                            return (
+                                <PlayerCard
+                                    key={player?.id}
+                                    user={player}
+                                    character={playerCharacter}
+                                    campaignId={id}
+                                />
+                            );
+                        })}
+                    </div>
+                </>
             ) : (
                 <div className='py-10 text-center'>
-                    <p className='text-xl text-muted-foreground'>
+                    <p className='text-xl'>
                         Currently no players in this campaign.
                     </p>
                     {currentUser?.id === campaign?.dungeonMaster.id && (
-                        <p className='mt-2 text-sm text-muted-foreground'>
+                        <p className='mt-2 text-sm'>
                             Click "Add player" to invite someone!
                         </p>
                     )}

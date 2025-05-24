@@ -283,7 +283,7 @@ export default function WikiEntryForm() {
                                             name='isVisible'
                                             render={({ field }) => (
                                                 <FormItem className='flex flex-row items-center justify-center'>
-                                                    <FormControl className='bg-orange-100 data-[state=checked]:bg-yellow-300 data-[state=checked]:text-black'>
+                                                    <FormControl className='bg-orange-100 data-[state=checked]:bg-yellow-500 data-[state=checked]:text-black'>
                                                         <Checkbox
                                                             checked={
                                                                 field.value
@@ -294,7 +294,7 @@ export default function WikiEntryForm() {
                                                             className='h-4 w-4'
                                                         />
                                                     </FormControl>
-                                                    <FormLabel>
+                                                    <FormLabel className='text-yellow-100'>
                                                         Is Visible to Players
                                                     </FormLabel>
                                                     <FormMessage />

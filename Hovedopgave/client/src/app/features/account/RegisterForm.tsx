@@ -47,8 +47,10 @@ export default function RegisterForm() {
 
     return (
         <div className='flex h-full w-full animate-in items-center justify-center fade-in'>
-            <div className='prose w-full max-w-md rounded-lg bg-white p-6 shadow-sm'>
-                <h1 className='mb-6 text-center'>Register account</h1>
+            <div className='dnd-gradient-bg prose w-full max-w-md rounded-lg p-6 text-yellow-500 shadow-sm'>
+                <h1 className='mb-6 text-center text-yellow-100'>
+                    Register account
+                </h1>
 
                 <Form {...form}>
                     <form
@@ -60,11 +62,14 @@ export default function RegisterForm() {
                             name='email'
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Email</FormLabel>
+                                    <FormLabel className='font-bold'>
+                                        Email
+                                    </FormLabel>
                                     <FormControl>
                                         <Input
                                             type='email'
                                             placeholder='Email'
+                                            className='bg-orange-100'
                                             {...field}
                                         />
                                     </FormControl>
@@ -77,10 +82,13 @@ export default function RegisterForm() {
                             name='displayName'
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Display name</FormLabel>
+                                    <FormLabel className='font-bold'>
+                                        Display name
+                                    </FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder='Display name'
+                                            className='bg-orange-100'
                                             {...field}
                                         />
                                     </FormControl>
@@ -93,11 +101,14 @@ export default function RegisterForm() {
                             name='password'
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Password</FormLabel>
+                                    <FormLabel className='font-bold'>
+                                        Password
+                                    </FormLabel>
                                     <FormControl>
                                         <Input
                                             type='password'
                                             placeholder='Password'
+                                            className='bg-orange-100'
                                             {...field}
                                         />
                                     </FormControl>
@@ -110,11 +121,14 @@ export default function RegisterForm() {
                             name='confirmPassword'
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Confirm Password</FormLabel>
+                                    <FormLabel className='font-bold'>
+                                        Confirm Password
+                                    </FormLabel>
                                     <FormControl>
                                         <Input
                                             type='password'
                                             placeholder='Confirm Password'
+                                            className='bg-orange-100'
                                             {...field}
                                         />
                                     </FormControl>
@@ -138,7 +152,7 @@ export default function RegisterForm() {
                     Already have an account?{' '}
                     <Link
                         to='/login'
-                        className='text-blue-600 hover:underline'
+                        className='text-yellow-100 hover:underline'
                     >
                         Sign in here
                     </Link>

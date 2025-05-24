@@ -58,7 +58,7 @@ const MapPin = ({
                         {pin.title || 'Untitled Pin'}
                         {!isViewOnly && (
                             <PencilIcon
-                                className='absolute top-4 right-4 cursor-pointer rounded-full bg-stone-700 p-2 text-stone-300 transition-colors hover:bg-stone-600'
+                                className='absolute top-4 right-4 cursor-pointer rounded-full bg-stone-600 p-2 text-stone-300 transition-colors hover:bg-stone-500'
                                 onClick={handleEdit}
                                 size={35}
                             />

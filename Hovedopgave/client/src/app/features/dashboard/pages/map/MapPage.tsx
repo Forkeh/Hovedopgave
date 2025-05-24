@@ -65,7 +65,7 @@ export default function MapPage() {
                     campaign={campaign}
                 />
             ) : (
-                <div className='flex aspect-square w-md flex-col items-center justify-center overflow-hidden rounded-lg border-4 border-double border-yellow-500/70 bg-gradient-to-br from-stone-800 to-stone-950 shadow-md'>
+                <div className='flex aspect-square w-md flex-col items-center justify-center gap-4 overflow-hidden rounded-lg border-4 border-double border-yellow-500/70 bg-gradient-to-br from-stone-700 to-stone-900 shadow-md'>
                     <div className='text-yellow-100'>
                         No map image available
                     </div>

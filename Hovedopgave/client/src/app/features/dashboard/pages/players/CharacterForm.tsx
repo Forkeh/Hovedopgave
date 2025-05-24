@@ -388,7 +388,7 @@ export default function CharacterForm() {
                                 )}
                                 <Button
                                     type='submit'
-                                    className={`${isEditMode ? '' : 'w-full'}`}
+                                    className={`cursor-pointer ${isEditMode ? '' : 'w-full'}`}
                                     disabled={
                                         !form.formState.isValid ||
                                         form.formState.isSubmitting ||

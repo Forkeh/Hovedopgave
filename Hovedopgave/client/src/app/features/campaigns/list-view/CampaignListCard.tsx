@@ -1,3 +1,4 @@
+import { Campaign } from '@/lib/types';
 import { Link } from 'react-router';
 
 type Props = {

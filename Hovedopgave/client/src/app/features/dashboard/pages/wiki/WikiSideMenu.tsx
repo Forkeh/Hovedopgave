@@ -98,11 +98,13 @@ export default function WikiSideMenu({
                 </Button>
             )}
 
-            <Input
-                placeholder='Search...'
-                onChange={(e) => onWikiEntriesSearch(e.target.value)}
-                className='border-1 border-yellow-500/50 bg-gray-800'
-            />
+            {wikiEntries && wikiEntries.length > 0 && (
+                <Input
+                    placeholder='Search...'
+                    onChange={(e) => onWikiEntriesSearch(e.target.value)}
+                    className='border-4 border-double border-yellow-800/80 bg-orange-100 text-black'
+                />
+            )}
 
             <Accordion
                 type='multiple'

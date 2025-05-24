@@ -35,7 +35,7 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
 
     return (
         <Card
-            className={`relative flex h-fit w-80 flex-col border-4 border-double border-black bg-gradient-to-br from-orange-100 to-orange-200 p-4 ${
+            className={`parchment-card relative flex h-fit w-80 flex-col border-4 p-4 ${
                 character?.isRetired ? 'opacity-75 saturate-50' : ''
             }`}
         >
@@ -48,7 +48,7 @@ export default function PlayerCard({ user, character, campaignId }: Props) {
                 {isOwnerOfCard && character && !character.isRetired && (
                     <PencilIcon
                         onClick={handleEditCharacterNavigate}
-                        className='absolute top-3 right-3 cursor-pointer rounded-full bg-stone-700 p-2 text-stone-300 transition-colors hover:bg-stone-600'
+                        className='absolute top-3 right-3 cursor-pointer rounded-full bg-stone-600 p-2 text-stone-300 transition-colors hover:bg-stone-500'
                         size={30}
                     />
                 )}

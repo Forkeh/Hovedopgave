@@ -3,7 +3,7 @@ import RequireAuth from './RequireAuth';
 import App from '../layout/App';
 import RegisterForm from '../features/account/RegisterForm';
 import NotFound from '../features/errors/NotFound';
-import CampaignsList from '../features/campaigns/list-view/CampaignsList';
+import CampaignsPage from '../features/campaigns/list-view/CampaignsPage';
 import LoginForm from '../features/account/LoginForm';
 import HomePage from '../features/home/HomePage';
 import CreateCampaignForm from '../features/campaigns/create-campaign/CreateCampaignForm';
@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
                     {
                         path: 'campaigns',
                         children: [
-                            { index: true, element: <CampaignsList /> },
+                            { index: true, element: <CampaignsPage /> },
                             { path: 'create', element: <CreateCampaignForm /> },
                             {
                                 path: 'dashboard/:id',

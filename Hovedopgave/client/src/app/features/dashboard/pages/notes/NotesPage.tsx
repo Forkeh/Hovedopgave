@@ -32,6 +32,8 @@ export default function NotesPage() {
             content: editNoteContent,
         };
 
+        console.log(editedNote);
+
         editNote.mutate(editedNote, {
             onSuccess: () => {
                 toast('Saved notes successfully!', {
@@ -80,7 +82,7 @@ export default function NotesPage() {
                     </Button>
                     <Button
                         onClick={() => setEditMode(false)}
-                        className='absolute right-18 bottom-4 cursor-pointer'
+                        className='absolute right-20 bottom-4 cursor-pointer'
                         size='sm'
                         variant='outline'
                     >
@@ -88,25 +90,21 @@ export default function NotesPage() {
                     </Button>
                 </div>
             ) : (
-                <div
+                <article
                     key={note.id}
-                    className='relative animate-in fade-in'
+                    className='parchment-card relative animate-in rounded-2xl p-5 shadow fade-in'
                 >
-                    <button
+                    <PencilIcon
                         onClick={changeEditMode}
-                        className='absolute -top-4 -right-4 cursor-pointer rounded-full bg-gray-200 p-2 transition-colors hover:bg-gray-300'
-                    >
-                        <PencilIcon
-                            size={25}
-                            className='text-gray-600'
-                        />
-                    </button>
+                        className='absolute -top-4 -right-4 cursor-pointer rounded-full bg-stone-600 p-2 text-stone-300 transition-colors hover:bg-stone-500'
+                        size={40}
+                    />
 
                     <HtmlContent
-                        className='min-w-xl rounded-lg bg-gray-50 p-5 shadow'
+                        className='min-w-xl'
                         content={note?.content}
                     />
-                </div>
+                </article>
             )}
         </main>
     );

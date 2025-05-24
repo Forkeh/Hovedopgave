@@ -110,17 +110,17 @@ export default function TipTapMenuBar({ editor }: Props) {
         {
             icon: <AlignLeft className='size-4' />,
             onClick: () => editor.chain().focus().setTextAlign('left').run(),
-            pressed: editor.isActive('left'),
+            pressed: editor.isActive({ textAlign: 'left' }),
         },
         {
             icon: <AlignCenter className='size-4' />,
             onClick: () => editor.chain().focus().setTextAlign('center').run(),
-            pressed: editor.isActive('center'),
+            pressed: editor.isActive({ textAlign: 'center' }),
         },
         {
             icon: <AlignRight className='size-4' />,
             onClick: () => editor.chain().focus().setTextAlign('right').run(),
-            pressed: editor.isActive('right'),
+            pressed: editor.isActive({ textAlign: 'right' }),
         },
         {
             icon: <List className='size-4' />,
