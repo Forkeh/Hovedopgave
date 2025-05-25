@@ -21,7 +21,7 @@ public class NotesService(
         var userId = userAccessor.GetUserId();
 
         var notes = await context.Notes
-            .Where(n => n.CampaignId == campaignId)
+            .Where(n => n.CampaignId == campaignId && n.UserId == userId)
             .FirstOrDefaultAsync();
 
         if (notes is null)
@@ -40,7 +40,7 @@ public class NotesService(
         var userId = userAccessor.GetUserId();
 
         var notes = await context.Notes
-            .Where(n => n.CampaignId == notesDto.CampaignId)
+            .Where(n => n.CampaignId == notesDto.CampaignId && n.UserId == userId)
             .FirstOrDefaultAsync();
 
         if (notes is null)

@@ -2,12 +2,13 @@ import { useAccount } from '@/lib/hooks/useAccount';
 import { useNotes } from '@/lib/hooks/useNotes';
 import { useParams } from 'react-router';
 import { HtmlContent } from '../../../../../components/HtmlContent';
-import { Loader, PencilIcon } from 'lucide-react';
+import { PencilIcon } from 'lucide-react';
 import { useState } from 'react';
 import Tiptap from '@/components/rich-text-editor/TipTap';
 import { Button } from '@/components/ui/button';
 import { Note } from '@/lib/types';
 import { toast } from 'react-toastify';
+import Loader from '@/components/Loader';
 
 export default function NotesPage() {
     const { id } = useParams();

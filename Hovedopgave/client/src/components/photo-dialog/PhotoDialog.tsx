@@ -26,7 +26,7 @@ export default function PhotoDialog({
             <DialogContent className='dnd-gradient-bg min-w-3xl p-10'>
                 <DialogHeader>
                     <DialogTitle className='text-center text-2xl text-yellow-100'>
-                        Add photo
+                        Add Image
                     </DialogTitle>
                 </DialogHeader>
                 <ImageUploadWidget

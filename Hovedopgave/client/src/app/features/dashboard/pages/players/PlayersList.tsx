@@ -63,7 +63,9 @@ export default function PlayersList() {
     return (
         <section className='my-5 flex w-fit flex-col items-center'>
             <div className='mb-6 flex w-full flex-col items-center gap-3'>
-                <h1 className='text-3xl font-extrabold'>{campaign?.name}</h1>
+                <h1 className='text-center font-cinzel text-3xl font-extrabold'>
+                    {campaign?.name}
+                </h1>
 
                 <div className='mb-5 flex items-center gap-2'>
                     <Crown

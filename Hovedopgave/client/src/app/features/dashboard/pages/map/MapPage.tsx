@@ -29,7 +29,9 @@ export default function MapPage() {
             className='mt-5 flex w-full animate-in flex-col items-center fade-in'
         >
             <section className='mb-5 flex flex-col gap-5'>
-                <h1 className='text-3xl font-extrabold'>{campaign?.name}</h1>
+                <h1 className='text-center font-cinzel text-3xl font-extrabold'>
+                    {campaign?.name}
+                </h1>
             </section>
 
             {campaign?.photo?.url ? (
