@@ -1,4 +1,5 @@
 ﻿using Hovedopgave.Features.Account.Models;
+using Hovedopgave.Features.Notes.Models;
 using Hovedopgave.Features.Photos.Models;
 
 namespace Hovedopgave.Features.Campaigns.Models;
@@ -14,4 +15,5 @@ public class Campaign
     // Navigation property
     public ICollection<User> Users { get; set; } = [];
     public ICollection<MapPin> MapPins { get; set; } = [];
+    public ICollection<Note> Notes { get; set; } = [];
 }

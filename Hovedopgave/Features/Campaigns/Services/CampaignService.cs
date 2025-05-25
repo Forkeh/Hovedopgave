@@ -51,6 +51,8 @@ public class CampaignService(
         var campaign = await context.Campaigns
             .Where(x => x.Id == id && x.DungeonMaster.Id == user.Id)
             .Include(x => x.Photo)
+            .Include(x => x.MapPins)
+            .Include(x => x.Notes)
             .FirstOrDefaultAsync();
 
         if (campaign == null)
@@ -63,6 +65,8 @@ public class CampaignService(
             await cloudinaryService.DeletePhoto(campaign.Photo.PublicId);
         }
 
+        context.MapPins.RemoveRange(campaign.MapPins);
+        context.Notes.RemoveRange(campaign.Notes);
         context.Campaigns.Remove(campaign);
 
         var result = await context.SaveChangesAsync() > 0;
