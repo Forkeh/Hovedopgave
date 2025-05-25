@@ -71,16 +71,16 @@ export default function Sidebar() {
                             value={selectedCampaign}
                             defaultValue={id}
                         >
-                            <SelectTrigger className='text-md cursor-pointer border border-gray-700 bg-gray-800 transition-all hover:bg-gray-700'>
+                            <SelectTrigger className='text-md w-[180px] cursor-pointer border border-gray-700 bg-gray-800 transition-all hover:bg-gray-700'>
                                 <SelectValue
                                     placeholder='Select Campaign'
                                     defaultValue={selectedCampaign}
                                 />
                             </SelectTrigger>
-                            <SelectContent className='border-gray-700 bg-gray-900'>
+                            <SelectContent className='max-w-2xs border-gray-700 bg-gray-900'>
                                 {campaigns?.map((campaign) => (
                                     <SelectItem
-                                        className='text-white hover:bg-gray-800 hover:text-white focus:bg-gray-700 data-[highlighted]:text-white data-[state=checked]:bg-gray-600'
+                                        className='text-yellow-100 hover:bg-gray-800 hover:text-white focus:bg-gray-700 data-[highlighted]:text-white data-[state=checked]:bg-gray-600'
                                         key={campaign.id}
                                         value={campaign.id}
                                     >

@@ -38,7 +38,7 @@ export default function CreateCampaignForm() {
     };
 
     return (
-        <div className='flex h-full w-full items-center justify-center'>
+        <div className='flex h-full w-full animate-in items-center justify-center fade-in'>
             <div className='dnd-gradient-bg prose w-full max-w-md rounded-lg p-6 text-yellow-500 shadow-sm'>
                 <h1 className='mb-6 text-center text-yellow-100'>
                     Create new campaign
