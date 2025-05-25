@@ -16,6 +16,7 @@ import WikiEntryForm from '../features/dashboard/pages/wiki/WikiEntryForm';
 import CharacterForm from '../features/dashboard/pages/players/CharacterForm';
 import PlayersList from '../features/dashboard/pages/players/PlayersList';
 import NotesPage from '../features/dashboard/pages/notes/NotesPage';
+import WikiWelcome from '../features/dashboard/pages/wiki/WikiWelcome';
 
 export const router = createBrowserRouter([
     {
@@ -45,26 +46,7 @@ export const router = createBrowserRouter([
                                         children: [
                                             {
                                                 index: true,
-                                                element: (
-                                                    <div className='flex h-full flex-col items-center justify-center p-8 text-center'>
-                                                        <div className='max-w-md'>
-                                                            <h2 className='mb-4 font-cinzel text-3xl font-bold text-yellow-100'>
-                                                                📜 Campaign Wiki
-                                                            </h2>
-                                                            <p className='mb-4 text-lg text-yellow-200/80'>
-                                                                The campaign's
-                                                                knowledge
-                                                                repository
-                                                            </p>
-                                                            <p className='text-yellow-100/60'>
-                                                                Select an entry
-                                                                from the sidebar
-                                                                to explore the
-                                                                campaign world
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                ),
+                                                element: <WikiWelcome />,
                                             },
                                             {
                                                 path: ':entryId',

@@ -5,7 +5,7 @@ import { WikiEntry } from '@/lib/types';
 import { useCampaigns } from '@/lib/hooks/useCampaigns';
 import { useAccount } from '@/lib/hooks/useAccount';
 import { useMemo, useState } from 'react';
-import Loader from '@/components/Loader';
+import Loader from '@/components/loader/Loader';
 
 export default function WikiPage() {
     const { id } = useParams();

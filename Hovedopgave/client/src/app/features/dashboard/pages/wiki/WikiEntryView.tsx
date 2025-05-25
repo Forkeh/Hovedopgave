@@ -1,8 +1,8 @@
 import { useWiki } from '@/lib/hooks/useWiki';
 import { PencilIcon } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router';
-import { HtmlContent } from '../../../../../components/HtmlContent';
-import Loader from '@/components/Loader';
+import Loader from '@/components/loader/Loader';
+import { HtmlContent } from '@/components/html-content/HtmlContent';
 
 export default function WikiEntryView() {
     const { entryId } = useParams();

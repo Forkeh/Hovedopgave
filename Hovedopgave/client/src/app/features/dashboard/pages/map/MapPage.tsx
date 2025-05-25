@@ -5,7 +5,7 @@ import { useAccount } from '@/lib/hooks/useAccount';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import PhotoDialog from '@/components/photo-dialog/PhotoDialog';
-import Loader from '@/components/Loader';
+import Loader from '@/components/loader/Loader';
 
 export default function MapPage() {
     const [isPhotoDialogOpen, setIsPhotoDialogOpen] = useState(false);

@@ -5,7 +5,7 @@ import Highlight from '@tiptap/extension-highlight';
 import Link from '@tiptap/extension-link';
 import { useEffect } from 'react';
 import TipTapMenuBar from './TipTapMenuBar';
-import Loader from '../Loader';
+import Loader from '../loader/Loader';
 
 type Props = {
     content: string;

@@ -1,14 +1,14 @@
 import { useAccount } from '@/lib/hooks/useAccount';
 import { useNotes } from '@/lib/hooks/useNotes';
 import { useParams } from 'react-router';
-import { HtmlContent } from '../../../../../components/HtmlContent';
 import { PencilIcon } from 'lucide-react';
 import { useState } from 'react';
 import Tiptap from '@/components/rich-text-editor/TipTap';
 import { Button } from '@/components/ui/button';
 import { Note } from '@/lib/types';
 import { toast } from 'react-toastify';
-import Loader from '@/components/Loader';
+import Loader from '@/components/loader/Loader';
+import { HtmlContent } from '@/components/html-content/HtmlContent';
 
 export default function NotesPage() {
     const { id } = useParams();
@@ -62,7 +62,7 @@ export default function NotesPage() {
 
     return (
         <main className='mt-5 flex w-full flex-col items-center gap-5'>
-            <h1 className='text-3xl font-extrabold'>
+            <h1 className='font-cinzel text-3xl font-extrabold'>
                 {currentUser?.displayName}'s Notes
             </h1>
 

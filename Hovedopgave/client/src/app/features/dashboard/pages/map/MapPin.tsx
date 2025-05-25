@@ -8,7 +8,7 @@ import PinIcon from './icons/PinIcon';
 import { PinIconsMap } from './icons/PinIconsMap';
 import { Pin } from '@/lib/types';
 import { PencilIcon } from 'lucide-react';
-import { HtmlContent } from '../../../../../components/HtmlContent';
+import { HtmlContent } from '@/components/html-content/HtmlContent';
 
 type Props = {
     pin: Pin;

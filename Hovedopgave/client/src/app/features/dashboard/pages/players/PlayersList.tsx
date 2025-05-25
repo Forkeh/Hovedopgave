@@ -15,7 +15,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from '@/components/ui/accordion';
-import Loader from '@/components/Loader';
+import Loader from '@/components/loader/Loader';
 
 export default function PlayersList() {
     const { id } = useParams();
