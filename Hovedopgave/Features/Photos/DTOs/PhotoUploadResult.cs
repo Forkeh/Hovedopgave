@@ -1,7 +1,7 @@
 ﻿namespace Hovedopgave.Features.Photos.DTOs;
 
-public class PhotoUploadResult
+public record PhotoUploadResult
 {
-    public required string PublicId { get; set; }
-    public required string Url { get; set; }
+    public required string PublicId { get; init; }
+    public required string Url { get; init; }
 }

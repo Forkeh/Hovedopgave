@@ -1,6 +1,6 @@
 ﻿namespace Hovedopgave.Features.Campaigns.DTOs;
 
-public class CreateCampaignDto
+public record CreateCampaignDto
 {
-    public required string Name { get; set; }
+    public required string Name { get; init; }
 }

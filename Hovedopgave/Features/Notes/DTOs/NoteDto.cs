@@ -1,9 +1,9 @@
 ﻿namespace Hovedopgave.Features.Notes.DTOs;
 
-public class NoteDto
+public record NoteDto
 {
-    public required string Id { get; set; }
-    public required string Content { get; set; }
-    public required string UserId { get; set; }
-    public required string CampaignId { get; set; }
+    public required string Id { get; init; }
+    public required string Content { get; init; }
+    public required string UserId { get; init; }
+    public required string CampaignId { get; init; }
 }

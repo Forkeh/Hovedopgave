@@ -3,17 +3,17 @@ using Hovedopgave.Features.Photos.Models;
 
 namespace Hovedopgave.Features.Characters.DTOs;
 
-public class CharacterDto
+public record CharacterDto
 {
-    public required string Id { get; set; }
-    public required string Name { get; set; }
-    public required CharacterRace Race { get; set; }
-    public required CharacterClass Class { get; set; }
-    public required string Backstory { get; set; }
-    public required bool IsRetired { get; set; }
-    public required string CampaignId { get; set; }
-    public required string UserId { get; set; }
+    public required string Id { get; init; }
+    public required string Name { get; init; }
+    public required CharacterRace Race { get; init; }
+    public required CharacterClass Class { get; init; }
+    public required string Backstory { get; init; }
+    public required bool IsRetired { get; init; }
+    public required string CampaignId { get; init; }
+    public required string UserId { get; init; }
 
-    public string? PhotoId { get; set; }
-    public Photo? Photo { get; set; }
+    public string? PhotoId { get; init; }
+    public Photo? Photo { get; init; }
 }

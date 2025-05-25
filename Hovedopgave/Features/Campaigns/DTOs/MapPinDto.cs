@@ -1,13 +1,13 @@
 ﻿namespace Hovedopgave.Features.Campaigns.DTOs;
 
-public class MapPinDto
+public record MapPinDto
 {
-    public required string Id { get; set; }
-    public required string Title { get; set; }
-    public required string Description { get; set; }
-    public required double PositionX { get; set; }
-    public required double PositionY { get; set; }
-    public required string Icon { get; set; }
+    public required string Id { get; init; }
+    public required string Title { get; init; }
+    public required string Description { get; init; }
+    public required double PositionX { get; init; }
+    public required double PositionY { get; init; }
+    public required string Icon { get; init; }
 
-    public string? CampaignId { get; set; }
+    public string? CampaignId { get; init; }
 }

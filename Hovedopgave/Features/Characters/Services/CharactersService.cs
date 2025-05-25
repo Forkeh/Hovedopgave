@@ -43,11 +43,10 @@ public class CharactersService(
         }
 
 
-        var sanitizer = new HtmlSanitizer();
-        createCharacterDto.Backstory = sanitizer.Sanitize(createCharacterDto.Backstory);
-
         var character = mapper.Map<Character>(createCharacterDto);
 
+        var sanitizer = new HtmlSanitizer();
+        character.Backstory = sanitizer.Sanitize(createCharacterDto.Backstory);
         character.Campaign = campaign;
         character.User = user;
 

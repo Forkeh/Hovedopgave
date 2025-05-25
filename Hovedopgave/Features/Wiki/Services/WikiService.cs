@@ -30,12 +30,11 @@ public class WikiService(
             return Result<string>.Failure("Failed to find campaign with id or you are not the DM", 400);
         }
 
-
-        var sanitizer = new HtmlSanitizer();
-        wikiEntryDto.Content = sanitizer.Sanitize(wikiEntryDto.Content);
-
         var entry = mapper.Map<WikiEntry>(wikiEntryDto);
 
+        var sanitizer = new HtmlSanitizer();
+
+        entry.Content = sanitizer.Sanitize(wikiEntryDto.Content);
         entry.Campaign = campaign;
 
         if (!string.IsNullOrEmpty(wikiEntryDto.PhotoId))

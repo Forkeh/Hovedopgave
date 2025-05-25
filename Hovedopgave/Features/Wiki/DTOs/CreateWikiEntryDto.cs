@@ -3,15 +3,15 @@ using Hovedopgave.Features.Wiki.Models;
 
 namespace Hovedopgave.Features.Wiki.DTOs;
 
-public class CreateWikiEntryDto
+public record CreateWikiEntryDto
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public required WikiEntryType Type { get; set; }
+    public required WikiEntryType Type { get; init; }
 
-    public required string Name { get; set; }
-    public string Content { get; set; } = "";
-    public bool IsVisible { get; set; }
+    public required string Name { get; init; }
+    public string Content { get; init; } = "";
+    public bool IsVisible { get; init; }
 
-    public required string CampaignId { get; set; }
-    public string? PhotoId { get; set; }
+    public required string CampaignId { get; init; }
+    public string? PhotoId { get; init; }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Hovedopgave.Features.Campaigns.DTOs;
 
-public class AddPlayerToCampaignDto
+public record AddPlayerToCampaignDto
 {
-    public required string Username { get; set; }
+    public required string Username { get; init; }
 }
