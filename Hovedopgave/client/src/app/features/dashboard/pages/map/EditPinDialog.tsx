@@ -84,7 +84,7 @@ export default function EditPinDialog({
                                 <SelectTrigger className='w-[180px] border-4 border-double border-yellow-500/70 bg-orange-100 text-black'>
                                     <SelectValue placeholder='Icon' />
                                 </SelectTrigger>
-                                <SelectContent className='bg-orange-100'>
+                                <SelectContent className='bg-orange-100 text-black'>
                                     <SelectItem value='default'>
                                         <PinIcon className='text-stone-800' />
                                         <span>Default</span>

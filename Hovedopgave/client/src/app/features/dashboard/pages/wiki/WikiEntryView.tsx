@@ -61,7 +61,7 @@ export default function WikiEntryView() {
 
             <HtmlContent
                 content={wikiEntry.content}
-                className='max-w-none rounded-lg bg-gray-50 bg-orange-50 p-5'
+                className='max-w-none rounded-lg bg-orange-50 p-5'
             />
         </div>
     );

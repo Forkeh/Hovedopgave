@@ -10,6 +10,9 @@ type Props = {
     loading: boolean;
 };
 
+// With help from
+// https://www.udemy.com/course/complete-guide-to-building-an-app-with-net-core-and-react/
+
 export default function ImageUploadWidget({ uploadPhoto, loading }: Props) {
     const [files, setFiles] = useState<object & { preview: string }[]>([]);
     const cropperRef = useRef<ReactCropperElement>(null);
@@ -21,15 +24,15 @@ export default function ImageUploadWidget({ uploadPhoto, loading }: Props) {
         };
     }, [files]);
 
-    const onDrop = useCallback((acceptedFiles: File[]) => {
+    const onDrop = (acceptedFiles: File[]) => {
         setFiles(
             acceptedFiles.map((file) =>
                 Object.assign(file, {
-                    preview: URL.createObjectURL(file as Blob),
+                    preview: URL.createObjectURL(file),
                 }),
             ),
         );
-    }, []);
+    };
 
     const onCrop = useCallback(() => {
         const cropper = cropperRef.current?.cropper;

@@ -13,28 +13,17 @@ export function HtmlContent({ content, className = '' }: Props) {
     useEffect(() => {
         if (!contentRef.current) return;
 
-        // Handle all link clicks within the rendered HTML content
         const handleLinkClick = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
-            const link = target.closest('a');
 
+            const link = target.closest('a');
             if (!link) return;
 
-            // Get the href attribute
             const href = link.getAttribute('href');
             if (!href) return;
 
-            // Check if this is an external link (starts with http://, https://, or www.)
-            const isExternal = /^(https?:\/\/|www\.)/.test(href);
-
-            if (isExternal) {
-                // Let the browser handle external links normally
-                return;
-            } else {
-                // For internal links, use React Router
-                e.preventDefault();
-                navigate(href);
-            }
+            e.preventDefault();
+            navigate(href);
         };
 
         // Add event listener to the container

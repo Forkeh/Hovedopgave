@@ -34,6 +34,8 @@ const Tiptap = ({ content, onChange, maxHeight }: Props) => {
         Link.configure({
             HTMLAttributes: {
                 class: 'cursor-pointer text-blue-600 underline',
+                rel: 'noopener noreferrer',
+                target: null,
             },
         }),
     ];

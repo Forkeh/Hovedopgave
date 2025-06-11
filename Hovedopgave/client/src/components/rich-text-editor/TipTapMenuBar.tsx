@@ -60,11 +60,8 @@ export default function TipTapMenuBar({ editor }: Props) {
                 .extendMarkRange('link')
                 .setLink({
                     href: path,
-                    // No target or rel attributes - we want clean links
                 })
                 .run();
-
-            console.log('Link created with path:', path);
         },
         [editor, id],
     );

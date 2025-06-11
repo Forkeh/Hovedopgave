@@ -54,7 +54,7 @@ const MapPin = ({
             </HoverCardTrigger>
             <HoverCardContent className='w-80 rounded-2xl border-4 border-double border-black/80 bg-gradient-to-br from-orange-100 to-orange-200 p-0'>
                 <div className='space-y-2'>
-                    <h3 className='border-b-4 border-double border-black/30 p-4 text-3xl font-bold'>
+                    <h3 className='border-b-4 border-double border-black/30 p-4 text-3xl font-bold text-black'>
                         {pin.title || 'Untitled Pin'}
                         {!isViewOnly && (
                             <PencilIcon

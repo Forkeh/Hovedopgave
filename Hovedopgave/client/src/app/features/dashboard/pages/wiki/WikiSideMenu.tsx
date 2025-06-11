@@ -98,12 +98,16 @@ export default function WikiSideMenu({
                 </Button>
             )}
 
-            {wikiEntries && wikiEntries.length > 0 && (
+            {wikiEntries && wikiEntries.length > 0 ? (
                 <Input
                     placeholder='Search...'
                     onChange={(e) => onWikiEntriesSearch(e.target.value)}
                     className='border-4 border-double border-yellow-800/80 bg-orange-100 text-black'
                 />
+            ) : (
+                <div className='text-center opacity-50'>
+                    Currently no entries
+                </div>
             )}
 
             <Accordion
