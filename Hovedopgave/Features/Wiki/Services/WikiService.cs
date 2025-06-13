@@ -131,17 +131,6 @@ public class WikiService(
         wikiEntry.Type = wikiEntryDto.Type;
         wikiEntry.IsVisible = wikiEntryDto.IsVisible;
 
-        // TODO: Maybe add photo upload for existing wiki entries
-        // if (!string.IsNullOrEmpty(wikiEntryDto.Photo?.Id))
-        // {
-        //     var photo = await context.Photos.FindAsync(wikiEntryDto.Photo.Id);
-        //
-        //     if (photo is not null)
-        //     {
-        //         wikiEntry.Photo = photo;
-        //     }
-        // }
-
         context.WikiEntries.Update(wikiEntry);
 
         var result = await context.SaveChangesAsync() > 0;
