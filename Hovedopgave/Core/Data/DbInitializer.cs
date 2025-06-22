@@ -11,9 +11,10 @@ public class DbInitializer
     {
         var users = new List<User>
         {
-            new() { DisplayName = "Bob", UserName = "bob@test.com", Email = "bob@test.com" },
-            new() { DisplayName = "Tom", UserName = "tom@test.com", Email = "tom@test.com" },
-            new() { DisplayName = "Jane", UserName = "jane@test.com", Email = "jane@test.com" }
+            new() { DisplayName = "Brian", UserName = "brian@test.com", Email = "brian@test.com" },
+            new() { DisplayName = "Frederik", UserName = "frederik@test.com", Email = "frederik@test.com" },
+            new() { DisplayName = "Inese", UserName = "inese@test.com", Email = "inese@test.com" },
+            new() { DisplayName = "Danny", UserName = "danny@test.com", Email = "danny@test.com" },
         };
 
         if (!userManager.Users.Any())
@@ -29,19 +30,19 @@ public class DbInitializer
             new()
             {
                 DungeonMaster = users[0],
-                Name = "Campaign 1",
+                Name = "Shattered Realm",
                 Users = [users[1], users[2]]
             },
             new()
             {
                 DungeonMaster = users[1],
-                Name = "Campaign 2",
+                Name = "Storm Watch",
                 Users = [users[0]]
             },
             new()
             {
                 DungeonMaster = users[2],
-                Name = "Campaign 3"
+                Name = "Ironbound"
             }
         };
 

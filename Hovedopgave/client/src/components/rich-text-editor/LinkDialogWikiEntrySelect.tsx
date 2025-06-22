@@ -51,8 +51,11 @@ export default function LinkDialogWikiEntrySelect({
                 </Button>
             </PopoverTrigger>
             <PopoverContent className='w-[200px] p-0'>
-                <Command className='bg-orange-50'>
-                    <CommandInput placeholder='Search for entries...' />
+                <Command className='bg-orange-50 text-black'>
+                    <CommandInput
+                        placeholder='Search for entries...'
+                        className='text-black'
+                    />
                     <CommandList>
                         <CommandEmpty className='bg-orange-100 text-center'>
                             No entry found

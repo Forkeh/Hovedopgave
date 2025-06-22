@@ -2,14 +2,14 @@
 
 public enum CharacterRace
 {
-    Aasimar,
-    Dragonborn,
-    Dwarf,
-    Elf,
-    Gnome,
-    Goliath,
-    Halfling,
     Human,
+    Elf,
+    Dwarf,
     Orc,
-    Tiefling
+    Tiefling,
+    Dragonborn,
+    Gnome,
+    HalfElf,
+    HalfOrc,
+    Halfling,
 }
