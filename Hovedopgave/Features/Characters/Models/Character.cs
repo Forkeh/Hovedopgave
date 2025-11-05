@@ -1,4 +1,4 @@
-﻿using Hovedopgave.Features.Account.Models;
+﻿﻿using Hovedopgave.Features.Account.Models;
 using Hovedopgave.Features.Campaigns.Models;
 using Hovedopgave.Features.Photos.Models;
 
@@ -12,6 +12,8 @@ public class Character
     public required CharacterClass Class { get; set; }
     public string Backstory { get; set; } = "";
     public required bool IsRetired { get; set; }
+    public int Level { get; set; } = 1;
+    public int ExperiencePoints { get; set; } = 0;
 
     public required string UserId { get; set; }
     public required User User { get; set; }
